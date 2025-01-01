@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:jobbazar_mobile/provider/auth_provider.dart';
+import 'package:jobbazar_mobile/shared/appbar.dart';
+import 'package:jobbazar_mobile/shared/bottom_nav.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-return Scaffold(
+    final authProvider = Provider.of<AuthProvider>(context);
+    return Scaffold(
+      appBar: SharedAppBar(title: "Profile", color: Theme.of(context).colorScheme.primary),
       backgroundColor: Colors.blue[300], // Background color
+      bottomNavigationBar: const BottomNav(),
       body: Center(
         child: Container(
           width: 350, // Card width
+          height: 350,
           padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
             color: Colors.black,
@@ -26,10 +34,10 @@ return Scaffold(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // Profile Picture and Name
-              const CircleAvatar(
+              CircleAvatar(
                 radius: 40,
                 backgroundImage: NetworkImage(
-                  'https://via.placeholder.com/150', // Replace with the actual image URL
+                  'http://10.0.2.2:8080/api/uploads/pfp/${authProvider.currentUser?.id}', // Replace with the actual image URL
                 ),
               ),
               const SizedBox(height: 10),
@@ -44,26 +52,26 @@ return Scaffold(
               const SizedBox(height: 20),
 
               // Phone
-              const Row(
+              Row(
                 children: [
-                  Icon(Icons.phone, color: Colors.white),
-                  SizedBox(width: 10),
+                  const Icon(Icons.phone, color: Colors.white),
+                  const SizedBox(width: 10),
                   Text(
-                    'Phone - 5425475544778',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+                    'Phone - ${authProvider.currentUser?.phone}',
+                    style: const TextStyle(color: Colors.white, fontSize: 16),
                   ),
                 ],
               ),
               const SizedBox(height: 10),
 
               // Email
-              const Row(
+              Row(
                 children: [
-                  Icon(Icons.email, color: Colors.white),
-                  SizedBox(width: 10),
+                  const Icon(Icons.email, color: Colors.white),
+                  const SizedBox(width: 10),
                   Text(
-                    'Email - safu@yahoo.com',
-                    style: TextStyle(color: Colors.lightBlue, fontSize: 16),
+                    'Email - ${authProvider.currentUser?.email}',
+                    style: const TextStyle(color: Colors.lightBlue, fontSize: 16),
                   ),
                 ],
               ),
@@ -83,6 +91,7 @@ return Scaffold(
               const SizedBox(height: 30),
 
               // Buttons
+              // TODO - Implement the buttons
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -94,8 +103,8 @@ return Scaffold(
                         borderRadius: BorderRadius.circular(30),
                       ),
                     ),
-                    icon: const Icon(Icons.edit),
-                    label: const Text('Edit Profile'),
+                    icon: const Icon(Icons.edit, color: Colors.white,),
+                    label: const Text('Edit Profile', style: TextStyle(color: Colors.white),),
                   ),
                   ElevatedButton.icon(
                     onPressed: () {},
@@ -105,8 +114,8 @@ return Scaffold(
                         borderRadius: BorderRadius.circular(30),
                       ),
                     ),
-                    icon: const Icon(Icons.photo),
-                    label: const Text('Change Picture'),
+                    icon: const Icon(Icons.photo, color: Colors.white,),
+                    label: const Text('Change Picture', style: TextStyle(color: Colors.white),),
                   ),
                 ],
               ),

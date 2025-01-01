@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/models/user.dart';
 import 'package:jobbazar_mobile/provider/services/user_service.dart';

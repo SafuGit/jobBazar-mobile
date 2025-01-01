@@ -18,7 +18,6 @@ class UserProvider with ChangeNotifier {
       _users = await _userService.getUsers();
     } catch (e) {
       _users = [];
-      print("Error: $e");
     } finally {
       _isLoading = false;
       notifyListeners();
