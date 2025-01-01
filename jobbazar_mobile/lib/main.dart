@@ -5,6 +5,7 @@ import 'package:jobbazar_mobile/routes.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  debugPrint('App started!'); // Basic print test
   runApp(
     MultiProvider(
       providers: [
