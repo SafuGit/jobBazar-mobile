@@ -23,6 +23,9 @@ class BottomNav extends StatelessWidget {
 
         onTap: (int index) {
           switch (index) {
+            case 0:
+              Navigator.pushNamed(context, '/userHome');
+              break;
             case 1:
               Navigator.pushNamed(context, '/profile');
               break;

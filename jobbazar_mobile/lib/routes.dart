@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jobbazar_mobile/pages/employee/learning/learning.dart';
 import 'package:jobbazar_mobile/pages/login/login.dart';
 import 'package:jobbazar_mobile/pages/register/register.dart';
 import 'package:jobbazar_mobile/pages/employee/home/home.dart'; // Assume a home page exists
@@ -30,6 +31,7 @@ var appRoutes = {
   '/register': (context) => const RegisterScreen(),
   '/userHome': (context) => const EmployeeHomeScreen(title: 'JobBazar Mobile - Home',),
   '/profile': (context) => const ProfileScreen(),
+  '/employee/learning': (context) => const LearningScreen(),
 };
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {

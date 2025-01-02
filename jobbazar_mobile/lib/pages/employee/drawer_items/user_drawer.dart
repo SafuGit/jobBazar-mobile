@@ -47,8 +47,7 @@ class UserDrawerItems extends StatelessWidget {
           leading: const Icon(Icons.school, size: 50,),
           title: const Text('Courses', style: TextStyle(fontSize: 30)),
           onTap: () {
-            // Update the state of the app
-            // ...
+            Navigator.pushReplacementNamed(context, '/employee/learning');
           },
         ),
       ],

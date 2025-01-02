@@ -94,16 +94,16 @@ class RegisterScreen extends StatelessWidget {
                   ),
 
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Phone Number", style: TextStyle(fontSize: 20),),
+                        const Text("Phone Number", style: TextStyle(fontSize: 20),),
                         FractionallySizedBox(
                           widthFactor: 0.8,
                           child: TextField(
                             controller: phoneController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                                 labelText: "Type your Phone Number here"
                             ),
@@ -114,7 +114,7 @@ class RegisterScreen extends StatelessWidget {
                   ),
 
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -123,7 +123,7 @@ class RegisterScreen extends StatelessWidget {
                           widthFactor: 0.8,
                           child: TextField(
                             controller: usernameController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                                 labelText: "Type your Email here"
                             ),
@@ -134,16 +134,16 @@ class RegisterScreen extends StatelessWidget {
                   ),
 
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Password", style: TextStyle(fontSize: 20),),
+                        const Text("Password", style: TextStyle(fontSize: 20),),
                         FractionallySizedBox(
                           widthFactor: 0.8,
                           child: TextField(
                             controller: passwordController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                                 labelText: "Type your Password here"
                             ),
