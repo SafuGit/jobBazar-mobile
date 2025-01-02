@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
+import 'package:jobbazar_mobile/provider/job_provider.dart';
 import 'package:jobbazar_mobile/provider/user_provider.dart';
 import 'package:jobbazar_mobile/routes.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +11,8 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => UserProvider()),
-        ChangeNotifierProvider(create: (_) => AuthProvider())
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => JobProvider())
       ],
       child: const MyApp() 
     ),
