@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jobbazar_mobile/provider/models/user.dart';
 
@@ -23,7 +24,9 @@ class UserService {
   Future<User> getUserByUsername({username}) async {
     final String newApiUrl = '$apiUrl/$username';
     try {
+      debugPrint('Fetching user from: $newApiUrl', wrapWidth: 1024);
       final response = await http.get(Uri.parse(newApiUrl));
+      debugPrint('Response: ${response.statusCode}', wrapWidth: 1024);
 
       if (response.statusCode == 200) {
         // Decode the JSON response to a Map
@@ -36,6 +39,25 @@ class UserService {
       } else {
         throw Exception('Failed to load user');
       }
+    } catch (e) {
+      throw Exception("Error: $e");
+    }
+  }
+
+  Future<User> registerUser({dynamic userData}) async {
+    final newApiUrl = '$apiUrl/register';
+    try {
+      final response = await http.post(
+        Uri.parse(newApiUrl),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(userData),
+      );
+
+      Map<String, dynamic> responseMap = json.decode(response.body);
+      User user = User.fromJson(responseMap);
+      return user;
     } catch (e) {
       throw Exception("Error: $e");
     }

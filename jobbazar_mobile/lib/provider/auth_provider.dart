@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:jobbazar_mobile/provider/models/user.dart';
 import 'package:jobbazar_mobile/provider/services/user_service.dart';
 
 class AuthProvider with ChangeNotifier {
   bool _isAuthenticated = false; // Track authentication state
+  User? _currentUser;
   final UserService _userService = UserService();
 
   bool get isAuthenticated => _isAuthenticated;
+  User? get currentUser => _currentUser;
 
   // Simulate login
   Future<void> login(String username, String password) async {
@@ -13,10 +16,12 @@ class AuthProvider with ChangeNotifier {
     try {
       // Use the instance to call getUserByUsername
       final user = await _userService.getUserByUsername(username: username);
+      debugPrint("$user");
 
       // Add password verification (if needed)
       if (user.password == password) { // Assuming your User model has a password field
         _isAuthenticated = true;
+        _currentUser = user;
       } else {
         throw Exception("Invalid credentials");
       }
@@ -27,9 +32,23 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
+  Future<void> register(Map<String, dynamic> userData) {
+    try {
+      final user = _userService.registerUser(userData: userData);
+      return user;
+    } catch (e) {
+      throw Exception("Error during registration: $e");
+    }
+    finally {
+      notifyListeners();
+    }
+  }
+
   // Logout the user
-  void logout() {
+  void logout(BuildContext context) {
     _isAuthenticated = false;
+    _currentUser = null;
+    Navigator.pushReplacementNamed(context, '/login');
     notifyListeners();
   }
 }

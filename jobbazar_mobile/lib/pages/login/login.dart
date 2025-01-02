@@ -1,8 +1,8 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:jobbazar_mobile/shared/util/hyperlink_text.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -89,7 +89,7 @@ class LoginScreen extends StatelessWidget {
                               await authProvider.login(username, password);
                               debugPrint("$authProvider.isAuthenticated");
                               if (authProvider.isAuthenticated) {
-                                Navigator.pushReplacementNamed(context, '/home');
+                                Navigator.pushReplacementNamed(context, '/userHome');
                               }
                             } catch (e) {
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -99,6 +99,13 @@ class LoginScreen extends StatelessWidget {
                           },
                         ),
                       ),
+                    ),
+
+                    HyperlinkText(
+                      text: "Dont have an Account?",
+                      onTap: () => {
+                        Navigator.pushNamed(context, '/register')
+                      },
                     )
                   ],
                 ),
