@@ -41,9 +41,9 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              const Text(
-                'Safwan Sadid',
-                style: TextStyle(
+              Text(
+                '${authProvider.currentUser?.name}',
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 22,
                   fontWeight: FontWeight.bold,

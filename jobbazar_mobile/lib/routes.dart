@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jobbazar_mobile/pages/employee/home/job_info.dart';
 import 'package:jobbazar_mobile/pages/employee/learning/learning.dart';
+import 'package:jobbazar_mobile/pages/employer/home/home.dart';
 import 'package:jobbazar_mobile/pages/login/login.dart';
 import 'package:jobbazar_mobile/pages/register/register.dart';
 import 'package:jobbazar_mobile/pages/employee/home/home.dart'; // Assume a home page exists
@@ -14,33 +16,60 @@ class Wrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
-    if (authProvider.isAuthenticated) {
-      // Navigate to the Home page if authenticated
-      return const EmployeeHomeScreen(title: 'JobBazar Mobile - Home',);
-    } else {
-      // Navigate to Login page if not authenticated
-      return const LoginScreen();
-    }
+    return Consumer<AuthProvider>(
+      builder: (context, authProvider, child) {
+        debugPrint("Wrapper: Authenticated: ${authProvider.isAuthenticated}, Role: ${authProvider.userType}");
+        
+        if (authProvider.isAuthenticated) {
+          Future.delayed(Duration.zero, () {
+          if (authProvider.userType == "USER") {
+            debugPrint("Wrapper: Redirecting to userHome");
+            Navigator.pushReplacementNamed(context, '/userHome');
+            // return const EmployeeHomeScreen(title: 'JobBazar Mobile - Home');
+          } else if (authProvider.userType == "EMPLOYER") {
+            debugPrint("Wrapper: Redirecting to employerHome");
+            Navigator.pushReplacementNamed(context, '/employerHome');
+            // return const LearningScreen();
+          }});
+        }
+        debugPrint("Wrapper: Redirecting to login");
+        return const LoginScreen(); // Redirect unauthenticated users to login
+      },
+    );
   }
 }
+
+
+
+// class RouteToEmployer extends StatelessWidget {
+//   const RouteToEmployer({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return const Placeholder();
+//   }
+// }
+
+
 
 var appRoutes = {
   '/': (context) => const Wrapper(),
   '/login': (context) => const LoginScreen(),
   '/register': (context) => const RegisterScreen(),
   '/userHome': (context) => const EmployeeHomeScreen(title: 'JobBazar Mobile - Home',),
+  '/employerHome': (context) => const EmployerHomeScreen(),
   '/profile': (context) => const ProfileScreen(),
   '/employee/learning': (context) => const LearningScreen(),
+  '/employee/jobInfo': (context) => const JobInfo(),
 };
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {
-  final authProvider = Provider.of<AuthProvider>(navigatorKey.currentContext!);
+  // final authProvider = Provider.of<AuthProvider>(navigatorKey.currentContext!);
 
-  if (settings.name == '/userHome' && !authProvider.isAuthenticated) {
-    // Redirect unauthenticated users to login
-    return MaterialPageRoute(builder: (_) => const LoginScreen());
-  }
+  // if (settings.name == '/userHome' && !authProvider.isAuthenticated) {
+  //   // Redirect unauthenticated users to login
+  //   return MaterialPageRoute(builder: (_) => const LoginScreen());
+  // }
 
   // Default routes
   return MaterialPageRoute(
