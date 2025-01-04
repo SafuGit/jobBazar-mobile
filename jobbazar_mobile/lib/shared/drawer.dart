@@ -32,7 +32,7 @@ class AppDrawer extends StatelessWidget {
               padding: const EdgeInsets.all(0.0),
               child: Center(
                 child: Text(
-                  '$title',
+                  title,
                   style: const TextStyle(color: Colors.white, fontSize: 25),
                 ),
               ),

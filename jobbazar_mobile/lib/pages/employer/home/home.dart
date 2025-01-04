@@ -48,7 +48,7 @@ class EmployerHomeScreen extends StatelessWidget {
               child: Column(
                 children: [
                   HeadingText(userName: currentUser?.name, jobLength: jobs.length),
-                  CardList(jobs: jobs),
+                  CardList(jobs: jobs, theme: employerTheme,),
                 ],
               ),
             )

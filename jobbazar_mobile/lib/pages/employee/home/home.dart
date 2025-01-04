@@ -1,8 +1,8 @@
 // ignore_for_file: unused_import
 
 import 'package:flutter/material.dart';
-import 'package:jobbazar_mobile/pages/employee/home/job_args.dart';
-import 'package:jobbazar_mobile/pages/employee/home/job_info.dart';
+import 'package:jobbazar_mobile/shared/pages/job_args.dart';
+import 'package:jobbazar_mobile/shared/pages/job_info.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
 import 'package:jobbazar_mobile/provider/job_provider.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';

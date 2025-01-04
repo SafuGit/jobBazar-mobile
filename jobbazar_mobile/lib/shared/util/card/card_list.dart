@@ -4,7 +4,8 @@ import 'package:jobbazar_mobile/shared/util/card/card_button_wrapper.dart';
 
 class CardList extends StatelessWidget {
   final List<Job> jobs;
-  const CardList({super.key, required this.jobs});
+  final ThemeData? theme;
+  const CardList({super.key, required this.jobs, this.theme});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class CardList extends StatelessWidget {
 
                         Column(
                           children: [
-                            CardButtonWrapper(job: job),
+                            CardButtonWrapper(job: job, theme: theme),
                           ],
                         )
                       ],
