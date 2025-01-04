@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/shared/appbar.dart';
+import 'package:jobbazar_mobile/shared/bottom_nav.dart';
 import 'package:jobbazar_mobile/shared/drawer.dart';
 
 // Define the Employer theme
@@ -26,6 +27,7 @@ class EmployerHomeScreen extends StatelessWidget {
               color: Theme.of(context).colorScheme.primary, // Using the theme color
             ),
             drawer: const AppDrawer(),
+            bottomNavigationBar: const BottomNav(),
             body: Center(
               child: Text(
                 "Welcome to the Employer Home Screen ${Theme.of(context).colorScheme.primary}",

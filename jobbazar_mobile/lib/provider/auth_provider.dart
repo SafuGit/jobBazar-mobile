@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/models/user.dart';
 import 'package:jobbazar_mobile/provider/services/user_service.dart';
-import 'package:jobbazar_mobile/routes.dart';
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 class AuthProvider with ChangeNotifier {
   bool _isAuthenticated = false; // Track authentication state
@@ -26,10 +27,6 @@ class AuthProvider with ChangeNotifier {
         _isAuthenticated = true;
         _currentUser = user;
         _userType = user.role;
-        switch (_userType) {
-          case "EMPLOYER":
-            // const RouteToEmployer();
-        }
       } else {
         throw Exception("Invalid credentials");
       }
@@ -57,7 +54,8 @@ class AuthProvider with ChangeNotifier {
   void logout(BuildContext context) {
     _isAuthenticated = false;
     _currentUser = null;
-    Navigator.pushReplacementNamed(context, '/login');
+    _userType = "";
+    Navigator.pushReplacementNamed(context, '/');
     notifyListeners();
   }
 }

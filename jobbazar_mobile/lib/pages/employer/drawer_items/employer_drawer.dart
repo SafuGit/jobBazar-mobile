@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// TODO: Change these drawer items
 class EmployerDrawerItems extends StatelessWidget {
   const EmployerDrawerItems({super.key});
 
@@ -9,7 +10,7 @@ class EmployerDrawerItems extends StatelessWidget {
       children: [
         ListTile(
           leading: const Icon(Icons.edit_document, size: 50,),
-          title: const Text('CV Info', style: TextStyle(fontSize: 30)),
+          title: const Text('Job Postings', style: TextStyle(fontSize: 30)),
           onTap: () {
             // Update the state of the app
             // ...
@@ -17,8 +18,8 @@ class EmployerDrawerItems extends StatelessWidget {
         ),
         const Divider(),
         ListTile(
-          leading: const Icon(Icons.work, size: 50,),
-          title: const Text('Applied Jobs', style: TextStyle(fontSize: 30)),
+          leading: const Icon(Icons.assignment_turned_in_outlined, size: 50,),
+          title: const Text('Applications', style: TextStyle(fontSize: 30)),
           onTap: () {
             // Update the state of the app
             // ...
@@ -36,20 +37,13 @@ class EmployerDrawerItems extends StatelessWidget {
         const Divider(),
         ListTile(
           leading: const Icon(Icons.notifications, size: 50,),
-          title: const Text('Notifications', style: TextStyle(fontSize: 30)),
+          title: const Text('Hiring Tips', style: TextStyle(fontSize: 30)),
           onTap: () {
             // Update the state of the app
             // ...
           },
         ),
-        const Divider(),
-        ListTile(
-          leading: const Icon(Icons.school, size: 50,),
-          title: const Text('Courses', style: TextStyle(fontSize: 30)),
-          onTap: () {
-            Navigator.pushReplacementNamed(context, '/employee/learning');
-          },
-        ),
+        // const Divider(),
       ],
     );
   }
