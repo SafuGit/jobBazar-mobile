@@ -7,6 +7,8 @@ import 'package:jobbazar_mobile/provider/auth_provider.dart';
 import 'package:jobbazar_mobile/provider/job_provider.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
 import 'package:jobbazar_mobile/shared/drawer.dart';
+import 'package:jobbazar_mobile/shared/util/card_list.dart';
+import 'package:jobbazar_mobile/shared/util/heading_text.dart';
 import 'package:provider/provider.dart';
 
 class EmployeeHomeScreen extends StatefulWidget {
@@ -46,78 +48,9 @@ class _HomeScreenState extends State<EmployeeHomeScreen> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            Center(child: Text("Welcome, ${currentUser?.name}", style: const TextStyle(
-              fontSize: 30,
-            ),)),
-            const Center(child: Text("Here are some Jobs", style: TextStyle(
-              color: Color.fromARGB(255, 15, 82, 226),
-              fontSize: 24
-            ),)),
+            HeadingText(userName: currentUser?.name, jobLength: jobs.length),
+            CardList(jobs: jobs),
 
-            Text("${jobs.length} Jobs found", style: const TextStyle(
-              fontSize: 20,
-            ),),
-
-            Expanded(
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  // crossAxisSpacing: 10,
-                  // mainAxisSpacing: 10
-                ),
-                itemCount: jobs.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final job = jobs[index];
-                  return Card(
-                    shadowColor: Colors.black,
-                    elevation: 20,
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Flexible(
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(job.title, style: const TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold
-                                ),),
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        const Divider(),
-
-                        Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pushReplacementNamed(context, '/employee/jobInfo', arguments: JobArgs(title: job.title, description: job.description, location: job.location, salary: job.salary, company: job.company, jobType: job.type));
-                                },
-                                style: const ButtonStyle(
-                                  backgroundColor: WidgetStatePropertyAll(Colors.blue)
-                                ), 
-                                child: const Text("Get Info", style: TextStyle(color: Colors.black),)
-                              ),
-                            ),
-                            ElevatedButton(
-                              onPressed: () {},
-                              style: const ButtonStyle(
-                                backgroundColor: WidgetStatePropertyAll(Color.fromARGB(223, 233, 164, 60))
-                              ), 
-                              child: const Text("Apply", style: TextStyle(color: Colors.black),)
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  );
-                }
-              ),
-            )
           ],
         ),
       ),

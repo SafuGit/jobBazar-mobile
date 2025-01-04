@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:jobbazar_mobile/provider/auth_provider.dart';
 import 'package:jobbazar_mobile/shared/appbar.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
 import 'package:jobbazar_mobile/shared/drawer.dart';
+import 'package:provider/provider.dart';
+
+import '../../../provider/job_provider.dart';
 
 // Define the Employer theme
 final ThemeData employerTheme = ThemeData(
@@ -15,6 +19,14 @@ class EmployerHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+    final jobProvider = Provider.of<JobProvider>(context);
+
+    final currentUser = authProvider.currentUser;
+    jobProvider.fetchJobsByEmployer(userId: currentUser?.id);
+
+    final jobs = jobProvider.employerJobs.reversed.toList();
+
     debugPrint("${Theme.of(context).colorScheme.primary}");
     // Use the Theme widget to apply employer theme to this screen only
     return Theme(

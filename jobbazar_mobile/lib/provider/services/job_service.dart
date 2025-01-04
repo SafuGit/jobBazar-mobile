@@ -21,4 +21,21 @@ class JobService {
       throw Exception('Error: $e');
     }
   }
+
+  Future<List<Job>> getJobsByEmployer({dynamic userId}) async {
+    final String newUrl = '$apiUrl/employer/$userId';
+    try {
+      final response = await http.get(Uri.parse(newUrl));
+
+      if (response.statusCode == 200) {
+        List<dynamic> body = json.decode(response.body);
+        var data = body.map((dynamic item) => Job.fromJson(item)).toList();
+        return data;
+      } else {
+        throw Exception('Failed to load jobs');
+      }
+    } catch (e) {
+      throw Exception('Error: $e');
+    }
+  }
 }

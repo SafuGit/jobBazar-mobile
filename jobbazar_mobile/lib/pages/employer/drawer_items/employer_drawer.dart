@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// TODO: Change these drawer items
 class EmployerDrawerItems extends StatelessWidget {
   const EmployerDrawerItems({super.key});
 
