@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:jobbazar_mobile/provider/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 class BottomNav extends StatelessWidget {
   const BottomNav({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
     return BottomNavigationBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         selectedLabelStyle: TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontSize: 24),
@@ -24,8 +27,14 @@ class BottomNav extends StatelessWidget {
         onTap: (int index) {
           switch (index) {
             case 0:
-              Navigator.pushNamed(context, '/userHome');
-              break;
+              if (authProvider.userType == "USER") {
+                Navigator.pushNamed(context, '/userHome');
+                break;
+              }
+              else if (authProvider.userType == "EMPLOYER") {
+                Navigator.pushNamed(context, '/employerHome');
+                break;
+              }
             case 1:
               Navigator.pushNamed(context, '/profile');
               break;

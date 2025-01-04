@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/models/user.dart';
 import 'package:jobbazar_mobile/provider/services/user_service.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 class AuthProvider with ChangeNotifier {
   bool _isAuthenticated = false; // Track authentication state
   User? _currentUser;
+  String _userType = "";
   final UserService _userService = UserService();
 
   bool get isAuthenticated => _isAuthenticated;
   User? get currentUser => _currentUser;
+  String get userType => _userType;
 
   // Simulate login
   Future<void> login(String username, String password) async {
@@ -22,12 +26,14 @@ class AuthProvider with ChangeNotifier {
       if (user.password == password) { // Assuming your User model has a password field
         _isAuthenticated = true;
         _currentUser = user;
+        _userType = user.role;
       } else {
         throw Exception("Invalid credentials");
       }
     } catch (e) {
       throw Exception("Error during login: $e");
     } finally {
+      debugPrint("Authenticated: $_isAuthenticated, Role: ${_currentUser?.role}, Type: $_userType");
       notifyListeners();
     }
   }
@@ -48,7 +54,8 @@ class AuthProvider with ChangeNotifier {
   void logout(BuildContext context) {
     _isAuthenticated = false;
     _currentUser = null;
-    Navigator.pushReplacementNamed(context, '/login');
+    _userType = "";
+    Navigator.pushReplacementNamed(context, '/');
     notifyListeners();
   }
 }

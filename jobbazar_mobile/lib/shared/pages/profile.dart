@@ -4,6 +4,8 @@ import 'package:jobbazar_mobile/shared/appbar.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
 import 'package:provider/provider.dart';
 
+// TODO: Add ThemeData args
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
@@ -41,9 +43,9 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              const Text(
-                'Safwan Sadid',
-                style: TextStyle(
+              Text(
+                '${authProvider.currentUser?.name}',
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
