@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jobbazar_mobile/pages/employee/home/job_args.dart';
 import 'package:jobbazar_mobile/provider/models/job.dart';
+import 'package:jobbazar_mobile/shared/util/card/card_button_wrapper.dart';
 
 class CardList extends StatelessWidget {
   final List<Job> jobs;
@@ -41,25 +41,7 @@ class CardList extends StatelessWidget {
 
                         Column(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pushReplacementNamed(context, '/employee/jobInfo', arguments: JobArgs(title: job.title, description: job.description, location: job.location, salary: job.salary, company: job.company, jobType: job.type));
-                                },
-                                style: const ButtonStyle(
-                                  backgroundColor: WidgetStatePropertyAll(Colors.blue)
-                                ), 
-                                child: const Text("Get Info", style: TextStyle(color: Colors.black),)
-                              ),
-                            ),
-                            ElevatedButton(
-                              onPressed: () {},
-                              style: const ButtonStyle(
-                                backgroundColor: WidgetStatePropertyAll(Color.fromARGB(223, 233, 164, 60))
-                              ), 
-                              child: const Text("Apply", style: TextStyle(color: Colors.black),)
-                            ),
+                            CardButtonWrapper(job: job),
                           ],
                         )
                       ],

@@ -5,6 +5,8 @@ import 'package:jobbazar_mobile/shared/bottom_nav.dart';
 import 'package:jobbazar_mobile/shared/drawer.dart';
 import 'package:jobbazar_mobile/shared/util/info_row.dart';
 
+// TODO: Add ThemeData args
+
 class JobInfo extends StatelessWidget {
   const JobInfo({super.key});
 

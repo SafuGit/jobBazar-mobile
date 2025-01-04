@@ -60,7 +60,7 @@ var appRoutes = {
   '/employerHome': (context) => const EmployerHomeScreen(),
   '/profile': (context) => const ProfileScreen(),
   '/employee/learning': (context) => const LearningScreen(),
-  '/employee/jobInfo': (context) => const JobInfo(),
+  '/jobInfo': (context) => const JobInfo(),
 };
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {

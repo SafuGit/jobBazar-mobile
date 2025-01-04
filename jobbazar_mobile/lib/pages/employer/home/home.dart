@@ -3,6 +3,8 @@ import 'package:jobbazar_mobile/provider/auth_provider.dart';
 import 'package:jobbazar_mobile/shared/appbar.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
 import 'package:jobbazar_mobile/shared/drawer.dart';
+import 'package:jobbazar_mobile/shared/util/card/card_list.dart';
+import 'package:jobbazar_mobile/shared/util/heading_text.dart';
 import 'package:provider/provider.dart';
 
 import '../../../provider/job_provider.dart';
@@ -27,7 +29,8 @@ class EmployerHomeScreen extends StatelessWidget {
 
     final jobs = jobProvider.employerJobs.reversed.toList();
 
-    debugPrint("${Theme.of(context).colorScheme.primary}");
+    // debugPrint("${Theme.of(context).colorScheme.primary}");
+    // debugPrint("${jobs[0].company}");
     // Use the Theme widget to apply employer theme to this screen only
     return Theme(
       data: employerTheme, // Apply the custom theme here
@@ -40,12 +43,15 @@ class EmployerHomeScreen extends StatelessWidget {
             ),
             drawer: const AppDrawer(),
             bottomNavigationBar: const BottomNav(),
-            body: Center(
-              child: Text(
-                "Welcome to the Employer Home Screen ${Theme.of(context).colorScheme.primary}",
-                style: const TextStyle(fontSize: 24),
+            body: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  HeadingText(userName: currentUser?.name, jobLength: jobs.length),
+                  CardList(jobs: jobs),
+                ],
               ),
-            ),
+            )
           );
         }
       ),
