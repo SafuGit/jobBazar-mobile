@@ -1,5 +1,3 @@
-// TODO: Add ThemeData args
-
 import 'package:flutter/material.dart';
 
 class JobArgs {

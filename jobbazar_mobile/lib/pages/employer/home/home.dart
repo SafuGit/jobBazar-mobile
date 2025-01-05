@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jobbazar_mobile/pages/employer/theme.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
 import 'package:jobbazar_mobile/shared/appbar.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
@@ -9,12 +10,7 @@ import 'package:provider/provider.dart';
 
 import '../../../provider/job_provider.dart';
 
-// Define the Employer theme
-final ThemeData employerTheme = ThemeData(
-  colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
-  primarySwatch: Colors.orange,
-  // You can customize more properties if necessary.
-);
+
 
 class EmployerHomeScreen extends StatelessWidget {
   const EmployerHomeScreen({super.key});
