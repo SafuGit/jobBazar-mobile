@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:jobbazar_mobile/pages/employer/theme.dart';
+import 'package:jobbazar_mobile/shared/pages/args/paid_plans_args.dart';
 
 class EmployerDrawerItems extends StatelessWidget {
   const EmployerDrawerItems({super.key});
@@ -29,8 +31,7 @@ class EmployerDrawerItems extends StatelessWidget {
           leading: const Icon(Icons.attach_money, size: 50,),
           title: const Text('Paid Plans', style: TextStyle(fontSize: 30)),
           onTap: () {
-            // Update the state of the app
-            // ...
+            Navigator.pushReplacementNamed(context, '/paidPlans', arguments: PaidPlansArgs(theme: employerTheme));
           },
         ),
         const Divider(),

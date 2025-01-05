@@ -5,6 +5,7 @@ import 'package:jobbazar_mobile/pages/employer/home/home.dart';
 import 'package:jobbazar_mobile/pages/login/login.dart';
 import 'package:jobbazar_mobile/pages/register/register.dart';
 import 'package:jobbazar_mobile/pages/employee/home/home.dart'; // Assume a home page exists
+import 'package:jobbazar_mobile/shared/pages/paid_plans.dart';
 import 'package:jobbazar_mobile/shared/pages/profile.dart';
 import 'package:provider/provider.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
@@ -61,6 +62,7 @@ var appRoutes = {
   '/profile': (context) => const ProfileScreen(),
   '/employee/learning': (context) => const LearningScreen(),
   '/jobInfo': (context) => const JobInfo(),
+  '/paidPlans': (context) => const PaidPlansPage(),
 };
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {

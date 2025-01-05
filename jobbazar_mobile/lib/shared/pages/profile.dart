@@ -5,8 +5,6 @@ import 'package:jobbazar_mobile/shared/bottom_nav.dart';
 import 'package:jobbazar_mobile/shared/pages/profile_args.dart';
 import 'package:provider/provider.dart';
 
-// TODO: Add ThemeData args
-
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 

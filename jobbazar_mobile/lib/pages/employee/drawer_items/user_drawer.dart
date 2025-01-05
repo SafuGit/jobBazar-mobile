@@ -29,8 +29,7 @@ class UserDrawerItems extends StatelessWidget {
           leading: const Icon(Icons.attach_money, size: 50,),
           title: const Text('Paid Plans', style: TextStyle(fontSize: 30)),
           onTap: () {
-            // Update the state of the app
-            // ...
+            Navigator.pushReplacementNamed(context, '/paidPlans');
           },
         ),
         const Divider(),
