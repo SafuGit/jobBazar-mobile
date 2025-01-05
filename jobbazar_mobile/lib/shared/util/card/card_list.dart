@@ -15,6 +15,7 @@ class CardList extends StatelessWidget {
                   crossAxisCount: 2,
                   // crossAxisSpacing: 10,
                   // mainAxisSpacing: 10
+                  // childAspectRatio: 0.9
                 ),
                 itemCount: jobs.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -22,30 +23,32 @@ class CardList extends StatelessWidget {
                   return Card(
                     shadowColor: Colors.black,
                     elevation: 20,
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Flexible(
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(job.title, style: const TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold
-                                ),),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Flexible(
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(job.title, style: const TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold
+                                  ),),
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-
-                        const Divider(),
-
-                        Column(
-                          children: [
-                            CardButtonWrapper(job: job, theme: theme),
-                          ],
-                        )
-                      ],
+                            ],
+                          ),
+                      
+                          const Divider(),
+                      
+                          // Column(
+                            // children: [
+                              CardButtonWrapper(job: job, theme: theme),
+                            // ],
+                          // )
+                        ],
+                      ),
                     ),
                   );
                 }

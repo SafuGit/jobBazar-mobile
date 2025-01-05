@@ -1,7 +1,7 @@
 // ignore_for_file: unused_import
 
 import 'package:flutter/material.dart';
-import 'package:jobbazar_mobile/shared/pages/job_args.dart';
+import 'package:jobbazar_mobile/shared/pages/args/job_args.dart';
 import 'package:jobbazar_mobile/shared/pages/job_info.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
 import 'package:jobbazar_mobile/provider/job_provider.dart';
@@ -48,7 +48,7 @@ class _HomeScreenState extends State<EmployeeHomeScreen> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            HeadingText(userName: currentUser?.name, jobLength: jobs.length),
+            HeadingText(title: "Welcome, ${currentUser?.name}", subtitle: "Apply to these jobs", subtitle2: "${jobs.length} Jobs Found",),
             CardList(jobs: jobs),
           ],
         ),

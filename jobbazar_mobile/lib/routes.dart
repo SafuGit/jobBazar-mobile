@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:jobbazar_mobile/pages/employee/cv_page/cv_page.dart';
+import 'package:jobbazar_mobile/pages/employer/all_jobs_posted/all_jobs.dart';
 import 'package:jobbazar_mobile/shared/pages/job_info.dart';
 import 'package:jobbazar_mobile/pages/employee/learning/learning.dart';
 import 'package:jobbazar_mobile/pages/employer/home/home.dart';
 import 'package:jobbazar_mobile/pages/login/login.dart';
 import 'package:jobbazar_mobile/pages/register/register.dart';
 import 'package:jobbazar_mobile/pages/employee/home/home.dart'; // Assume a home page exists
+import 'package:jobbazar_mobile/shared/pages/paid_plans.dart';
 import 'package:jobbazar_mobile/shared/pages/profile.dart';
 import 'package:provider/provider.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
@@ -61,6 +64,9 @@ var appRoutes = {
   '/profile': (context) => const ProfileScreen(),
   '/employee/learning': (context) => const LearningScreen(),
   '/jobInfo': (context) => const JobInfo(),
+  '/paidPlans': (context) => const PaidPlansPage(),
+  '/employer/allJobs': (context) => const AllJobsPage(),
+  '/employee/cvInfo': (context) => const CVInformationScreen(),
 };
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {

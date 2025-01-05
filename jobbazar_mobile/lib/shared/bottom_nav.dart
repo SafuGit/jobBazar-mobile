@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jobbazar_mobile/pages/employer/theme.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
+import 'package:jobbazar_mobile/shared/pages/args/profile_args.dart';
 import 'package:provider/provider.dart';
 
 class BottomNav extends StatelessWidget {
@@ -36,8 +38,16 @@ class BottomNav extends StatelessWidget {
                 break;
               }
             case 1:
-              Navigator.pushNamed(context, '/profile');
-              break;
+              if (authProvider.userType == "USER") {
+                Navigator.pushNamed(context, '/profile');
+                break;
+              }
+              else if (authProvider.userType == "EMPLOYER") {
+                Navigator.pushNamed(context, '/profile', arguments: ProfileArgs(theme: employerTheme));
+                break;
+              }
+              // Navigator.pushNamed(context, '/profile');
+              // break;
           }
         },
       );
