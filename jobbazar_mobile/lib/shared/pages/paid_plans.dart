@@ -160,9 +160,9 @@ class PaidPlansPage extends StatelessWidget {
             right: 0,
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.red,
-                borderRadius: const BorderRadius.only(
+                borderRadius: BorderRadius.only(
                   topRight: Radius.circular(15),
                   bottomLeft: Radius.circular(10),
                 ),

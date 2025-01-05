@@ -27,7 +27,7 @@ class AllJobsPage extends StatelessWidget {
             bottomNavigationBar: const BottomNav(),
             body: Column(
               children: [
-                const HeadingText(),
+                const HeadingText(title: "All Jobs Posted",),
                 CardList(jobs: jobs,),
               ]
             )

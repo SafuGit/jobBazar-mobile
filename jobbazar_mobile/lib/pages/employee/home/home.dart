@@ -48,7 +48,7 @@ class _HomeScreenState extends State<EmployeeHomeScreen> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            HeadingText(userName: currentUser?.name, jobLength: jobs.length),
+            HeadingText(title: "Welcome, ${currentUser?.name}", subtitle: "Apply to these jobs", subtitle2: "${jobs.length} Jobs Found",),
             CardList(jobs: jobs),
           ],
         ),

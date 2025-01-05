@@ -43,7 +43,7 @@ class EmployerHomeScreen extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  HeadingText(userName: currentUser?.name, jobLength: jobs.length),
+                  HeadingText(title: "Welcome, ${authProvider.currentUser?.name}", subtitle: "Your Companies Posted Jobs", subtitle2: "${jobs.length} Jobs Found",),
                   CardList(jobs: jobs, theme: employerTheme,),
                 ],
               ),
