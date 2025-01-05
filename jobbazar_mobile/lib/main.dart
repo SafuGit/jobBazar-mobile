@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
+import 'package:jobbazar_mobile/provider/cv_provider.dart';
 import 'package:jobbazar_mobile/provider/job_provider.dart';
 import 'package:jobbazar_mobile/provider/user_provider.dart';
 import 'package:jobbazar_mobile/routes.dart';
@@ -12,7 +13,8 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => AuthProvider()),
-        ChangeNotifierProvider(create: (_) => JobProvider())
+        ChangeNotifierProvider(create: (_) => JobProvider()),
+        ChangeNotifierProvider(create: (_) => CvProvider())
       ],
       child: const MyApp() 
     ),

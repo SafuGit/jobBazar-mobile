@@ -11,8 +11,7 @@ class UserDrawerItems extends StatelessWidget {
           leading: const Icon(Icons.edit_document, size: 50,),
           title: const Text('CV Info', style: TextStyle(fontSize: 30)),
           onTap: () {
-            // Update the state of the app
-            // ...
+            Navigator.pushReplacementNamed(context, '/employee/cvInfo');
           },
         ),
         const Divider(),
