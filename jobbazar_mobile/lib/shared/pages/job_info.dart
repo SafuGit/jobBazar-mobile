@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jobbazar_mobile/shared/pages/job_args.dart';
+import 'package:jobbazar_mobile/shared/pages/args/job_args.dart';
 import 'package:jobbazar_mobile/shared/appbar.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
 import 'package:jobbazar_mobile/shared/drawer.dart';
@@ -10,7 +10,7 @@ class JobInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final JobArgs jobArgs = ModalRoute.of(context)?.settings.arguments as JobArgs;
+    final JobArgs jobArgs = (ModalRoute.of(context)?.settings.arguments as JobArgs);
     debugPrint("${jobArgs.theme?.primaryColor}");
 
     return Theme(
@@ -18,6 +18,7 @@ class JobInfo extends StatelessWidget {
       child: Builder(
         builder: (context) {
           return Scaffold(
+            backgroundColor: jobArgs.theme?.colorScheme.secondary ?? Theme.of(context).colorScheme.secondary,
             appBar: SharedAppBar(
               title: "JobBazar Mobile",
               color: Theme.of(context).colorScheme.primary,
@@ -33,7 +34,7 @@ class JobInfo extends StatelessWidget {
                     Text("JOB INFO", style: TextStyle(
                       fontSize: 50,
                       fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.secondary,
+                      color: Theme.of(context).colorScheme.onSecondary,
                     )),
                     Card(
                       elevation: 4,

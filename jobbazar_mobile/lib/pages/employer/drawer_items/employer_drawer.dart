@@ -13,8 +13,7 @@ class EmployerDrawerItems extends StatelessWidget {
           leading: const Icon(Icons.edit_document, size: 50,),
           title: const Text('Job Postings', style: TextStyle(fontSize: 30)),
           onTap: () {
-            // Update the state of the app
-            // ...
+            Navigator.pushReplacementNamed(context, '/employer/allJobs');
           },
         ),
         const Divider(),

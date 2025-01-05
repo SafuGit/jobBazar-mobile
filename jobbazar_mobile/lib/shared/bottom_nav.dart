@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/pages/employer/theme.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
-import 'package:jobbazar_mobile/shared/pages/profile_args.dart';
+import 'package:jobbazar_mobile/shared/pages/args/profile_args.dart';
 import 'package:provider/provider.dart';
 
 class BottomNav extends StatelessWidget {

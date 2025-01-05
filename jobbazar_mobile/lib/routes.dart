@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jobbazar_mobile/pages/employer/all_jobs_posted/all_jobs.dart';
 import 'package:jobbazar_mobile/shared/pages/job_info.dart';
 import 'package:jobbazar_mobile/pages/employee/learning/learning.dart';
 import 'package:jobbazar_mobile/pages/employer/home/home.dart';
@@ -63,6 +64,7 @@ var appRoutes = {
   '/employee/learning': (context) => const LearningScreen(),
   '/jobInfo': (context) => const JobInfo(),
   '/paidPlans': (context) => const PaidPlansPage(),
+  '/employer/allJobs': (context) => const AllJobsPage(),
 };
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {
