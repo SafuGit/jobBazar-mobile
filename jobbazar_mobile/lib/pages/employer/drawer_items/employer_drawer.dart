@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jobbazar_mobile/pages/employer/theme.dart';
+import 'package:jobbazar_mobile/shared/theme/employer/theme.dart';
 import 'package:jobbazar_mobile/shared/pages/args/paid_plans_args.dart';
 
 class EmployerDrawerItems extends StatelessWidget {
@@ -38,8 +38,7 @@ class EmployerDrawerItems extends StatelessWidget {
           leading: const Icon(Icons.notifications, size: 50,),
           title: const Text('Hiring Tips', style: TextStyle(fontSize: 30)),
           onTap: () {
-            // Update the state of the app
-            // ...
+            Navigator.pushReplacementNamed(context, '/employer/hiringTips');
           },
         ),
         // const Divider(),

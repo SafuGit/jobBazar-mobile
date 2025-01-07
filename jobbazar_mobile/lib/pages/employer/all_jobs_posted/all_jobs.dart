@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jobbazar_mobile/pages/employer/theme.dart';
+import 'package:jobbazar_mobile/shared/theme/employer/theme.dart';
 import 'package:jobbazar_mobile/provider/job_provider.dart';
 import 'package:jobbazar_mobile/shared/appbar.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
