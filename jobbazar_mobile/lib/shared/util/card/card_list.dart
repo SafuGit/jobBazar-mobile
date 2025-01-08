@@ -1,15 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/models/job.dart';
-import 'package:jobbazar_mobile/shared/util/card/card_button_wrapper.dart';
+import 'package:jobbazar_mobile/shared/util/card/wrapper/card_button_wrapper.dart';
 
-class CardList extends StatelessWidget {
+class CardList extends StatefulWidget {
   final List<Job> jobs;
   final ThemeData? theme;
   const CardList({super.key, required this.jobs, this.theme});
 
   @override
+  State<CardList> createState() => _CardListState();
+}
+
+class _CardListState extends State<CardList> {
+  late List<Job> filteredJobs;
+
+  // void _filterJobs(String query) {
+  //   setState(() {
+  //     filteredJobs = widget.jobs
+  //         .where((job) => job.title.toLowerCase().contains(query.toLowerCase()))
+  //         .toList();
+  //   });
+  // }
+
+
+  @override
   Widget build(BuildContext context) {
-          return Expanded(
+    filteredJobs = List<Job>.from(widget.jobs);
+          return Flexible(
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -17,9 +34,9 @@ class CardList extends StatelessWidget {
                   // mainAxisSpacing: 10
                   // childAspectRatio: 0.9
                 ),
-                itemCount: jobs.length,
+                itemCount: widget.jobs.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final job = jobs[index];
+                  final job = widget.jobs[index];
                   return Card(
                     shadowColor: Colors.black,
                     elevation: 20,
@@ -44,7 +61,7 @@ class CardList extends StatelessWidget {
                       
                           // Column(
                             // children: [
-                              CardButtonWrapper(job: job, theme: theme),
+                              CardButtonWrapper(job: job, theme: widget.theme),
                             // ],
                           // )
                         ],

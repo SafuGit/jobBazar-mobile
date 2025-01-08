@@ -38,4 +38,20 @@ class JobService {
       throw Exception('Error: $e');
     }
   }
+
+  Future<Job> getJobById(int id) async {
+    final String newUrl = '$apiUrl/$id';
+    try {
+      final response = await http.get(Uri.parse(newUrl));
+      if (response.statusCode == 200) {
+        Map<String, dynamic> responseMap = json.decode(response.body);
+        Job job = Job.fromJson(responseMap);
+        return job;
+      } else {
+        throw Exception('Failed to load job');
+      }
+    } catch (e) {
+      throw Exception('Error: $e');
+    }
+  }
 }

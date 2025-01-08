@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jobbazar_mobile/shared/theme/employer/employer_gradient.dart';
 import 'package:jobbazar_mobile/shared/theme/employer/theme.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
 import 'package:jobbazar_mobile/shared/appbar.dart';
@@ -39,13 +40,16 @@ class EmployerHomeScreen extends StatelessWidget {
             ),
             drawer: const AppDrawer(),
             bottomNavigationBar: const BottomNav(),
-            body: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  HeadingText(title: "Welcome, ${authProvider.currentUser?.name}", subtitle: "Your Companies Posted Jobs", subtitle2: "${jobs.length} Jobs Found",),
-                  CardList(jobs: jobs, theme: employerTheme,),
-                ],
+            body: Container(
+              decoration: employerDecoration,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    HeadingText(title: "Welcome, ${authProvider.currentUser?.name}", subtitle: "Your Companies Posted Jobs", subtitle2: "${jobs.length} Jobs Found",),
+                    CardList(jobs: jobs, theme: employerTheme,),
+                  ],
+                ),
               ),
             )
           );

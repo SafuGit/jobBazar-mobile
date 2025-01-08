@@ -19,8 +19,7 @@ class UserDrawerItems extends StatelessWidget {
           leading: const Icon(Icons.work, size: 50,),
           title: const Text('Applied Jobs', style: TextStyle(fontSize: 30)),
           onTap: () {
-            // Update the state of the app
-            // ...
+            Navigator.pushReplacementNamed(context, '/employee/appliedJobs');
           },
         ),
         const Divider(),

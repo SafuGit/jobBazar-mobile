@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jobbazar_mobile/pages/employee/applied_jobs/applied_jobs_wrapper.dart';
 import 'package:jobbazar_mobile/pages/employee/cv_page/cv_page.dart';
 import 'package:jobbazar_mobile/pages/employer/all_jobs_posted/all_jobs.dart';
 import 'package:jobbazar_mobile/pages/employer/hiring_tips/hiring_tips.dart';
@@ -69,6 +70,7 @@ var appRoutes = {
   '/employer/allJobs': (context) => const AllJobsPage(),
   '/employee/cvInfo': (context) => const CVInformationScreen(),
   '/employer/hiringTips': (context) => const HiringTipsPage(),
+  '/employee/appliedJobs': (context) => const AppliedJobs(),
 };
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {

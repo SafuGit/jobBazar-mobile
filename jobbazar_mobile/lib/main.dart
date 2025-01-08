@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jobbazar_mobile/provider/application_provider.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
 import 'package:jobbazar_mobile/provider/cv_provider.dart';
 import 'package:jobbazar_mobile/provider/job_provider.dart';
@@ -14,7 +15,8 @@ void main() {
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => JobProvider()),
-        ChangeNotifierProvider(create: (_) => CvProvider())
+        ChangeNotifierProvider(create: (_) => CvProvider()),
+        ChangeNotifierProvider(create: (_) => ApplicationProvider())
       ],
       child: const MyApp() 
     ),
