@@ -4,6 +4,7 @@ import 'package:jobbazar_mobile/provider/cv_provider.dart';
 import 'package:jobbazar_mobile/shared/appbar.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
 import 'package:jobbazar_mobile/shared/drawer.dart';
+import 'package:jobbazar_mobile/shared/theme/employee/employee_gradient.dart';
 import 'package:jobbazar_mobile/shared/util/heading_text.dart';
 import 'package:provider/provider.dart';
 
@@ -20,6 +21,7 @@ class CVInformationScreen extends StatelessWidget {
       drawer: const AppDrawer(),
       bottomNavigationBar: const BottomNav(),
       body: Container(
+        decoration: employeeDecoration,
         height: double.infinity,
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(

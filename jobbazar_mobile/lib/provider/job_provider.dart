@@ -6,10 +6,12 @@ import 'package:jobbazar_mobile/provider/services/job_service.dart';
 class JobProvider with ChangeNotifier {
   final JobService _jobService = JobService();
   List<Job> _jobs = [];
+  Job? job;
   List<Job> _employerJobs = [];
 
   List<Job> get employerJobs => _employerJobs;
   List<Job> get jobs => _jobs;
+  Job? get currentJob => job;
 
   Future<void> fetchJobs() async {
     try {
@@ -32,5 +34,17 @@ class JobProvider with ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<Job?> fetchJobById(int jobId) async {
+    try {
+      return await _jobService.getJobById(jobId);
+    } catch (e) {
+      debugPrint('Error: $e');
+      throw Exception('Error: $e');
+    } finally {
+      notifyListeners();
+    }
+  }
+
 
 }

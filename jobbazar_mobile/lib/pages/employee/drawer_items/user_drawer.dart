@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:jobbazar_mobile/shared/pages/args/paid_plans_args.dart';
+import 'package:jobbazar_mobile/shared/theme/employee/employee_gradient.dart';
 
 class UserDrawerItems extends StatelessWidget {
   const UserDrawerItems({super.key});
@@ -19,8 +21,7 @@ class UserDrawerItems extends StatelessWidget {
           leading: const Icon(Icons.work, size: 50,),
           title: const Text('Applied Jobs', style: TextStyle(fontSize: 30)),
           onTap: () {
-            // Update the state of the app
-            // ...
+            Navigator.pushReplacementNamed(context, '/employee/appliedJobs');
           },
         ),
         const Divider(),
@@ -28,7 +29,7 @@ class UserDrawerItems extends StatelessWidget {
           leading: const Icon(Icons.attach_money, size: 50,),
           title: const Text('Paid Plans', style: TextStyle(fontSize: 30)),
           onTap: () {
-            Navigator.pushReplacementNamed(context, '/paidPlans');
+            Navigator.pushReplacementNamed(context, '/paidPlans', arguments: PaidPlansArgs(gradient: employeeDecoration));
           },
         ),
         const Divider(),
