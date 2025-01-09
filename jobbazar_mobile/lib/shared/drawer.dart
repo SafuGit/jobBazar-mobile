@@ -13,52 +13,70 @@ class AppDrawer extends StatelessWidget {
 
     if (authProvider.userType == "USER") {
       title = "Employee Dashboard";
-    }
-    else if (authProvider.userType == "EMPLOYER") {
+    } else if (authProvider.userType == "EMPLOYER") {
       title = "Employer Dashboard";
-    }
-    else {
+    } else {
       title = "Dashboard";
     }
 
     return Drawer(
       child: Column(
         children: [
+          // Header with title
           SizedBox(
-            height: 100,
+            height: 150,
             child: DrawerHeader(
-              decoration: const BoxDecoration(color: Colors.black),
-              margin: const EdgeInsets.all(0.0),
-              padding: const EdgeInsets.all(0.0),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.blue.shade800, Colors.blue.shade400],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                // borderRadius: BorderRadius.vertical(bottom: Radius.circular(25)),
+              ),
               child: Center(
                 child: Text(
                   title,
-                  style: const TextStyle(color: Colors.white, fontSize: 25),
+                  style: const TextStyle(color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold),
                 ),
               ),
             ),
           ),
-          
-          // const UserDrawerItems(),
-          const DrawerWrapper(),
-          const Divider(),
 
-          // Spacer pushes the logout tile to the bottom
+          const DrawerWrapper(),
+          const Divider(thickness: 1),
+
           const Spacer(),
-          
-          const Divider(),
-          ListTile(
-            leading: const Icon(Icons.logout, size: 50),
-            iconColor: const Color.fromARGB(255, 255, 0, 0),
-            textColor: const Color.fromARGB(255, 255, 0, 0),
-            title: const Text('Logout', style: TextStyle(fontSize: 30)),
-            onTap: () {
-              authProvider.logout(context);
-            },
-          ),
-          const Divider(),
+
+          _buildLogoutTile(context, authProvider),
         ],
       ),
+    );
+  }
+
+  // Logout button with improved design
+  Widget _buildLogoutTile(BuildContext context, AuthProvider authProvider) {
+    return ListTile(
+      leading: const Icon(
+        Icons.logout,
+        size: 40,
+        color: Colors.red,
+      ),
+      title: const Text(
+        'Logout',
+        style: TextStyle(
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+          color: Colors.red,
+        ),
+      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+      onTap: () {
+        authProvider.logout(context);
+      },
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      tileColor: Colors.red.withOpacity(0.1),
+      hoverColor: Colors.red.withOpacity(0.2),
     );
   }
 }
