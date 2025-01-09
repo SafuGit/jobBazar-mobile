@@ -110,6 +110,10 @@ class PaidPlansPage extends StatelessWidget {
                 offset: const Offset(0, 5),
               ),
             ],
+            border: Border.all(
+              color: Colors.black, // Set the color of the border
+              width: 4, // Set the width of the border
+            ),
           ),
           child: Padding(
             padding: const EdgeInsets.all(16.0),

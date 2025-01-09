@@ -14,62 +14,87 @@ class CardList extends StatefulWidget {
 class _CardListState extends State<CardList> {
   late List<Job> filteredJobs;
 
-  // void _filterJobs(String query) {
-  //   setState(() {
-  //     filteredJobs = widget.jobs
-  //         .where((job) => job.title.toLowerCase().contains(query.toLowerCase()))
-  //         .toList();
-  //   });
-  // }
-
-
   @override
   Widget build(BuildContext context) {
     filteredJobs = List<Job>.from(widget.jobs);
-          return Flexible(
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  // crossAxisSpacing: 10,
-                  // mainAxisSpacing: 10
-                  // childAspectRatio: 0.9
-                ),
-                itemCount: widget.jobs.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final job = widget.jobs[index];
-                  return Card(
-                    shadowColor: Colors.black,
-                    elevation: 20,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Flexible(
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: Text(job.title, style: const TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold
-                                  ),),
-                                ),
-                              ),
-                            ],
-                          ),
-                      
-                          const Divider(),
-                      
-                          // Column(
-                            // children: [
-                              CardButtonWrapper(job: job, theme: widget.theme),
-                            // ],
-                          // )
-                        ],
+    return Flexible(
+      child: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 12.0, // Tighten the spacing between cards
+          mainAxisSpacing: 12.0,  // Consistent vertical spacing
+          childAspectRatio: 0.8,  // A taller aspect ratio to emphasize content
+        ),
+        itemCount: widget.jobs.length,
+        itemBuilder: (BuildContext context, int index) {
+          final job = widget.jobs[index];
+          return Material(
+            color: Colors.transparent,
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: InkWell(
+                onTap: () {
+                  // Handle tap, show detailed job page or modal
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(12.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Colors.grey.shade300, width: 1.0), // Thin border for subtle separation
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.shade200,
+                        blurRadius: 6,
+                        spreadRadius: 2,
                       ),
+                    ],
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Job Icon and Title Side by Side
+                        Row(
+                          children: [
+                            Icon(Icons.work_outline, size: 50, color: Colors.blue.shade500),
+                            const SizedBox(width: 12), // Space between icon and title
+                            Expanded(
+                              child: Text(
+                                job.title,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+              
+                        //  const SizedBox(height: 12), 
+                        Text(
+                          'Company: ${job.company}',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
+                        const Divider(),
+                    
+                        // Card Button for Action
+                        Center(child: CardButtonWrapper(job: job, theme: widget.theme)),
+                      ],
                     ),
-                  );
-                }
+                  ),
+                ),
               ),
-            );
+            ),
+          );
+        },
+      ),
+    );
   }
 }

@@ -50,26 +50,29 @@ class _AllJobsPageState extends State<AllJobsPage> {
             bottomNavigationBar: const BottomNav(),
             body: Container(
               decoration: employerDecoration,
-              child: Column(
-                children: [
-                  const HeadingText(title: "All Jobs Posted",),
-                  SearchWidget(
-                    onSearch: (query) {
-                      debugPrint(query);
-                      var filterJobs = jobs.where(
-                        (job) => job.title.toLowerCase().contains(query.toLowerCase())).toList();
-                      jobNotifier.value = filterJobs;
-                      debugPrint(filterJobs.toString());
-                      debugPrint("job notifier ${jobNotifier.value.toString()}");
-                    },
-                  ),
-                  ValueListenableBuilder(
-                    valueListenable: jobNotifier,
-                    builder: (context, filteredJobs, _) {
-                      return CardList(jobs: filteredJobs);
-                    },
-                  ),
-                ]
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    const HeadingText(title: "All Jobs Posted",),
+                    SearchWidget(
+                      onSearch: (query) {
+                        debugPrint(query);
+                        var filterJobs = jobs.where(
+                          (job) => job.title.toLowerCase().contains(query.toLowerCase())).toList();
+                        jobNotifier.value = filterJobs;
+                        debugPrint(filterJobs.toString());
+                        debugPrint("job notifier ${jobNotifier.value.toString()}");
+                      },
+                    ),
+                    ValueListenableBuilder(
+                      valueListenable: jobNotifier,
+                      builder: (context, filteredJobs, _) {
+                        return CardList(jobs: filteredJobs);
+                      },
+                    ),
+                  ]
+                ),
               ),
             )
           );

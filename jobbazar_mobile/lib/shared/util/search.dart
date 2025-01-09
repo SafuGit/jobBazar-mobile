@@ -8,22 +8,37 @@ class SearchWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
       child: Container(
-        // padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.0),
-          color: Colors.black,
+          borderRadius: BorderRadius.circular(12.0),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 2,
+              blurRadius: 6,
+              offset: const Offset(0, 3), // changes position of shadow
+            ),
+          ],
         ),
         child: TextField(
           onChanged: onSearch,
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.black87, fontSize: 16),
           decoration: InputDecoration(
             hintText: 'Search...',
+            hintStyle: TextStyle(color: Colors.grey.shade600),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.0),
+              borderRadius: BorderRadius.circular(12.0),
+              borderSide: BorderSide.none, // Removes the outline
             ),
-            prefixIcon: const Icon(Icons.search),
+            filled: true,
+            fillColor: Colors.white,
+            prefixIcon: Icon(
+              Icons.search,
+              color: Colors.blue.shade600,
+            ),
+            contentPadding: const EdgeInsets.symmetric(vertical: 14.0),
           ),
         ),
       ),

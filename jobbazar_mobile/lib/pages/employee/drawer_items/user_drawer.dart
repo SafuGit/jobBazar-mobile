@@ -9,46 +9,65 @@ class UserDrawerItems extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ListTile(
-          leading: const Icon(Icons.edit_document, size: 50,),
-          title: const Text('CV Info', style: TextStyle(fontSize: 30)),
-          onTap: () {
-            Navigator.pushReplacementNamed(context, '/employee/cvInfo');
-          },
+        _buildDrawerItem(
+          context,
+          icon: Icons.edit_document,
+          title: 'CV Info',
+          route: '/employee/cvInfo',
         ),
-        const Divider(),
-        ListTile(
-          leading: const Icon(Icons.work, size: 50,),
-          title: const Text('Applied Jobs', style: TextStyle(fontSize: 30)),
-          onTap: () {
-            Navigator.pushReplacementNamed(context, '/employee/appliedJobs');
-          },
+        _buildDrawerItem(
+          context,
+          icon: Icons.work,
+          title: 'Applied Jobs',
+          route: '/employee/appliedJobs',
         ),
-        const Divider(),
-        ListTile(
-          leading: const Icon(Icons.attach_money, size: 50,),
-          title: const Text('Paid Plans', style: TextStyle(fontSize: 30)),
-          onTap: () {
-            Navigator.pushReplacementNamed(context, '/paidPlans', arguments: PaidPlansArgs(gradient: employeeDecoration));
-          },
+        _buildDrawerItem(
+          context,
+          icon: Icons.attach_money,
+          title: 'Paid Plans',
+          route: '/paidPlans',
+          arguments: PaidPlansArgs(gradient: employeeDecoration),
         ),
-        const Divider(),
-        ListTile(
-          leading: const Icon(Icons.notifications, size: 50,),
-          title: const Text('Notifications', style: TextStyle(fontSize: 30)),
-          onTap: () {
-            // Update the state of the app
-            // ...
-          },
+        _buildDrawerItem(
+          context,
+          icon: Icons.notifications,
+          title: 'Notifications',
+          route: '/employee/notifications',
         ),
-        const Divider(),
-        ListTile(
-          leading: const Icon(Icons.school, size: 50,),
-          title: const Text('Courses', style: TextStyle(fontSize: 30)),
-          onTap: () {
-            Navigator.pushReplacementNamed(context, '/employee/learning');
-          },
+        _buildDrawerItem(
+          context,
+          icon: Icons.school,
+          title: 'Courses',
+          route: '/employee/learning',
         ),
+      ],
+    );
+  }
+
+  Widget _buildDrawerItem(
+    BuildContext context, {
+    required IconData icon,
+    required String title,
+    required String route,
+    Object? arguments,
+  }) {
+    return Column(
+      children: [
+        ListTile(
+          leading: Icon(icon, size: 40, color: Colors.blueGrey),
+          title: Text(
+            title,
+            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black),
+          ),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+          onTap: () {
+            Navigator.pushReplacementNamed(context, route, arguments: arguments);
+          },
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          tileColor: Colors.blueGrey.withOpacity(0.05),
+          hoverColor: Colors.blueGrey.withOpacity(0.1),
+        ),
+        const Divider(indent: 20, endIndent: 20),
       ],
     );
   }

@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:jobbazar_mobile/shared/util/hyperlink_text.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -14,101 +14,160 @@ class LoginScreen extends StatelessWidget {
 
     return Scaffold(
       body: Container(
-          decoration: BoxDecoration(
-            image: const DecorationImage(
-              image: NetworkImage("https://static.vecteezy.com/system/resources/thumbnails/037/814/719/small_2x/ai-generated-autumn-leaves-in-the-forest-nature-background-photo.jpg"),
-              fit: BoxFit.cover 
-            ),
-            color: Theme.of(context).scaffoldBackgroundColor,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.blue.shade800, Colors.blue.shade400],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
-          width: double.infinity,
+        ),
+        child: SafeArea(
           child: Center(
-            child: Card(
-              elevation: 5.0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text("Login", style: TextStyle(fontSize: 50),),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text("Email", style: TextStyle(fontSize: 20),),
-                        FractionallySizedBox(
-                          widthFactor: 0.8,
-                          child: TextField(
-                            controller: usernameController,
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: "Type your Email here"
-                            ),
-                          ),
-                        ),
-                      ],
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Lottie.network(
+                    'https://assets6.lottiefiles.com/packages/lf20_k9wsvzgd.json',
+                    height: 120,
+                    width: 120,
+                    animate: true,
+                  ),
+                  const SizedBox(height: 30),
+                  const Text(
+                    'Welcome Back!',
+                    style: TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Please log in to continue.',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white.withOpacity(0.7),
+                    ),
+                  ),
+                  const SizedBox(height: 40),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.easeOut,
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.8),
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            spreadRadius: 5,
+                            blurRadius: 15,
+                          ),
+                        ],
+                      ),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("Password", style: TextStyle(fontSize: 20),),
-                          FractionallySizedBox(
-                            widthFactor: 0.8,
-                            child: TextField(
-                              controller: passwordController,
-                              decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: "Type your Password here"
+                          TextField(
+                            controller: usernameController,
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: InputDecoration(
+                              labelText: 'Email',
+                              labelStyle: TextStyle(
+                                color: Colors.blue.shade800,
+                              ),
+                              prefixIcon: Icon(Icons.email, color: Colors.blue.shade800),
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
                               ),
                             ),
+                          ),
+                          const SizedBox(height: 20),
+                          TextField(
+                            controller: passwordController,
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              labelText: 'Password',
+                              labelStyle: TextStyle(
+                                color: Colors.blue.shade800,
+                              ),
+                              prefixIcon: Icon(Icons.lock, color: Colors.blue.shade800),
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 30),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white, backgroundColor: Colors.blue.shade800,
+                              padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 16),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              elevation: 5,
+                            ),
+                            onPressed: () async {
+                              final authProvider = Provider.of<AuthProvider>(context, listen: false);
+
+                              debugPrint(usernameController.value.text);
+                              debugPrint(passwordController.value.text);
+        
+                              String username = usernameController.text.trim(); // Get username from controller
+                              String password = passwordController.text.trim(); // Get password from controller
+                              try {
+                                await authProvider.login(username, password);
+                                debugPrint("$authProvider.isAuthenticated");
+                              } catch (e) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text('Login failed: ${e.toString()}')),
+                                );
+                              }
+                            },
+                            child: const Text(
+                              'Log In',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Don't have an account?",
+                                style: TextStyle(
+                                  color: Colors.black.withOpacity(0.6),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pushReplacementNamed(context, '/register');
+                                },
+                                child: Text(
+                                  'Sign Up',
+                                  style: TextStyle(
+                                    color: Colors.blue.shade800,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 150,
-                        child: ElevatedButton(
-                          style: const ButtonStyle(
-                            backgroundColor: WidgetStatePropertyAll<Color>(Colors.lightBlueAccent)
-                          ),
-                          child: const Text("Submit"),
-      
-                          onPressed: () async {
-                            final authProvider = Provider.of<AuthProvider>(context, listen: false);
-      
-                            String username = usernameController.text.trim(); // Get username from controller
-                            String password = passwordController.text.trim(); // Get password from controller
-                            try {
-                              await authProvider.login(username, password);
-                              debugPrint("$authProvider.isAuthenticated");
-                            } catch (e) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Login failed: ${e.toString()}')),
-                              );
-                            }
-                          },
-                        ),
-                      ),
-                    ),
-
-                    HyperlinkText(
-                      text: "Dont have an Account?",
-                      onTap: () => {
-                        Navigator.pushNamed(context, '/register')
-                      },
-                    )
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          )
+          ),
+        ),
       ),
     );
   }
