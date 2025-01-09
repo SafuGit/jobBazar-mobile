@@ -1,19 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
+import 'package:jobbazar_mobile/provider/profile_provider.dart';
 import 'package:jobbazar_mobile/shared/appbar.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
 import 'package:jobbazar_mobile/shared/pages/args/profile_args.dart';
 import 'package:provider/provider.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final ProfileArgs args = (ModalRoute.of(context)?.settings.arguments as ProfileArgs?) ?? ProfileArgs(theme: Theme.of(context));
 
     debugPrint("${args.theme?.primaryColor}");
     final authProvider = Provider.of<AuthProvider>(context);
+    final profileProvider = Provider.of<ProfileProvider>(context);
+
+    Image img = Image.network("http://10.0.2.2:8080/api/uploads/pfp/${authProvider.currentUser?.id}");
+
     return Theme(
       data: args.theme ?? Theme.of(context),
       child: Builder(
@@ -44,9 +54,7 @@ class ProfileScreen extends StatelessWidget {
                     // Profile Picture and Name
                     CircleAvatar(
                       radius: 40,
-                      backgroundImage: NetworkImage(
-                        'http://10.0.2.2:8080/api/uploads/pfp/${authProvider.currentUser?.id}', // Replace with the actual image URL
-                      ),
+                      backgroundImage: img.image,
                     ),
                     const SizedBox(height: 10),
                     Text(
@@ -99,7 +107,6 @@ class ProfileScreen extends StatelessWidget {
                     const SizedBox(height: 30),
           
                     // Buttons
-                    // TODO - Implement the buttons
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -115,7 +122,16 @@ class ProfileScreen extends StatelessWidget {
                           label: const Text('Edit Profile', style: TextStyle(color: Colors.white),),
                         ),
                         ElevatedButton.icon(
-                          onPressed: () {},
+                          onPressed: () async {
+                            await profileProvider.pickImage();
+                            if (profileProvider.selectedImage != null) {
+                              await profileProvider.uploadImage(authProvider.currentUser!.id);
+                              setState(() {});
+                              imageCache.clear();
+                              imageCache.clearLiveImages();
+                              Navigator.pushReplacementNamed(context, '/profile');
+                            }
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.redAccent,
                             shape: RoundedRectangleBorder(

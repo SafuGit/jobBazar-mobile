@@ -3,6 +3,7 @@ import 'package:jobbazar_mobile/provider/application_provider.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
 import 'package:jobbazar_mobile/provider/cv_provider.dart';
 import 'package:jobbazar_mobile/provider/job_provider.dart';
+import 'package:jobbazar_mobile/provider/profile_provider.dart';
 import 'package:jobbazar_mobile/provider/user_provider.dart';
 import 'package:jobbazar_mobile/routes.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +17,8 @@ void main() {
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => JobProvider()),
         ChangeNotifierProvider(create: (_) => CvProvider()),
-        ChangeNotifierProvider(create: (_) => ApplicationProvider())
+        ChangeNotifierProvider(create: (_) => ApplicationProvider()),
+        ChangeNotifierProvider(create: (_) => ProfileProvider()),
       ],
       child: const MyApp() 
     ),

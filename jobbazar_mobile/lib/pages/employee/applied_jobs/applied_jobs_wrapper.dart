@@ -69,7 +69,9 @@ class _AppliedJobsState extends State<AppliedJobs> {
       );
     }
     else {
-      return const CircularProgressIndicator();
+      return const CircularProgressIndicator(
+        backgroundColor: Colors.black,
+      );
     }
   }
 }
