@@ -23,26 +23,40 @@ class _AppliedJobsState extends State<AppliedJobs> {
   bool _isInitialized = false;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  void initState() {
+    super.initState();
+
+    debugPrint("$_isInitialized");
 
     if (!_isInitialized) {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       final applicationProvider = Provider.of<ApplicationProvider>(context, listen: false);
       final jobProvider = Provider.of<JobProvider>(context, listen: false);
 
-      applicationProvider.fetchApplicationByUserId(authProvider.currentUser!.id);
+      debugPrint("user_id: ${authProvider.currentUser!.id}");
 
-      final applications = applicationProvider.applications;
+      applicationProvider.fetchApplicationByUserId(authProvider.currentUser!.id).whenComplete(() {
+        final applications = applicationProvider.applications;
+        debugPrint("Applications: ${applications.length}");
 
-      Future.wait(applications.map((application) async {
-        final job = await jobProvider.fetchJobById(application.job_id);
-        if (job != null) {
-          jobs.add(job);
-        }
-      })).then((_) {
-        setState(() {
-          _isInitialized = true;
+        Future.wait(applications.map((application) async {
+          debugPrint("job.id: ${application.job_id}");
+          final job = await jobProvider.fetchJobById(application.job_id);
+          debugPrint("job: $job");
+          setState(() {
+            if (job != null) {
+              jobs.add(job);
+              // Navigator.pushReplacementNamed(context, '/employee/appliedJobs');
+            } else {
+              debugPrint("Job not found");
+            }
+          });
+        })).then((_) {
+          setState(() {
+            // Navigator.pushReplacementNamed(context, '/employee/appliedJobs');
+            _isInitialized = true;
+            debugPrint("$_isInitialized");
+          });
         });
       });
     }
@@ -59,11 +73,14 @@ class _AppliedJobsState extends State<AppliedJobs> {
           height: double.infinity,
           width: double.infinity,
           decoration: employeeDecoration,
-          child: Column(
-            children: [
-              HeadingText(title: "Applied Jobs", subtitle: "${jobs.length} Jobs Found",),
-              CardList(jobs: jobs),
-            ]
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                HeadingText(title: "Applied Jobs", subtitle: "${jobs.length} Jobs Found",),
+                CardList(jobs: jobs),
+              ]
+            ),
           )
         ),
       );

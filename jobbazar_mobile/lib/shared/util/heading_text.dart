@@ -37,7 +37,7 @@ class HeadingText extends StatelessWidget {
     }
     else {
       return Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.only(top: 16, bottom: 16),
         child: Column(
           children: [
             Center(child: Text(title, style: const TextStyle(

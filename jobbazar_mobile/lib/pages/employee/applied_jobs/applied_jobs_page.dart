@@ -22,11 +22,14 @@ class AppliedJobsPage extends StatelessWidget {
           height: double.infinity,
           width: double.infinity,
           decoration: employeeDecoration,
-          child: Column(
-            children: [
-              HeadingText(title: "Applied Jobs", subtitle: "${jobs.length} Jobs Found",),
-              CardList(jobs: jobs),
-            ]
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                HeadingText(title: "Applied Jobs", subtitle: "${jobs.length} Jobs Found",),
+                CardList(jobs: jobs),
+              ]
+            ),
           )
         ),
       );
