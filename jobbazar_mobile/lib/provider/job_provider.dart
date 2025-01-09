@@ -39,8 +39,8 @@ class JobProvider with ChangeNotifier {
     try {
       return await _jobService.getJobById(jobId);
     } catch (e) {
-      debugPrint('Error: $e');
-      throw Exception('Error: $e');
+      // debugPrint('Error: $e');
+      // throw Exception('Error: $e');
     } finally {
       notifyListeners();
     }
