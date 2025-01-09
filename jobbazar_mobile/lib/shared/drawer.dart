@@ -10,28 +10,39 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
     final String title;
+    final LinearGradient userGradient;
 
     if (authProvider.userType == "USER") {
       title = "Employee Dashboard";
+      userGradient = LinearGradient(
+        colors: [Colors.blue.shade800, Colors.blue.shade400],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      );
     } else if (authProvider.userType == "EMPLOYER") {
       title = "Employer Dashboard";
+      userGradient = LinearGradient(
+        colors: [Colors.teal.shade800, Colors.teal.shade400],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      );
     } else {
       title = "Dashboard";
+      userGradient = LinearGradient(
+        colors: [Colors.blue.shade800, Colors.blue.shade400],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      );
     }
 
     return Drawer(
       child: Column(
         children: [
-          // Header with title
           SizedBox(
             height: 150,
             child: DrawerHeader(
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.blue.shade800, Colors.blue.shade400],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
+                gradient: userGradient,
                 // borderRadius: BorderRadius.vertical(bottom: Radius.circular(25)),
               ),
               child: Center(
