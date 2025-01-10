@@ -52,7 +52,7 @@ class EmployeeHeadingButtons extends StatelessWidget {
               _buildButton(
                 icon: Icons.attach_money,
                 label: "Paid Plans",
-                iconColor: Colors.redAccent,
+                iconColor: Colors.blueAccent,
                 onPressed: () {},
               ),
               _buildButton(
@@ -62,9 +62,9 @@ class EmployeeHeadingButtons extends StatelessWidget {
                 onPressed: () {},
               ),
               _buildButton(
-                icon: Icons.settings,
-                label: "Settings",
-                iconColor: Colors.blueAccent,
+                icon: Icons.logout,
+                label: "Logout",
+                iconColor: Colors.redAccent,
                 onPressed: () {},
               ),
             ],
