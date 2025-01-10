@@ -5,7 +5,7 @@ import 'package:jobbazar_mobile/shared/appbar.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
 import 'package:jobbazar_mobile/shared/drawer.dart';
 import 'package:jobbazar_mobile/shared/theme/employee/employee_gradient.dart';
-import 'package:jobbazar_mobile/shared/util/heading_text.dart';
+import 'package:jobbazar_mobile/shared/util/heading/heading_text.dart';
 import 'package:provider/provider.dart';
 
 class CVInformationScreen extends StatelessWidget {

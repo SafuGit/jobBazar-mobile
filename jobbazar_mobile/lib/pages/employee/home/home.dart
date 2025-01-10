@@ -9,7 +9,8 @@ import 'package:jobbazar_mobile/shared/bottom_nav.dart';
 import 'package:jobbazar_mobile/shared/drawer.dart';
 import 'package:jobbazar_mobile/shared/theme/employee/employee_gradient.dart';
 import 'package:jobbazar_mobile/shared/util/card/card_list.dart';
-import 'package:jobbazar_mobile/shared/util/heading_text.dart';
+import 'package:jobbazar_mobile/shared/util/heading/heading_text.dart';
+import 'package:jobbazar_mobile/shared/util/heading/user_heading_buttons.dart';
 import 'package:jobbazar_mobile/shared/util/search.dart';
 import 'package:provider/provider.dart';
 
@@ -57,31 +58,28 @@ class _HomeScreenState extends State<EmployeeHomeScreen> {
       ),
       body: Container(
         decoration: employeeDecoration,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              HeadingText(title: "Welcome, ${currentUser?.name}", subtitle: "Apply to these jobs", subtitle2: "${jobs.length} Jobs Found",),
-        
-              SearchWidget(
-                onSearch: (query) {
-                  // debugPrint(query);
-                  var filterJobs = jobs.where(
-                    (job) => job.title.toLowerCase().contains(query.toLowerCase())).toList();
-                  jobNotifier.value = filterJobs;
-                  // debugPrint(filterJobs.toString());
-                  // debugPrint("job notifier ${jobNotifier.value.toString()}");
-                },
-              ),
-        
-              ValueListenableBuilder(
-                valueListenable: jobNotifier,
-                builder: (context, filteredJobs, _) {
-                  return CardList(jobs: filteredJobs);
-                },
-              ),
-            ],
-          ),
+        child: Column(
+          children: [
+            // HeadingText(title: "Welcome, ${currentUser?.name}", subtitle: "Apply to these jobs", subtitle2: "${jobs.length} Jobs Found",),
+            const EmployeeHeadingButtons(),
+            SearchWidget(
+              onSearch: (query) {
+                // debugPrint(query);
+                var filterJobs = jobs.where(
+                  (job) => job.title.toLowerCase().contains(query.toLowerCase())).toList();
+                jobNotifier.value = filterJobs;
+                // debugPrint(filterJobs.toString());
+                // debugPrint("job notifier ${jobNotifier.value.toString()}");
+              },
+            ),
+      
+            ValueListenableBuilder(
+              valueListenable: jobNotifier,
+              builder: (context, filteredJobs, _) {
+                return CardList(jobs: filteredJobs);
+              },
+            ),
+          ],
         ),
       ),
 
