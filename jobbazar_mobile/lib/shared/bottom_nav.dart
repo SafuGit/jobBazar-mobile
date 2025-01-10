@@ -10,46 +10,62 @@ class BottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
-    return BottomNavigationBar(
+    
+    return Container(
+      decoration: const BoxDecoration(
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Colors.black,
+            blurRadius: 10
+          )
+        ]
+      ),
+      child: BottomNavigationBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        selectedLabelStyle: TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontSize: 24),
-        unselectedLabelStyle: TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontSize: 24),
-        items: const [ 
+        selectedItemColor: Theme.of(context).colorScheme.onSurface, // Selected icon color
+        unselectedItemColor: Theme.of(context).colorScheme.onSurface, // Unselected icon color
+        selectedLabelStyle: TextStyle(
+          color: Theme.of(context).colorScheme.onPrimary, 
+          fontSize: 20, 
+          fontWeight: FontWeight.bold
+        ),
+        unselectedLabelStyle: TextStyle(
+          color: Theme.of(context).colorScheme.onSurface,
+          fontSize: 20, 
+          fontWeight: FontWeight.bold
+        ),
+        items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home, size: 40),
+            icon: Icon(Icons.home, size: 30), // Slightly reduced icon size
             label: 'Home',
           ),
-
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle, size: 40),
-            label: "Profile",
-          )
+            icon: Icon(Icons.account_circle, size: 30), // Slightly reduced icon size
+            label: 'Profile',
+          ),
         ],
-
         onTap: (int index) {
           switch (index) {
             case 0:
               if (authProvider.userType == "USER") {
-                Navigator.pushNamed(context, '/userHome');
-                break;
+                Navigator.pushReplacementNamed(context, '/userHome'); // Replaces current screen
+              } else if (authProvider.userType == "EMPLOYER") {
+                Navigator.pushReplacementNamed(context, '/employerHome');
               }
-              else if (authProvider.userType == "EMPLOYER") {
-                Navigator.pushNamed(context, '/employerHome');
-                break;
-              }
+              break;
             case 1:
               if (authProvider.userType == "USER") {
-                Navigator.pushNamed(context, '/profile');
-                break;
+                Navigator.pushReplacementNamed(context, '/profile');
+              } else if (authProvider.userType == "EMPLOYER") {
+                Navigator.pushReplacementNamed(context, '/profile', arguments: ProfileArgs(theme: employerTheme));
               }
-              else if (authProvider.userType == "EMPLOYER") {
-                Navigator.pushNamed(context, '/profile', arguments: ProfileArgs(theme: employerTheme));
-                break;
-              }
-              // Navigator.pushNamed(context, '/profile');
-              // break;
+              break;
           }
         },
-      );
+        elevation: 50,
+        // showSelectedLabels: true, 
+        showUnselectedLabels: true, 
+      ),
+    );
   }
 }

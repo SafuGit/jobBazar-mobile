@@ -6,7 +6,7 @@ import 'package:jobbazar_mobile/shared/appbar.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
 import 'package:jobbazar_mobile/shared/drawer.dart';
 import 'package:jobbazar_mobile/shared/util/card/card_list.dart';
-import 'package:jobbazar_mobile/shared/util/heading_text.dart';
+import 'package:jobbazar_mobile/shared/util/heading/heading_text.dart';
 import 'package:provider/provider.dart';
 
 import '../../../provider/job_provider.dart';
