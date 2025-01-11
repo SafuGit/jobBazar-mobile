@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
-import 'package:jobbazar_mobile/shared/wrapper/drawer_wrapper.dart';
+import 'package:jobbazar_mobile/deprecated/drawer_wrapper.dart';
 import 'package:provider/provider.dart';
 
 class AppDrawer extends StatelessWidget {

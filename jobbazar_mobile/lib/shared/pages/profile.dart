@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
 import 'package:jobbazar_mobile/provider/profile_provider.dart';
-import 'package:jobbazar_mobile/shared/appbar.dart';
+import 'package:jobbazar_mobile/deprecated/appbar.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
 import 'package:jobbazar_mobile/shared/pages/args/profile_args.dart';
 import 'package:provider/provider.dart';

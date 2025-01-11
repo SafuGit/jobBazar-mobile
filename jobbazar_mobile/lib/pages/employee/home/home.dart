@@ -1,12 +1,14 @@
 // ignore_for_file: unused_import
 
 import 'package:flutter/material.dart';
+import 'package:jobbazar_mobile/deprecated/appbar.dart';
+import 'package:jobbazar_mobile/shared/appbar2.dart';
 import 'package:jobbazar_mobile/shared/pages/args/job_args.dart';
 import 'package:jobbazar_mobile/shared/pages/job_info.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
 import 'package:jobbazar_mobile/provider/job_provider.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
-import 'package:jobbazar_mobile/shared/drawer.dart';
+import 'package:jobbazar_mobile/deprecated/drawer.dart';
 import 'package:jobbazar_mobile/shared/theme/employee/employee_gradient.dart';
 import 'package:jobbazar_mobile/shared/util/card/card_list.dart';
 import 'package:jobbazar_mobile/shared/util/heading/heading_text.dart';
@@ -52,10 +54,8 @@ class _HomeScreenState extends State<EmployeeHomeScreen> {
     final currentUser = authProvider.currentUser;
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Text(widget.title, style: const TextStyle(color: Colors.white),),
-      ),
+      // appBar: SharedAppBar(title: "e", color: Theme.of(context).colorScheme.primary),
+      appBar: const Appbar2(),
       body: Container(
         decoration: employeeDecoration,
         child: Column(
@@ -73,17 +73,17 @@ class _HomeScreenState extends State<EmployeeHomeScreen> {
               },
             ),
       
-            ValueListenableBuilder(
-              valueListenable: jobNotifier,
-              builder: (context, filteredJobs, _) {
-                return CardList(jobs: filteredJobs);
-              },
-            ),
+            // ValueListenableBuilder(
+            //   valueListenable: jobNotifier,
+            //   builder: (context, filteredJobs, _) {
+            //     return CardList(jobs: filteredJobs);
+            //   },
+            // ),
           ],
         ),
       ),
 
-      drawer: const AppDrawer(),
+      // drawer: const AppDrawer(),
 
       bottomNavigationBar: const BottomNav()
     );

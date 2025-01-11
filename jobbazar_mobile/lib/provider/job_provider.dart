@@ -44,6 +44,7 @@ class JobProvider with ChangeNotifier {
     } finally {
       notifyListeners();
     }
+    return null;
   }
 
 
