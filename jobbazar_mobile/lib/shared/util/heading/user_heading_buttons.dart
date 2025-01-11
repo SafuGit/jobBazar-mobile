@@ -29,19 +29,25 @@ class EmployeeHeadingButtons extends StatelessWidget {
                 icon: Icons.edit_document,
                 label: "CV Info",
                 iconColor: Colors.indigo,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/employee/cvInfo');
+                },
               ),
               _buildButton(
                 icon: Icons.business_center,
                 label: "Applied Jobs",
                 iconColor: Colors.teal,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/employee/appliedJobs');
+                },
               ),
               _buildButton(
                 icon: Icons.school,
                 label: "Courses",
                 iconColor: Colors.orangeAccent,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/employee/learning');
+                },
               ),
             ],
           ),
@@ -53,7 +59,9 @@ class EmployeeHeadingButtons extends StatelessWidget {
                 icon: Icons.attach_money,
                 label: "Paid Plans",
                 iconColor: Colors.blueAccent,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/paid_plans');
+                },
               ),
               _buildButton(
                 icon: Icons.notifications,

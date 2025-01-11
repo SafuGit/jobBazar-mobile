@@ -14,31 +14,31 @@ class LearningScreen extends StatelessWidget {
         'title': 'Ace Your Resume',
         'description': 'Create a powerful resume recruiters love.',
         'duration': '2 hours',
-        'image': 'https://via.placeholder.com/300x150',
+        'image': 'https://dummyimage.com/300x150',
       },
       {
         'title': 'Master the Job Interview',
         'description': 'Learn techniques to confidently tackle interviews.',
         'duration': '3 hours',
-        'image': 'https://via.placeholder.com/300x150',
+        'image': 'https://dummyimage.com/300x150',
       },
       {
         'title': 'LinkedIn Profile Boost',
         'description': 'Optimize your LinkedIn profile to get noticed.',
         'duration': '1.5 hours',
-        'image': 'https://via.placeholder.com/300x150',
+        'image': 'https://dummyimage.com/300x150',
       },
       {
         'title': 'Networking Like a Pro',
         'description': 'Build connections to land your dream job.',
         'duration': '2.5 hours',
-        'image': 'https://via.placeholder.com/300x150',
+        'image': 'https://dummyimage.com/300x150',
       },
       {
         'title': 'Effective Communication',
         'description': 'Polish your workplace communication skills.',
         'duration': '2 hours',
-        'image': 'https://via.placeholder.com/300x150',
+        'image': 'https://dummyimage.com/300x150',
       },
     ];
 
