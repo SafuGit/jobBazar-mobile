@@ -9,13 +9,14 @@ class Appbar2 extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final AuthProvider authProvider = Provider.of<AuthProvider>(context);
     return AppBar(
+      automaticallyImplyLeading: false,
       backgroundColor: Colors.transparent,
       elevation: 0,
       toolbarHeight: 80, // Adjusted height for a custom design
       flexibleSpace: Container(
-        decoration: const BoxDecoration(
-          color: Colors.blueAccent,
-          borderRadius: BorderRadius.only(
+        decoration: BoxDecoration(
+          color: Colors.blue.shade800,
+          borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(24),
             bottomRight: Radius.circular(24),
           ),

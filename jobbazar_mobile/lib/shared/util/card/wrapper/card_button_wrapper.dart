@@ -13,8 +13,9 @@ class CardButtonWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
     if (authProvider.userType == "USER") {
-      return Column(
-        // TODO: Implement Following Buttons
+      return Row(
+        // TODO: Implement Apply Button
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Padding(
             padding: const EdgeInsets.all(4.0),

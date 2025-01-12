@@ -13,6 +13,9 @@ import 'package:jobbazar_mobile/shared/theme/employee/employee_gradient.dart';
 import 'package:jobbazar_mobile/shared/util/card/card_list.dart';
 import 'package:jobbazar_mobile/shared/util/heading/heading_text.dart';
 import 'package:jobbazar_mobile/shared/util/heading/user_heading_buttons.dart';
+import 'package:jobbazar_mobile/shared/util/hot_jobs.dart';
+import 'package:jobbazar_mobile/shared/util/hot_jobs_list.dart';
+import 'package:jobbazar_mobile/shared/util/jobs_accordion.dart';
 import 'package:jobbazar_mobile/shared/util/search.dart';
 import 'package:provider/provider.dart';
 
@@ -72,18 +75,21 @@ class _HomeScreenState extends State<EmployeeHomeScreen> {
                 // debugPrint("job notifier ${jobNotifier.value.toString()}");
               },
             ),
-      
-            // ValueListenableBuilder(
-            //   valueListenable: jobNotifier,
-            //   builder: (context, filteredJobs, _) {
-            //     return CardList(jobs: filteredJobs);
-            //   },
-            // ),
+
+            // TODO: Fix Search
+            ValueListenableBuilder(
+              valueListenable: jobNotifier,
+              builder: (context, filteredJobs, _) {
+                // return HotJobsGrid(jobs: jobs);
+                // return HotJobsList(jobs: jobs);
+                return HotJobsAccordion(jobs: jobs);
+              },
+            )
           ],
         ),
       ),
 
-      // drawer: const AppDrawer(),
+      drawer: const AppDrawer(),
 
       bottomNavigationBar: const BottomNav()
     );
