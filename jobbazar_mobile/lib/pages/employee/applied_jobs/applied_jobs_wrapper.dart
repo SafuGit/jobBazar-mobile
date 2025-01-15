@@ -4,7 +4,7 @@ import 'package:jobbazar_mobile/provider/auth_provider.dart';
 import 'package:jobbazar_mobile/provider/job_provider.dart';
 import 'package:jobbazar_mobile/provider/models/job.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
-import 'package:jobbazar_mobile/deprecated/drawer.dart';
+import 'package:jobbazar_mobile/shared/drawer.dart';
 import 'package:jobbazar_mobile/shared/page_appbar.dart';
 import 'package:jobbazar_mobile/shared/theme/employee/employee_gradient.dart';
 import 'package:jobbazar_mobile/shared/util/card/card_list.dart';

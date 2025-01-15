@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/deprecated/appbar.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
-import 'package:jobbazar_mobile/deprecated/drawer.dart';
+import 'package:jobbazar_mobile/shared/drawer.dart';
 import 'package:jobbazar_mobile/shared/page_appbar.dart';
 import 'package:jobbazar_mobile/shared/pages/args/paid_plans_args.dart';
 import 'package:jobbazar_mobile/shared/theme/employee/employee_gradient.dart';

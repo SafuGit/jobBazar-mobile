@@ -73,7 +73,9 @@ class EmployeeHeadingButtons extends StatelessWidget {
                 icon: Icons.logout,
                 label: "Logout",
                 iconColor: Colors.redAccent,
-                onPressed: () {},
+                onPressed: () {
+                  
+                },
               ),
             ],
           )
