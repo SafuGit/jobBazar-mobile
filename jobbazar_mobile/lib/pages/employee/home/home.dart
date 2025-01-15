@@ -32,6 +32,7 @@ class EmployeeHomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<EmployeeHomeScreen> {
   late ValueNotifier<List<Job>> jobNotifier;
+  late List<Job> jobs;
 
   @override
   void initState() {
@@ -44,11 +45,15 @@ class _HomeScreenState extends State<EmployeeHomeScreen> {
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
     final jobProvider = Provider.of<JobProvider>(context);
+    debugPrint(jobProvider.jobs.isEmpty.toString());
     if (jobProvider.jobs.isEmpty) {
-      jobProvider.fetchJobs();
+      jobProvider.fetchJobs().whenComplete(() {
+        jobs = jobProvider.jobs.reversed.toList();
+      });
     }
-
-    final jobs = jobProvider.jobs.reversed.toList();
+    else {
+      jobs = jobProvider.jobs.reversed.toList();
+    }
 
     if (jobNotifier.value != jobs) {
       jobNotifier.value = jobs;
@@ -82,7 +87,7 @@ class _HomeScreenState extends State<EmployeeHomeScreen> {
               builder: (context, filteredJobs, _) {
                 // return HotJobsGrid(jobs: jobs);
                 // return HotJobsList(jobs: jobs);
-                return HotJobsAccordion(jobs: jobs);
+                return HotJobsAccordion(jobs: filteredJobs);
               },
             )
           ],

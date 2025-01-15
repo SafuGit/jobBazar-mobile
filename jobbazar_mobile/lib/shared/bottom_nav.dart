@@ -36,10 +36,6 @@ class BottomNav extends StatelessWidget {
         ),
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.menu, size: 30), // Slightly reduced icon size
-            label: 'Drawer',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.home, size: 30), // Slightly reduced icon size
             label: 'Home',
           ),
@@ -51,15 +47,13 @@ class BottomNav extends StatelessWidget {
         onTap: (int index) {
           switch (index) {
             case 0:
-              Scaffold.of(context).openDrawer();
-            case 1:
               if (authProvider.userType == "USER") {
                 Navigator.pushReplacementNamed(context, '/userHome'); // Replaces current screen
               } else if (authProvider.userType == "EMPLOYER") {
                 Navigator.pushReplacementNamed(context, '/employerHome');
               }
               break;
-            case 2:
+            case 1:
               if (authProvider.userType == "USER") {
                 Navigator.pushReplacementNamed(context, '/profile');
               } else if (authProvider.userType == "EMPLOYER") {

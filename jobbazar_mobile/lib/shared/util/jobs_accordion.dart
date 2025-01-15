@@ -63,11 +63,18 @@ class _HotJobsAccordionState extends State<HotJobsAccordion> {
                         ),
                         title: Text(
                           job.title,
-                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
                         ),
                         subtitle: Text(
                           job.location,
-                          style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                          style: const TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.grey,
+                                    ),
                         ),
                       ),
                     );

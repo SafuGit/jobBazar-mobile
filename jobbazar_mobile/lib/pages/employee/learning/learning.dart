@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/deprecated/appbar.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
 import 'package:jobbazar_mobile/deprecated/drawer.dart';
+import 'package:jobbazar_mobile/shared/page_appbar.dart';
 
 class LearningScreen extends StatelessWidget {
   const LearningScreen({super.key});
@@ -185,9 +186,12 @@ class LearningScreen extends StatelessWidget {
           ],
         ),
       ),
-      appBar: SharedAppBar(
-        title: "JobBazar Mobile - Courses",
-        color: Theme.of(context).primaryColor,
+      // appBar: SharedAppBar(
+      //   title: "JobBazar Mobile - Courses",
+      //   color: Theme.of(context).primaryColor,
+      // ),
+      appBar: const PageAppbar(
+        title: "Learning Page",
       ),
       drawer: const AppDrawer(),
       bottomNavigationBar: const BottomNav(),

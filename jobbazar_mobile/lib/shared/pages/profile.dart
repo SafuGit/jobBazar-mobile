@@ -3,6 +3,7 @@ import 'package:jobbazar_mobile/provider/auth_provider.dart';
 import 'package:jobbazar_mobile/provider/profile_provider.dart';
 import 'package:jobbazar_mobile/deprecated/appbar.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
+import 'package:jobbazar_mobile/shared/page_appbar.dart';
 import 'package:jobbazar_mobile/shared/pages/args/profile_args.dart';
 import 'package:jobbazar_mobile/shared/title_appbar.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: Builder(
         builder: (context) {
           return Scaffold(
-            appBar: const TitleAppbar(title: "Profile", ),
+            appBar: const PageAppbar(title: "Profile"),
             backgroundColor: args.theme?.colorScheme.secondary ?? Theme.of(context).colorScheme.secondary, // Background color
             bottomNavigationBar: const BottomNav(),
             body: Center(
