@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jobbazar_mobile/shared/appbar2.dart';
 import 'package:jobbazar_mobile/shared/theme/employer/employer_gradient.dart';
 import 'package:jobbazar_mobile/shared/theme/employer/theme.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
@@ -6,7 +7,9 @@ import 'package:jobbazar_mobile/deprecated/appbar.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
 import 'package:jobbazar_mobile/shared/drawer.dart';
 import 'package:jobbazar_mobile/shared/util/card/card_list.dart';
+import 'package:jobbazar_mobile/shared/util/heading/employer_heading_buttons.dart';
 import 'package:jobbazar_mobile/shared/util/heading/heading_text.dart';
+import 'package:jobbazar_mobile/shared/util/jobs_accordion.dart';
 import 'package:provider/provider.dart';
 
 import '../../../provider/job_provider.dart';
@@ -34,24 +37,27 @@ class EmployerHomeScreen extends StatelessWidget {
       child: Builder(
         builder: (context) {
           return Scaffold(
-            appBar: SharedAppBar(
-              title: "JobBazar Mobile - Employer Home", 
-              color: Theme.of(context).colorScheme.primary, // Using the theme color
-            ),
+            appBar: SharedAppBar(title: "e", color: Theme.of(context).colorScheme.primary),
             drawer: const AppDrawer(),
             bottomNavigationBar: const BottomNav(),
             body: Container(
               decoration: employerDecoration,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    HeadingText(title: "Welcome, ${authProvider.currentUser?.name}", subtitle: "Your Companies Posted Jobs", subtitle2: "${jobs.length} Jobs Found",),
-                    CardList(jobs: jobs, theme: employerTheme,),
-                  ],
-                ),
+              child: Column(
+                children: [
+                  // HeadingText(title: "Welcome, ${authProvider.currentUser?.name}", subtitle: "Your Companies Posted Jobs", subtitle2: "${jobs.length} Jobs Found",),
+                  EmployerHeadingButtons(),
+                  Builder(
+                    builder: (context) {
+                      if (jobs.isNotEmpty) {
+                        return HotJobsAccordion(jobs: jobs);
+                      } else {
+                        return const Text("Loading");
+                      }
+                    }
+                  )
+                ],
               ),
-            )
+            ),
           );
         }
       ),

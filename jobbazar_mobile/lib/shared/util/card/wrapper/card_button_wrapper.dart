@@ -40,7 +40,8 @@ class CardButtonWrapper extends StatelessWidget {
       );
     }
     else if (authProvider.userType == "EMPLOYER") {
-      return Column(
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           ElevatedButton(
               onPressed: () {

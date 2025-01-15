@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
 
-class EmployeeHeadingButtons extends StatelessWidget {
-  const EmployeeHeadingButtons({super.key});
+class EmployerHeadingButtons extends StatelessWidget {
+  const EmployerHeadingButtons({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class EmployeeHeadingButtons extends StatelessWidget {
             children: [
               _buildButton(
                 icon: Icons.edit_document,
-                label: "CV Info",
+                label: "Application",
                 iconColor: Colors.indigo,
                 onPressed: () {
                   Navigator.pushNamed(context, '/employee/cvInfo');
@@ -38,7 +38,7 @@ class EmployeeHeadingButtons extends StatelessWidget {
               ),
               _buildButton(
                 icon: Icons.business_center,
-                label: "Applied Jobs",
+                label: "Job Postings",
                 iconColor: Colors.teal,
                 onPressed: () {
                   Navigator.pushNamed(context, '/employee/appliedJobs');
@@ -46,7 +46,7 @@ class EmployeeHeadingButtons extends StatelessWidget {
               ),
               _buildButton(
                 icon: Icons.school,
-                label: "Courses",
+                label: "Paid Plans",
                 iconColor: Colors.orangeAccent,
                 onPressed: () {
                   Navigator.pushNamed(context, '/employee/learning');
@@ -60,7 +60,7 @@ class EmployeeHeadingButtons extends StatelessWidget {
             children: [
               _buildButton(
                 icon: Icons.attach_money,
-                label: "Paid Plans",
+                label: "Hiring Tips",
                 iconColor: Colors.blueAccent,
                 onPressed: () {
                   Navigator.pushNamed(context, '/paidPlans');
@@ -68,7 +68,7 @@ class EmployeeHeadingButtons extends StatelessWidget {
               ),
               _buildButton(
                 icon: Icons.notifications,
-                label: "Notification",
+                label: "Company",
                 iconColor: Colors.purpleAccent,
                 onPressed: () {},
               ),
