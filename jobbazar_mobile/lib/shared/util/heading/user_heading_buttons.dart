@@ -60,7 +60,7 @@ class EmployeeHeadingButtons extends StatelessWidget {
                 label: "Paid Plans",
                 iconColor: Colors.blueAccent,
                 onPressed: () {
-                  Navigator.pushNamed(context, '/paid_plans');
+                  Navigator.pushNamed(context, '/paidPlans');
                 },
               ),
               _buildButton(
