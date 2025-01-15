@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jobbazar_mobile/shared/wrapper/gradient_wrapper.dart';
 
 class PageAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -15,22 +16,7 @@ class PageAppbar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       elevation: 4,
       toolbarHeight: 80,
-      flexibleSpace: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.blue.shade800, Colors.blue.shade600],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              blurRadius: 6,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-      ),
+      flexibleSpace: const GradientWrapper(),
       title: Text(
         title,
         style: const TextStyle(

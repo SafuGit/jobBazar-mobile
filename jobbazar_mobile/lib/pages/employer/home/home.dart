@@ -37,7 +37,7 @@ class EmployerHomeScreen extends StatelessWidget {
       child: Builder(
         builder: (context) {
           return Scaffold(
-            appBar: SharedAppBar(title: "e", color: Theme.of(context).colorScheme.primary),
+            appBar: const Appbar2(),
             drawer: const AppDrawer(),
             bottomNavigationBar: const BottomNav(),
             body: Container(
@@ -45,7 +45,7 @@ class EmployerHomeScreen extends StatelessWidget {
               child: Column(
                 children: [
                   // HeadingText(title: "Welcome, ${authProvider.currentUser?.name}", subtitle: "Your Companies Posted Jobs", subtitle2: "${jobs.length} Jobs Found",),
-                  EmployerHeadingButtons(),
+                  const EmployerHeadingButtons(),
                   Builder(
                     builder: (context) {
                       if (jobs.isNotEmpty) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jobbazar_mobile/shared/page_appbar.dart';
 import 'package:jobbazar_mobile/shared/theme/employer/theme.dart';
 import 'package:jobbazar_mobile/deprecated/appbar.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
@@ -16,7 +17,7 @@ class HiringTipsPage extends StatelessWidget {
       child: Builder(
         builder: (context) {
           return Scaffold(
-            appBar: SharedAppBar(title: "JobBazar Mobile - Hiring Tips", color: Theme.of(context).colorScheme.primary),
+            appBar: const PageAppbar(title: "Hiring Tips"),
             drawer: const AppDrawer(),
             bottomNavigationBar: const BottomNav(),
             body: Container(
