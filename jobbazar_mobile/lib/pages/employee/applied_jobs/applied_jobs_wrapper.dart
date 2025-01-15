@@ -3,12 +3,13 @@ import 'package:jobbazar_mobile/provider/application_provider.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
 import 'package:jobbazar_mobile/provider/job_provider.dart';
 import 'package:jobbazar_mobile/provider/models/job.dart';
-import 'package:jobbazar_mobile/shared/appbar.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
 import 'package:jobbazar_mobile/shared/drawer.dart';
+import 'package:jobbazar_mobile/shared/page_appbar.dart';
 import 'package:jobbazar_mobile/shared/theme/employee/employee_gradient.dart';
 import 'package:jobbazar_mobile/shared/util/card/card_list.dart';
 import 'package:jobbazar_mobile/shared/util/heading/heading_text.dart';
+import 'package:jobbazar_mobile/shared/util/jobs_accordion.dart';
 import 'package:provider/provider.dart';
 
 class AppliedJobs extends StatefulWidget {
@@ -22,25 +23,19 @@ class _AppliedJobsState extends State<AppliedJobs> {
   List<Job> jobs = [];
   bool _isInitialized = false;
 
-  @override
-  void initState() {
-    super.initState();
-
-    debugPrint("$_isInitialized");
-
-    if (!_isInitialized) {
+  Future<void> fetchData() async {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       final applicationProvider = Provider.of<ApplicationProvider>(context, listen: false);
       final jobProvider = Provider.of<JobProvider>(context, listen: false);
 
-      debugPrint("user_id: ${authProvider.currentUser!.id}");
+      // debugPrint("user_id: ${authProvider.currentUser!.id}");
 
       applicationProvider.fetchApplicationByUserId(authProvider.currentUser!.id).whenComplete(() {
         final applications = applicationProvider.applications;
-        debugPrint("Applications: ${applications.length}");
+        // debugPrint("Applications: ${applications.length}");
 
         Future.wait(applications.map((application) async {
-          debugPrint("job.id: ${application.job_id}");
+          // debugPrint("job.id: ${application.job_id}");
           final job = await jobProvider.fetchJobById(application.job_id);
           debugPrint("job: $job");
           setState(() {
@@ -59,14 +54,24 @@ class _AppliedJobsState extends State<AppliedJobs> {
           });
         });
       });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    debugPrint("$_isInitialized");
+
+    if (!_isInitialized) {
+      fetchData();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (jobs != []) {
+    if (jobs.isNotEmpty) {
       return Scaffold(
-        appBar: SharedAppBar(title: "JobBazar Mobile - Applied Jobs", color: Theme.of(context).colorScheme.primary,),
+        appBar: const PageAppbar(title: "Applied Jobs"),
         drawer: const AppDrawer(),
         bottomNavigationBar: const BottomNav(),
         body: Container(
@@ -78,7 +83,19 @@ class _AppliedJobsState extends State<AppliedJobs> {
             child: Column(
               children: [
                 HeadingText(title: "Applied Jobs", subtitle: "${jobs.length} Jobs Found",),
-                CardList(jobs: jobs),
+                // FutureBuilder(
+                //   future: fetchData() ,
+                //   builder: (context, snapshot) => HotJobsAccordion(jobs: jobs),
+                // )
+                Builder(
+                  builder: (context) {
+                    if (jobs.isNotEmpty) {
+                      return HotJobsAccordion(jobs: jobs);
+                    } else { 
+                      return const Center(child: Text("Loading"),);
+                    }
+                  }
+                )
               ]
             ),
           )
@@ -86,9 +103,7 @@ class _AppliedJobsState extends State<AppliedJobs> {
       );
     }
     else {
-      return const CircularProgressIndicator(
-        backgroundColor: Colors.black,
-      );
+      return const Text("Loading");
     }
   }
 }

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
+import 'package:jobbazar_mobile/shared/pages/args/paid_plans_args.dart';
+import 'package:jobbazar_mobile/shared/theme/employer/employer_gradient.dart';
+import 'package:jobbazar_mobile/shared/theme/employer/theme.dart';
 import 'package:provider/provider.dart';
 
-class EmployeeHeadingButtons extends StatelessWidget {
-  const EmployeeHeadingButtons({super.key});
+class EmployerHeadingButtons extends StatelessWidget {
+  const EmployerHeadingButtons({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,27 +32,29 @@ class EmployeeHeadingButtons extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _buildButton(
-                icon: Icons.edit_document,
-                label: "CV Info",
+                icon: Icons.document_scanner,
+                label: "Application",
                 iconColor: Colors.indigo,
                 onPressed: () {
-                  Navigator.pushNamed(context, '/employee/cvInfo');
+                  Navigator.pushNamed(context, '');
                 },
               ),
               _buildButton(
-                icon: Icons.business_center,
-                label: "Applied Jobs",
+                icon: Icons.email,
+                label: "Job Postings",
                 iconColor: Colors.teal,
                 onPressed: () {
-                  Navigator.pushNamed(context, '/employee/appliedJobs');
+                  Navigator.pushNamed(context, '/employer/allJobs');
                 },
               ),
               _buildButton(
-                icon: Icons.school,
-                label: "Courses",
+                icon: Icons.attach_money,
+                label: "Paid Plans",
                 iconColor: Colors.orangeAccent,
                 onPressed: () {
-                  Navigator.pushNamed(context, '/employee/learning');
+                  Navigator.pushNamed(context, '/paidPlans', arguments: PaidPlansArgs(
+                    theme: employerTheme, gradient: employerDecoration
+                  ));
                 },
               ),
             ],
@@ -59,16 +64,16 @@ class EmployeeHeadingButtons extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _buildButton(
-                icon: Icons.attach_money,
-                label: "Paid Plans",
+                icon: Icons.notifications,
+                label: "Hiring Tips",
                 iconColor: Colors.blueAccent,
                 onPressed: () {
-                  Navigator.pushNamed(context, '/paidPlans');
+                  Navigator.pushNamed(context, '/employer/hiringTips');
                 },
               ),
               _buildButton(
-                icon: Icons.notifications,
-                label: "Notification",
+                icon: Icons.work,
+                label: "Company",
                 iconColor: Colors.purpleAccent,
                 onPressed: () {},
               ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
 import 'package:jobbazar_mobile/provider/profile_provider.dart';
-import 'package:jobbazar_mobile/shared/appbar.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
+import 'package:jobbazar_mobile/shared/page_appbar.dart';
 import 'package:jobbazar_mobile/shared/pages/args/profile_args.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: Builder(
         builder: (context) {
           return Scaffold(
-            appBar: SharedAppBar(title: "Profile", color: Theme.of(context).colorScheme.primary),
+            appBar: const PageAppbar(title: "Profile"),
             backgroundColor: args.theme?.colorScheme.secondary ?? Theme.of(context).colorScheme.secondary, // Background color
             bottomNavigationBar: const BottomNav(),
             body: Center(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:jobbazar_mobile/shared/appbar.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
 import 'package:jobbazar_mobile/shared/drawer.dart';
+import 'package:jobbazar_mobile/shared/page_appbar.dart';
 
 class LearningScreen extends StatelessWidget {
   const LearningScreen({super.key});
@@ -14,31 +14,31 @@ class LearningScreen extends StatelessWidget {
         'title': 'Ace Your Resume',
         'description': 'Create a powerful resume recruiters love.',
         'duration': '2 hours',
-        'image': 'https://via.placeholder.com/300x150',
+        'image': 'https://dummyimage.com/300x150',
       },
       {
         'title': 'Master the Job Interview',
         'description': 'Learn techniques to confidently tackle interviews.',
         'duration': '3 hours',
-        'image': 'https://via.placeholder.com/300x150',
+        'image': 'https://dummyimage.com/300x150',
       },
       {
         'title': 'LinkedIn Profile Boost',
         'description': 'Optimize your LinkedIn profile to get noticed.',
         'duration': '1.5 hours',
-        'image': 'https://via.placeholder.com/300x150',
+        'image': 'https://dummyimage.com/300x150',
       },
       {
         'title': 'Networking Like a Pro',
         'description': 'Build connections to land your dream job.',
         'duration': '2.5 hours',
-        'image': 'https://via.placeholder.com/300x150',
+        'image': 'https://dummyimage.com/300x150',
       },
       {
         'title': 'Effective Communication',
         'description': 'Polish your workplace communication skills.',
         'duration': '2 hours',
-        'image': 'https://via.placeholder.com/300x150',
+        'image': 'https://dummyimage.com/300x150',
       },
     ];
 
@@ -185,9 +185,12 @@ class LearningScreen extends StatelessWidget {
           ],
         ),
       ),
-      appBar: SharedAppBar(
-        title: "JobBazar Mobile - Courses",
-        color: Theme.of(context).primaryColor,
+      // appBar: SharedAppBar(
+      //   title: "JobBazar Mobile - Courses",
+      //   color: Theme.of(context).primaryColor,
+      // ),
+      appBar: const PageAppbar(
+        title: "Learning Page",
       ),
       drawer: const AppDrawer(),
       bottomNavigationBar: const BottomNav(),

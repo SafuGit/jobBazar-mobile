@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/shared/pages/args/job_args.dart';
-import 'package:jobbazar_mobile/shared/appbar.dart';
+import 'package:jobbazar_mobile/deprecated/appbar.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
 import 'package:jobbazar_mobile/shared/drawer.dart';
 import 'package:jobbazar_mobile/shared/util/info_row.dart';
