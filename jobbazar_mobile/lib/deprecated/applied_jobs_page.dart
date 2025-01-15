@@ -4,7 +4,6 @@ import 'package:jobbazar_mobile/deprecated/appbar.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
 import 'package:jobbazar_mobile/deprecated/drawer.dart';
 import 'package:jobbazar_mobile/shared/theme/employee/employee_gradient.dart';
-import 'package:jobbazar_mobile/shared/util/card/card_list.dart';
 import 'package:jobbazar_mobile/shared/util/heading/heading_text.dart';
 import 'package:jobbazar_mobile/shared/util/jobs_accordion.dart';
 

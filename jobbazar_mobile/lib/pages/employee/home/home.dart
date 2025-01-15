@@ -45,7 +45,7 @@ class _HomeScreenState extends State<EmployeeHomeScreen> {
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
     final jobProvider = Provider.of<JobProvider>(context);
-    debugPrint(jobProvider.jobs.isEmpty.toString());
+    // debugPrint(jobProvider.jobs.isEmpty.toString());
     if (jobProvider.jobs.isEmpty) {
       jobProvider.fetchJobs().whenComplete(() {
         jobs = jobProvider.jobs.reversed.toList();
@@ -59,6 +59,7 @@ class _HomeScreenState extends State<EmployeeHomeScreen> {
       jobNotifier.value = jobs;
     }
 
+    // ignore: unused_local_variable
     final currentUser = authProvider.currentUser;
 
     return Scaffold(
