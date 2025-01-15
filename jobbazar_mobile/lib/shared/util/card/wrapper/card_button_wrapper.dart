@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:jobbazar_mobile/provider/application_provider.dart';
+import 'package:jobbazar_mobile/provider/cv_provider.dart';
 import 'package:jobbazar_mobile/shared/pages/args/job_args.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
 import 'package:jobbazar_mobile/provider/models/job.dart';
@@ -12,9 +14,12 @@ class CardButtonWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
+    final cvProvider = Provider.of<CvProvider>(context);
+    final appProvider = Provider.of<ApplicationProvider>(context);
+
+
     if (authProvider.userType == "USER") {
       return Row(
-        // TODO: Implement Apply Button
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Padding(
@@ -30,7 +35,20 @@ class CardButtonWrapper extends StatelessWidget {
             ),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () async {
+              await cvProvider.fetchCv(authProvider.currentUser!.id).whenComplete(() {
+                final Map<String, dynamic> appData = {
+                  "jobId": job.id,
+                  "userId": authProvider.currentUser!.id,
+                  "status": "PENDING",
+                  "coverLetter": {
+                      "id": cvProvider.currentUserCv.id,
+                      "user_id": authProvider.currentUser!.id
+                  }
+                };
+                appProvider.applyForJob(appData: appData);
+              });
+            },
             style: const ButtonStyle(
               backgroundColor: WidgetStatePropertyAll(Color.fromARGB(223, 233, 164, 60))
             ), 

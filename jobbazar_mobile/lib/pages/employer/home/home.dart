@@ -3,12 +3,9 @@ import 'package:jobbazar_mobile/shared/appbar2.dart';
 import 'package:jobbazar_mobile/shared/theme/employer/employer_gradient.dart';
 import 'package:jobbazar_mobile/shared/theme/employer/theme.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
-import 'package:jobbazar_mobile/deprecated/appbar.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
 import 'package:jobbazar_mobile/shared/drawer.dart';
-import 'package:jobbazar_mobile/shared/util/card/card_list.dart';
 import 'package:jobbazar_mobile/shared/util/heading/employer_heading_buttons.dart';
-import 'package:jobbazar_mobile/shared/util/heading/heading_text.dart';
 import 'package:jobbazar_mobile/shared/util/jobs_accordion.dart';
 import 'package:provider/provider.dart';
 

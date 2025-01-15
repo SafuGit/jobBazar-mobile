@@ -19,4 +19,13 @@ class ApplicationProvider with ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<void> applyForJob({required dynamic appData}) async {
+    try {
+      await _applicationService.applyForJob(appData: appData);
+    } catch (e) {
+      debugPrint('Error: $e');
+      throw Exception('Error: $e');
+    }
+  }
 }

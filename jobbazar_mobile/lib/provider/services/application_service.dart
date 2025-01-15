@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/models/application.dart';
 import 'package:http/http.dart' as http;
 
@@ -19,6 +20,26 @@ class ApplicationService {
         throw Exception('Failed to load applications');
       }
     } catch (e) {
+      throw Exception('Error: $e');
+    }
+  }
+
+  Future<String> applyForJob({required dynamic appData}) async {
+    try {
+      var jsonAppData = jsonEncode(appData);
+      debugPrint(jsonAppData);
+      final response = await http.post(Uri.parse(apiUrl), body: jsonAppData, headers: {
+        "Content-Type": "application/json",
+      });
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        debugPrint(response.body);
+        debugPrint('Failed to apply for job');
+        throw Exception('Failed to apply for job');
+      }
+    } catch (e) {
+      debugPrint('Error: $e');
       throw Exception('Error: $e');
     }
   }
