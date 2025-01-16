@@ -79,7 +79,7 @@ class _CvPageState extends State<CvPage> {
       body: name.isEmpty
           ? const Center(
               child: Text(
-                'No CV available',
+                'Loading CV',
                 style: TextStyle(fontSize: 18),
               ),
             )

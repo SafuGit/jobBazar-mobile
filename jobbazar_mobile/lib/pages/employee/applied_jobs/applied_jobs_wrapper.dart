@@ -68,7 +68,7 @@ class _AppliedJobsState extends State<AppliedJobs> {
 
   @override
   Widget build(BuildContext context) {
-    if (jobs.isNotEmpty) {
+    if (jobs.isNotEmpty && _isInitialized) {
       return Scaffold(
         appBar: const PageAppbar(title: "Applied Jobs"),
         drawer: const AppDrawer(),
