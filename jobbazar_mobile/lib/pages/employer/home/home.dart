@@ -33,6 +33,10 @@ class _EmployerHomeScreenState extends State<EmployerHomeScreen> {
   @override
   void initState() {
     super.initState();
+    fetchJobs();
+  }
+
+  void fetchJobs() {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final jobProvider = Provider.of<JobProvider>(context, listen: false);
     jobProvider.fetchJobsByEmployer(userId: authProvider.currentUser?.id);
@@ -42,10 +46,7 @@ class _EmployerHomeScreenState extends State<EmployerHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-    // debugPrint("${Theme.of(context).colorScheme.primary}");
-    // debugPrint("${jobs[0].company}");
-    // Use the Theme widget to apply employer theme to this screen only
+    final jobProvider = Provider.of<JobProvider>(context);
     return Theme(
       data: employerTheme, // Apply the custom theme here
       child: Builder(
@@ -186,7 +187,7 @@ class _EmployerHomeScreenState extends State<EmployerHomeScreen> {
                   Builder(
                     builder: (context) {
                       if (jobs.isNotEmpty) {
-                        return HotJobsAccordion(jobs: jobs);
+                        return HotJobsAccordion(jobs: jobProvider.employerJobs.reversed.toList());
                       } else {
                         return const Text("Loading");
                       }

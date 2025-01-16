@@ -57,4 +57,14 @@ class JobProvider with ChangeNotifier {
     }
   }
 
+  Future<void> deleteJob(int jobId) async {
+    try {
+      await _jobService.deleteJob(jobId);
+    } catch (e) {
+      debugPrint('Error: $e');
+    } finally {
+      notifyListeners();
+    }
+  }
+
 }

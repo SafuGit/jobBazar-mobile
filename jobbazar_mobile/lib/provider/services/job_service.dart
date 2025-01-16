@@ -75,4 +75,19 @@ class JobService {
       throw Exception('Error: $e');
     }
   }
+
+  Future<void> deleteJob(int jobId) async {
+    final String newUrl = '$apiUrl/$jobId';
+    try {
+      final response = await http.delete(Uri.parse(newUrl));
+      if (response.statusCode == 204) {
+        debugPrint('Job deleted successfully');
+      } else {
+        throw Exception('Failed to delete job');
+      }
+    } catch (e) {
+      debugPrint('Error: $e');
+      throw Exception('Error: $e');
+    }
+  }
 }
