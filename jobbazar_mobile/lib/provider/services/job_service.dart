@@ -1,5 +1,6 @@
 
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/models/job.dart';
 import 'package:http/http.dart' as http;
 
@@ -51,6 +52,41 @@ class JobService {
         throw Exception('Failed to load job');
       }
     } catch (e) {
+      throw Exception('Error: $e');
+    }
+  }
+
+  Future<Job> postJob(dynamic data) async {
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(data),
+      );
+      if (response.statusCode == 201) {
+        Map<String, dynamic> responseMap = json.decode(response.body);
+        Job job = Job.fromJson(responseMap);
+        return job;
+      } else {
+        throw Exception('Failed to create job');
+      }
+    } catch (e) {
+      debugPrint('Error: $e');
+      throw Exception('Error: $e');
+    }
+  }
+
+  Future<void> deleteJob(int jobId) async {
+    final String newUrl = '$apiUrl/$jobId';
+    try {
+      final response = await http.delete(Uri.parse(newUrl));
+      if (response.statusCode == 204) {
+        debugPrint('Job deleted successfully');
+      } else {
+        throw Exception('Failed to delete job');
+      }
+    } catch (e) {
+      debugPrint('Error: $e');
       throw Exception('Error: $e');
     }
   }

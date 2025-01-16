@@ -21,6 +21,15 @@ class _HotJobsAccordionState extends State<HotJobsAccordion> {
   }
 
   @override
+  void didUpdateWidget(HotJobsAccordion oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Check if the jobs list has changed, and if so, re-initialize _isExpanded
+    if (widget.jobs.length != oldWidget.jobs.length) {
+      _isExpanded = List<bool>.filled(widget.jobs.length, false);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     // debugPrint("$_isExpanded");
     return Expanded(

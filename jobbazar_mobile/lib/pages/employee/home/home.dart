@@ -81,8 +81,6 @@ class _HomeScreenState extends State<EmployeeHomeScreen> {
                 // debugPrint("job notifier ${jobNotifier.value.toString()}");
               },
             ),
-
-            // TODO: Fix Search
             ValueListenableBuilder(
               valueListenable: jobNotifier,
               builder: (context, filteredJobs, _) {

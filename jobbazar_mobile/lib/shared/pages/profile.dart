@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
 import 'package:jobbazar_mobile/provider/profile_provider.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
+import 'package:jobbazar_mobile/shared/drawer.dart';
 import 'package:jobbazar_mobile/shared/page_appbar.dart';
 import 'package:jobbazar_mobile/shared/pages/args/profile_args.dart';
 import 'package:provider/provider.dart';
@@ -32,6 +33,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             appBar: const PageAppbar(title: "Profile"),
             backgroundColor: args.theme?.colorScheme.secondary ?? Theme.of(context).colorScheme.secondary, // Background color
             bottomNavigationBar: const BottomNav(),
+            drawer: const AppDrawer(),
             body: Center(
               child: Container(
                 width: 350, // Card width

@@ -7,7 +7,6 @@ import 'package:jobbazar_mobile/shared/bottom_nav.dart';
 import 'package:jobbazar_mobile/shared/drawer.dart';
 import 'package:jobbazar_mobile/shared/page_appbar.dart';
 import 'package:jobbazar_mobile/shared/theme/employee/employee_gradient.dart';
-import 'package:jobbazar_mobile/shared/util/card/card_list.dart';
 import 'package:jobbazar_mobile/shared/util/heading/heading_text.dart';
 import 'package:jobbazar_mobile/shared/util/jobs_accordion.dart';
 import 'package:provider/provider.dart';
@@ -62,14 +61,14 @@ class _AppliedJobsState extends State<AppliedJobs> {
 
     debugPrint("$_isInitialized");
 
-    if (!_isInitialized) {
+    // if (!_isInitialized) {
       fetchData();
-    }
+    // }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (jobs.isNotEmpty) {
+    if (jobs.isNotEmpty && _isInitialized) {
       return Scaffold(
         appBar: const PageAppbar(title: "Applied Jobs"),
         drawer: const AppDrawer(),
@@ -92,6 +91,7 @@ class _AppliedJobsState extends State<AppliedJobs> {
                     if (jobs.isNotEmpty) {
                       return HotJobsAccordion(jobs: jobs);
                     } else { 
+                      debugPrint("in if");
                       return const Center(child: Text("Loading"),);
                     }
                   }
@@ -103,7 +103,13 @@ class _AppliedJobsState extends State<AppliedJobs> {
       );
     }
     else {
-      return const Text("Loading");
+      final applicationProvider = Provider.of<ApplicationProvider>(context, listen: false);
+      debugPrint("applicationProvider.applications: ${applicationProvider.applications.toString()}");
+      if (applicationProvider.applications.isNotEmpty) {
+        return const Center(child: Text("Loading"));
+      } else {
+        return const Center(child: Text("No Jobs Applied"));
+      }
     }
   }
 }

@@ -1,4 +1,5 @@
 
+import 'package:common_constants/common_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/models/application.dart';
 import 'package:jobbazar_mobile/provider/services/application_service.dart';
@@ -17,6 +18,17 @@ class ApplicationProvider with ChangeNotifier {
     }
     finally {
       notifyListeners();
+    }
+  }
+
+  Future<void> applyForJob({required dynamic appData, required BuildContext context}) async {
+    try {
+      await _applicationService.applyForJob(appData: appData);
+      Constants.showSnackbar(context, "Applied Succesfully!");
+    } catch (e) {
+      debugPrint('Error: $e');
+      Constants.showSnackbar(context, "ERROR: Cant Apply For Job.");
+      throw Exception('Error: $e');
     }
   }
 }

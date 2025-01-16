@@ -47,5 +47,24 @@ class JobProvider with ChangeNotifier {
     return null;
   }
 
+  Future<void> postJob(dynamic data) async {
+    try {
+      await _jobService.postJob(data);
+    } catch (e) {
+      debugPrint('Error: $e');
+    } finally {
+      notifyListeners();
+    }
+  }
+
+  Future<void> deleteJob(int jobId) async {
+    try {
+      await _jobService.deleteJob(jobId);
+    } catch (e) {
+      debugPrint('Error: $e');
+    } finally {
+      notifyListeners();
+    }
+  }
 
 }
