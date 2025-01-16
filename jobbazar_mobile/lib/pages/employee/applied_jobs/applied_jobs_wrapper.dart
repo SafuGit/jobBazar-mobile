@@ -91,6 +91,7 @@ class _AppliedJobsState extends State<AppliedJobs> {
                     if (jobs.isNotEmpty) {
                       return HotJobsAccordion(jobs: jobs);
                     } else { 
+                      debugPrint("in if");
                       return const Center(child: Text("Loading"),);
                     }
                   }
@@ -102,7 +103,13 @@ class _AppliedJobsState extends State<AppliedJobs> {
       );
     }
     else {
-      return const Center(child: Text("Loading"));
+      final applicationProvider = Provider.of<ApplicationProvider>(context, listen: false);
+      debugPrint("applicationProvider.applications: ${applicationProvider.applications.toString()}");
+      if (applicationProvider.applications.isNotEmpty) {
+        return const Center(child: Text("Loading"));
+      } else {
+        return const Center(child: Text("No Jobs Applied"));
+      }
     }
   }
 }

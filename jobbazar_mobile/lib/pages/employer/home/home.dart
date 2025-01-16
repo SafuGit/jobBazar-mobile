@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jobbazar_mobile/provider/models/job.dart';
 import 'package:jobbazar_mobile/shared/appbar2.dart';
 import 'package:jobbazar_mobile/shared/theme/employer/employer_gradient.dart';
 import 'package:jobbazar_mobile/shared/theme/employer/theme.dart';
@@ -13,18 +14,28 @@ import '../../../provider/job_provider.dart';
 
 
 
-class EmployerHomeScreen extends StatelessWidget {
+class EmployerHomeScreen extends StatefulWidget {
   const EmployerHomeScreen({super.key});
 
   @override
+  State<EmployerHomeScreen> createState() => _EmployerHomeScreenState();
+}
+
+class _EmployerHomeScreenState extends State<EmployerHomeScreen> {
+  late List<Job> jobs = [];
+
+  @override
+  void initState() {
+    super.initState();
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final jobProvider = Provider.of<JobProvider>(context, listen: false);
+    jobProvider.fetchJobsByEmployer(userId: authProvider.currentUser?.id);
+    jobs = jobProvider.employerJobs;
+    debugPrint(jobs.toString());
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
-    final jobProvider = Provider.of<JobProvider>(context);
-
-    final currentUser = authProvider.currentUser;
-    jobProvider.fetchJobsByEmployer(userId: currentUser?.id);
-
-    final jobs = jobProvider.employerJobs.reversed.toList();
 
     // debugPrint("${Theme.of(context).colorScheme.primary}");
     // debugPrint("${jobs[0].company}");
