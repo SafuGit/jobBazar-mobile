@@ -61,9 +61,9 @@ class _AppliedJobsState extends State<AppliedJobs> {
 
     debugPrint("$_isInitialized");
 
-    if (!_isInitialized) {
+    // if (!_isInitialized) {
       fetchData();
-    }
+    // }
   }
 
   @override
@@ -102,7 +102,7 @@ class _AppliedJobsState extends State<AppliedJobs> {
       );
     }
     else {
-      return const Text("Loading");
+      return const Center(child: Text("Loading"));
     }
   }
 }

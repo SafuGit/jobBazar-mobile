@@ -1,3 +1,4 @@
+import 'package:common_constants/common_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/application_provider.dart';
 import 'package:jobbazar_mobile/provider/cv_provider.dart';
@@ -46,7 +47,7 @@ class CardButtonWrapper extends StatelessWidget {
                       "user_id": authProvider.currentUser!.id
                   }
                 };
-                appProvider.applyForJob(appData: appData);
+                appProvider.applyForJob(appData: appData, context: context);
               });
             },
             style: const ButtonStyle(
