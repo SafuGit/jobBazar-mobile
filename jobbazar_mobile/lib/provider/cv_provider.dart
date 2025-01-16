@@ -29,4 +29,14 @@ class CvProvider with ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<void> updateCv({required int userId, required dynamic data}) async {
+    try {
+      _currentUserCV = await _cvService.updateCv(userId: userId, data: data);
+    } catch (e) {
+      debugPrint('Error: $e');
+    } finally {
+      notifyListeners();
+    }
+  }
 }

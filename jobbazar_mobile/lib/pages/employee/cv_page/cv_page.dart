@@ -2,15 +2,15 @@ import 'package:common_constants/common_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
 import 'package:jobbazar_mobile/provider/cv_provider.dart';
-import 'package:jobbazar_mobile/deprecated/appbar.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
 import 'package:jobbazar_mobile/shared/drawer.dart';
 import 'package:jobbazar_mobile/shared/page_appbar.dart';
 import 'package:jobbazar_mobile/shared/theme/employee/employee_gradient.dart';
-import 'package:jobbazar_mobile/shared/util/heading/heading_text.dart';
 import 'package:provider/provider.dart';
 
 class CvPage extends StatefulWidget {
+  const CvPage({super.key});
+
   @override
   _CvPageState createState() => _CvPageState();
 }
@@ -59,6 +59,8 @@ class _CvPageState extends State<CvPage> {
         passingYear = cvProvider.currentUserCv?.passingYear.toString() ?? "";
         cgpa = cvProvider.currentUserCv?.cgpa.toString() ?? "";
 
+        debugPrint(cvProvider.currentUserCv.toString());
+
         if (cvProvider.currentUserCv != null) {
           _hasCv = true;
         }
@@ -78,33 +80,6 @@ class _CvPageState extends State<CvPage> {
     });
   }
 
-  void _updateCv() {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      setState(() {});
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('CV updated successfully')),
-      );
-    }
-  }
-
-  void _deleteCv() {
-    setState(() {
-      name = "";
-      email = "";
-      phone = "";
-      location = "";
-      skills = "";
-      experience = "";
-      degree = "";
-      institute = "";
-      passingYear = "";
-      cgpa = "";
-    });
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('CV deleted')),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -379,7 +354,7 @@ class _CvPageState extends State<CvPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       ElevatedButton(
-                        onPressed: _hasCv ? () {
+                        onPressed: !_hasCv ? () {
                           try {
                             final cvData = {
                               "user": authProvider.currentUser!.id,
@@ -421,6 +396,8 @@ class _CvPageState extends State<CvPage> {
                             };
                             debugPrint("second function, $_hasCv");
                             debugPrint(cvData.toString());
+                            cvProvider.updateCv(userId: authProvider.currentUser!.id, data: cvData);
+                            Navigator.pushReplacementNamed(context, '/employee/cvInfo');
                           } catch (e) {
                             Constants.showSnackbar(context, "ERROR Occured During CV Action, Have u typed all fields?");
                           }
@@ -430,7 +407,7 @@ class _CvPageState extends State<CvPage> {
                           backgroundColor: const Color.fromARGB(223, 233, 164, 60),
                           foregroundColor: Colors.black,
                         ),
-                        child: _hasCv ? const Text('Upload CV') : const Text('Update CV', style: TextStyle(
+                        child: !_hasCv ? const Text('Upload CV') : const Text('Update CV', style: TextStyle(
                           fontWeight: FontWeight.bold
                         ),),
                       ),
@@ -442,11 +419,6 @@ class _CvPageState extends State<CvPage> {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: Colors.red.withOpacity(0.4),
-                        ),
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.delete, size: 40, color: Colors.red),
-                          splashRadius: 30,
                         ),
                       ),
                     ],

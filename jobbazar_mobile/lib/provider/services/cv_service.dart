@@ -45,4 +45,26 @@ class CvService {
       throw Exception('Error: $e');
     }
   }
+
+  Future<Cv> updateCv({required int userId, required dynamic data}) async {
+    var newApiUrl = "$apiUrl/$userId";
+    try {
+      final response = await http.put(
+        Uri.parse(newApiUrl),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(data),
+      );
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        final cv = Cv.fromJson(data);
+        return cv;
+      } else {
+        debugPrint('Failed to create CV');
+        throw Exception('Failed to create CV');
+      }
+    } catch (e) {
+      debugPrint('Error: $e');
+      throw Exception('Error: $e');
+    }
+  }
 }

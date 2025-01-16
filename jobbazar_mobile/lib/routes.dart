@@ -68,7 +68,7 @@ var appRoutes = {
   '/jobInfo': (context) => const JobInfo(),
   '/paidPlans': (context) => const PaidPlansPage(),
   '/employer/allJobs': (context) => const AllJobsPage(),
-  '/employee/cvInfo': (context) => CvPage(),
+  '/employee/cvInfo': (context) => const CvPage(),
   '/employer/hiringTips': (context) => const HiringTipsPage(),
   '/employee/appliedJobs': (context) => const AppliedJobs(),
 };
