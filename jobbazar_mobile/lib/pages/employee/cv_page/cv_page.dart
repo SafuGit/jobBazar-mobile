@@ -1,3 +1,4 @@
+import 'package:common_constants/common_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
 import 'package:jobbazar_mobile/provider/cv_provider.dart';
@@ -25,8 +26,57 @@ class _CvPageState extends State<CvPage> {
   String institute = "";
   String passingYear = "";
   String cgpa = "";
+  bool _hasCv = false;
 
   final _formKey = GlobalKey<FormState>();
+
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController locationController = TextEditingController();
+  final TextEditingController skillsController = TextEditingController();
+  final TextEditingController experienceController = TextEditingController();
+  final TextEditingController degreeController = TextEditingController();
+  final TextEditingController instituteController = TextEditingController();
+  final TextEditingController passingYearController = TextEditingController();
+  final TextEditingController cgpaController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    final cvProvider = Provider.of<CvProvider>(context, listen: false);
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    cvProvider.fetchCv(authProvider.currentUser!.id).whenComplete(() {
+      setState(() {
+        name = cvProvider.currentUserCv?.name ?? authProvider.currentUser!.name;
+        email = cvProvider.currentUserCv?.email ?? authProvider.currentUser!.email;
+        phone = authProvider.currentUser!.phone.toString();
+        location = cvProvider.currentUserCv?.location ?? "";
+        skills = cvProvider.currentUserCv?.skills ?? "";
+        experience = cvProvider.currentUserCv?.experience.toString() ?? "";
+        degree = cvProvider.currentUserCv?.degree ?? "";
+        institute = cvProvider.currentUserCv?.institute ?? "";
+        passingYear = cvProvider.currentUserCv?.passingYear.toString() ?? "";
+        cgpa = cvProvider.currentUserCv?.cgpa.toString() ?? "";
+
+        if (cvProvider.currentUserCv != null) {
+          _hasCv = true;
+        }
+
+        // Update controllers after setting the state
+        nameController.text = name;
+        emailController.text = email;
+        phoneController.text = phone;
+        locationController.text = location;
+        skillsController.text = skills;
+        experienceController.text = experience;
+        degreeController.text = degree;
+        instituteController.text = institute;
+        passingYearController.text = passingYear;
+        cgpaController.text = cgpa;
+      });
+    });
+  }
 
   void _updateCv() {
     if (_formKey.currentState!.validate()) {
@@ -60,30 +110,11 @@ class _CvPageState extends State<CvPage> {
   Widget build(BuildContext context) {
     final cvProvider = Provider.of<CvProvider>(context);
     final authProvider = Provider.of<AuthProvider>(context);
-    cvProvider.fetchCv(authProvider.currentUser!.id).whenComplete(() {
-      name = cvProvider.currentUserCv?.name ?? "";
-      email = cvProvider.currentUserCv?.email ?? "";
-      phone = cvProvider.currentUserCv?.phone.toString() ?? "";
-      location = cvProvider.currentUserCv?.location ?? "";
-      skills = cvProvider.currentUserCv?.skills ?? "";
-      experience = cvProvider.currentUserCv?.experience.toString() ?? "";
-      degree = cvProvider.currentUserCv?.degree ?? "";
-      institute = cvProvider.currentUserCv?.institute ?? "";
-      passingYear = cvProvider.currentUserCv?.passingYear.toString() ?? "";
-      cgpa = cvProvider.currentUserCv?.cgpa.toString() ?? "";
-    });
     return Scaffold(
       appBar: const PageAppbar(title: "Your CV"),
       bottomNavigationBar: const BottomNav(),
       drawer: const AppDrawer(),
-      body: name.isEmpty
-          ? const Center(
-              child: Text(
-                'Loading CV',
-                style: TextStyle(fontSize: 18),
-              ),
-            )
-          : Container(
+      body: Container(
             decoration: employeeDecoration,
             padding: const EdgeInsets.all(16),
             child: Form(
@@ -91,9 +122,14 @@ class _CvPageState extends State<CvPage> {
               child: ListView(
                 children: [
                   TextFormField(
-                    initialValue: name,
+                    // initialValue: name,
+                    controller: nameController,
+                    enabled: false,
+                    readOnly: true,
+                    enableInteractiveSelection: false,
+
                     decoration: InputDecoration(
-                      labelText: 'Name',
+                      labelText: 'Name (Disabled)',
                       labelStyle: const TextStyle(color: Colors.white),
                       filled: true,
                       fillColor: Colors.black.withOpacity(.3),
@@ -115,9 +151,14 @@ class _CvPageState extends State<CvPage> {
                     height: 8,
                   ),
                   TextFormField(
-                    initialValue: email,
+                    // initialValue: email,
+                    controller: emailController,
+                    enabled: false,
+                    readOnly: true,
+                    enableInteractiveSelection: false,
+
                     decoration: InputDecoration(
-                      labelText: 'Email',
+                      labelText: 'Email (Disabled)',
                       labelStyle: const TextStyle(color: Colors.white),
                       filled: true,
                       fillColor: Colors.black.withOpacity(.3),
@@ -138,9 +179,15 @@ class _CvPageState extends State<CvPage> {
                     height: 8,
                   ),
                   TextFormField(
-                    initialValue: phone,
+                    // initialValue: phone,
+
+                    enabled: false,
+                    readOnly: true,
+                    enableInteractiveSelection: false,
+
+                    controller: phoneController,
                     decoration: InputDecoration(
-                      labelText: 'Phone',
+                      labelText: 'Phone (Disabled)',
                       labelStyle: const TextStyle(color: Colors.white),
                       filled: true,
                       fillColor: Colors.black.withOpacity(.3),
@@ -163,7 +210,8 @@ class _CvPageState extends State<CvPage> {
                     height: 8,
                   ),
                   TextFormField(
-                    initialValue: location,
+                    // initialValue: location,
+                    controller: locationController,
                     decoration: InputDecoration(
                       labelText: 'Location',
                       labelStyle: const TextStyle(color: Colors.white),
@@ -187,7 +235,8 @@ class _CvPageState extends State<CvPage> {
                     height: 8,
                   ),
                   TextFormField(
-                    initialValue: skills,
+                    // initialValue: skills,
+                    controller: skillsController,
                     decoration: InputDecoration(
                       labelText: 'Skills',
                       labelStyle: const TextStyle(color: Colors.white),
@@ -210,7 +259,8 @@ class _CvPageState extends State<CvPage> {
                     height: 8,
                   ),
                   TextFormField(
-                    initialValue: experience,
+                    // initialValue: experience,
+                    controller: experienceController,
                     decoration: InputDecoration(
                       labelText: 'Years Of Experience',
                       labelStyle: const TextStyle(color: Colors.white),
@@ -233,7 +283,8 @@ class _CvPageState extends State<CvPage> {
                     height: 8,
                   ),
                   TextFormField(
-                    initialValue: degree,
+                    // initialValue: degree,
+                    controller: degreeController,
                     decoration: InputDecoration(
                       labelText: 'Degree',
                       labelStyle: const TextStyle(color: Colors.white),
@@ -256,7 +307,8 @@ class _CvPageState extends State<CvPage> {
                     height: 8,
                   ),
                   TextFormField(
-                    initialValue: institute,
+                    controller: instituteController,
+                    // initialValue: institute,
                     decoration: InputDecoration(
                       labelText: 'Institute',
                       labelStyle: const TextStyle(color: Colors.white),
@@ -277,7 +329,8 @@ class _CvPageState extends State<CvPage> {
                   ),
                   const SizedBox(height: 8),
                   TextFormField(
-                    initialValue: passingYear,
+                    controller: passingYearController,
+                    // initialValue: passingYear,
                     decoration: InputDecoration(
                       labelText: 'Passing Year',
                       labelStyle: const TextStyle(color: Colors.white),
@@ -300,7 +353,8 @@ class _CvPageState extends State<CvPage> {
                   ),
                   const SizedBox(height: 8),
                   TextFormField(
-                    initialValue: cgpa,
+                    controller: cgpaController,
+                    // initialValue: cgpa,
                     decoration: InputDecoration(
                       labelText: 'CGPA',
                       labelStyle: const TextStyle(color: Colors.white),
@@ -325,13 +379,58 @@ class _CvPageState extends State<CvPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       ElevatedButton(
-                        onPressed: _updateCv,
+                        onPressed: _hasCv ? () {
+                          try {
+                            final cvData = {
+                              "user": authProvider.currentUser!.id,
+                              "name": nameController.text,
+                              "phone_number": double.parse(phoneController.text),
+                              "location": locationController.text,
+                              "skills": skillsController.text,
+                              "experience": experienceController.text,
+                              "institute": instituteController.text,
+                              "degree": degreeController.text,
+                              "passing_year": int.parse(passingYearController.text),
+                              "cgpa": cgpaController.text,
+                              "email": emailController.text
+                            };
+                            debugPrint(cvData.toString());
+                            debugPrint("first function, $_hasCv");
+                            cvProvider.createCv(userId: authProvider.currentUser!.id, data: cvData);
+                            Navigator.pushReplacementNamed(context, '/employee/cvInfo');
+                          } catch (e) {
+                            debugPrint(e.toString());
+                            Constants.showSnackbar(context, "ERROR Occured During CV Action, Have u typed all fields?");
+                          }
+
+                          // _createCv(cvData);
+                        } : () {
+                          try {
+                            final cvData = {
+                              "user": authProvider.currentUser!.id,
+                              "name": nameController.text,
+                              "phone_number": double.parse(phoneController.text),
+                              "location": locationController.text,
+                              "skills": skillsController.text,
+                              "experience": experienceController.text,
+                              "institute": instituteController.text,
+                              "degree": degreeController.text,
+                              "passing_year": int.parse(passingYearController.text),
+                              "cgpa": cgpaController.text,
+                              "email": emailController.text
+                            };
+                            debugPrint("second function, $_hasCv");
+                            debugPrint(cvData.toString());
+                          } catch (e) {
+                            Constants.showSnackbar(context, "ERROR Occured During CV Action, Have u typed all fields?");
+                          }
+                        },
                           style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
                           backgroundColor: const Color.fromARGB(223, 233, 164, 60),
                           foregroundColor: Colors.black,
                         ),
-                        child: const Text('Update CV', style: TextStyle(
+                        child: _hasCv ? const Text('Upload CV') : const Text('Update CV', style: TextStyle(
                           fontWeight: FontWeight.bold
                         ),),
                       ),
