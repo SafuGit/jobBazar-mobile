@@ -28,6 +28,14 @@ class EmployerHeadingButtons extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          // const Padding(
+          //   padding: EdgeInsets.only(bottom: 8.0),
+          //   child: Text("EMPLOYER PORTAL", style: TextStyle(
+          //     fontSize: 35,
+          //     color: Colors.teal,
+          //     fontWeight: FontWeight.bold,
+          //   ),),
+          // ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [

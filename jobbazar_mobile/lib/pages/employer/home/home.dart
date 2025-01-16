@@ -1,3 +1,4 @@
+import 'package:common_constants/common_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/models/job.dart';
 import 'package:jobbazar_mobile/shared/appbar2.dart';
@@ -23,6 +24,11 @@ class EmployerHomeScreen extends StatefulWidget {
 
 class _EmployerHomeScreenState extends State<EmployerHomeScreen> {
   late List<Job> jobs = [];
+  final TextEditingController jobTitleController = TextEditingController();
+  final TextEditingController jobLocationController = TextEditingController();
+  final TextEditingController jobDescriptionController = TextEditingController();
+  final TextEditingController jobSalaryController = TextEditingController();
+  final TextEditingController jobTypeController = TextEditingController();
 
   @override
   void initState() {
@@ -30,7 +36,7 @@ class _EmployerHomeScreenState extends State<EmployerHomeScreen> {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final jobProvider = Provider.of<JobProvider>(context, listen: false);
     jobProvider.fetchJobsByEmployer(userId: authProvider.currentUser?.id);
-    jobs = jobProvider.employerJobs;
+    jobs = jobProvider.employerJobs.reversed.toList();
     debugPrint(jobs.toString());
   }
 
@@ -54,6 +60,129 @@ class _EmployerHomeScreenState extends State<EmployerHomeScreen> {
                 children: [
                   // HeadingText(title: "Welcome, ${authProvider.currentUser?.name}", subtitle: "Your Companies Posted Jobs", subtitle2: "${jobs.length} Jobs Found",),
                   const EmployerHeadingButtons(),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: FractionallySizedBox(
+                      widthFactor: 0.5,
+                      child: ElevatedButton(
+                        style: const ButtonStyle(
+                          backgroundColor: WidgetStatePropertyAll<Color>(Colors.teal),
+                        ),
+                        onPressed: () {
+                          showDialog(
+                            context: context, 
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                scrollable: true,
+                                title: const Text("New Job"),
+                                content: Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Form(
+                                    child: Column(
+                                      children: [
+                                        TextFormField(
+                                          controller: jobTitleController,
+                                          decoration: const InputDecoration(
+                                            labelText: "Job Title",
+                                          ),
+                                        ),
+                                        TextFormField(
+                                          controller: jobLocationController,
+                                          decoration: const InputDecoration(
+                                            labelText: "Job Description",
+                                          ),
+                                        ),
+                                        TextFormField(
+                                          controller: jobDescriptionController,
+                                          decoration: const InputDecoration(
+                                            labelText: "Job Location",
+                                          ),
+                                        ),
+                                        TextFormField(
+                                          controller: jobSalaryController,
+                                          decoration: const InputDecoration(
+                                            labelText: "Job Salary",
+                                          ),
+                                        ),
+                                        DropdownButtonFormField(
+                                          hint: const Text("Job Type"),
+                                          items: const [
+                                            DropdownMenuItem(
+                                              value: "FULL_TIME",
+                                              child: Text("Full Time"),
+                                            ),
+                                            DropdownMenuItem(
+                                              value: "PART_TIME",
+                                              child: Text("Part Time"),
+                                            ),
+                                            DropdownMenuItem(
+                                              value: "CONTRACTUAL",
+                                              child: Text("Contract"),
+                                            ),
+                                            DropdownMenuItem(
+                                              value: "INTERNSHIP",
+                                              child: Text("Internship"),
+                                            ),
+                                          ], 
+                                          onChanged: (value) {
+                                            jobTypeController.text = value ?? "";
+                                          }
+                                        )
+                                      ],
+                                    )
+                                  ),
+                                ),
+                                actions: [
+                                  ElevatedButton(
+                                    style: const ButtonStyle(
+                                      backgroundColor: WidgetStatePropertyAll<Color>(Colors.teal),
+                                      foregroundColor: WidgetStatePropertyAll<Color>(Colors.white)
+                                    ),
+                                    child: const Text("Submit"),
+                                    onPressed: () {
+                                      try {
+                                        final authProvider = Provider.of<AuthProvider>(context, listen: false);
+                                        final jobProvider = Provider.of<JobProvider>(context, listen: false);
+                                        var jobData = {
+                                          "title": jobTitleController.text,
+                                          "description": jobDescriptionController.text,
+                                          "salary": int.parse(jobSalaryController.text),
+                                          "location": jobLocationController.text,
+                                          "type": jobTypeController.text,
+                                          "employer": {
+                                              "id": authProvider.currentUser!.id,
+                                              "username": authProvider.currentUser!.email,
+                                              "role": authProvider.currentUser!.role
+                                          },
+                                          "company": authProvider.currentUser!.name
+                                        };
+                                        debugPrint(jobData.toString());
+                                        jobProvider.postJob(jobData);
+                                        Navigator.pushReplacementNamed(context, '/employerHome');
+                                        Constants.showSnackbar(context, "Job Posted Successfully");
+                                      } catch (e) {
+                                        debugPrint(e.toString());
+                                        Constants.showSnackbar(context, "ERROR Occured During Job Posting, Have u typed all fields correctly?");
+                                      }
+                                    })
+                                ],
+                              );
+                            }
+                          );
+                        }, 
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.add, color: Colors.black),
+                            Text("Post New Job", style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20
+                            ),)
+                          ]
+                        )
+                      ),
+                    ),
+                  ),
                   Builder(
                     builder: (context) {
                       if (jobs.isNotEmpty) {
