@@ -1,6 +1,7 @@
 
 import 'dart:io';
 
+import 'package:common_constants/common_constants.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/models/cv.dart';
@@ -46,12 +47,13 @@ class CvProvider with ChangeNotifier {
     }
   }
 
-  Future<void> pickFile() async {
+  Future<void> pickFile(BuildContext context) async {
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles();
       if (result != null) {
         _currentUserCvFile = File(result.files.single.path!);
         debugPrint("File Picked");
+        Constants.showSnackbar(context, "Cv Uploaded Succesfully");
       }
     } catch (e) {
       debugPrint('Error: $e');

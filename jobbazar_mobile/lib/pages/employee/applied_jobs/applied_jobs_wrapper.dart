@@ -31,7 +31,7 @@ class _AppliedJobsState extends State<AppliedJobs> {
       // debugPrint("user_id: ${authProvider.currentUser!.id}");
 
       applicationProvider.fetchApplicationByUserId(authProvider.currentUser!.id).whenComplete(() {
-        applications = applicationProvider.applications;
+        applications = applicationProvider.applications.reversed.toList();
         // debugPrint("Applications: ${applications.length}");
 
         Future.wait(applications.map((application) async {
@@ -70,7 +70,7 @@ class _AppliedJobsState extends State<AppliedJobs> {
   @override
   Widget build(BuildContext context) {
     final applicationProvider = Provider.of<ApplicationProvider>(context);
-    if (jobs.isNotEmpty && _isInitialized) {
+    if (applications.isNotEmpty && _isInitialized) {
       return Scaffold(
         appBar: const PageAppbar(title: "Applied Jobs"),
         drawer: const AppDrawer(),
