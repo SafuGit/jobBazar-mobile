@@ -1,9 +1,10 @@
 import 'package:common_constants/common_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:jobbazar_mobile/pages/employer/applications/cv_info.dart';
 import 'package:jobbazar_mobile/provider/application_provider.dart';
 import 'package:jobbazar_mobile/provider/models/application.dart';
+import 'package:jobbazar_mobile/provider/models/cv.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
-import 'package:jobbazar_mobile/shared/drawer.dart';
 import 'package:jobbazar_mobile/shared/page_appbar.dart';
 import 'package:jobbazar_mobile/shared/theme/employer/employer_gradient.dart';
 import 'package:jobbazar_mobile/shared/theme/employer/theme.dart';
@@ -30,7 +31,7 @@ class _ApplicationsTableState extends State<ApplicationsTable> {
           return Scaffold(
             appBar: const PageAppbar(title: "Application"),
             bottomNavigationBar: const BottomNav(),
-            drawer: const AppDrawer(),
+            // drawer: const AppDrawer(),
             body: widget.applications.isNotEmpty ? Container(
               decoration: employerDecoration,
               width: double.infinity,
@@ -95,7 +96,11 @@ class _ApplicationsTableState extends State<ApplicationsTable> {
                                     value: "viewCV",
                                     child: TextButton(
                                       onPressed: () {
-
+                                        var cvData = Cv.fromJson(application.coverLetter);
+                                        Navigator.push(
+                                          context, 
+                                          MaterialPageRoute(builder: (context) => ApplicationCvInfo(cv: cvData)),
+                                        );
                                       },
                                       child: const Text("View CV", style: TextStyle(color: Colors.blue),),
                                     ),

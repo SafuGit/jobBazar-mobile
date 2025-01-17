@@ -133,7 +133,7 @@ class _ApplicationsPageState extends State<ApplicationsPage> {
                                                       await applicationProvider
                                                           .fetchApplicationByJobId(
                                                               job.id);
-                                                  Navigator.pushReplacement(
+                                                  Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
