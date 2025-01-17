@@ -19,6 +19,22 @@ class CardButtonWrapper extends StatefulWidget {
 }
 
 class _CardButtonWrapperState extends State<CardButtonWrapper> {
+  TextEditingController jobTitleController = TextEditingController();
+  TextEditingController jobLocationController = TextEditingController();
+  TextEditingController jobDescriptionController = TextEditingController();
+  TextEditingController jobSalaryController = TextEditingController();
+  TextEditingController jobTypeController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    jobTitleController.text = widget.job.title;
+    jobLocationController.text = widget.job.location;
+    jobDescriptionController.text = widget.job.description;
+    jobSalaryController.text = widget.job.salary.toString();
+    jobTypeController.text = widget.job.type;
+  }
+
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
@@ -89,7 +105,97 @@ class _CardButtonWrapperState extends State<CardButtonWrapper> {
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                  context: context, 
+                  builder: (context) {
+                    return AlertDialog(
+                      scrollable: true,
+                      title: const Text("Update Job"),
+                      content: Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: Form(
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                controller: jobTitleController,
+                                decoration: const InputDecoration(
+                                  labelText: "Job Title",
+                                ),
+                              ),
+                              TextFormField(
+                                controller: jobLocationController,
+                                decoration: const InputDecoration(
+                                  labelText: "Job Description",
+                                ),
+                              ),
+                              TextFormField(
+                                controller: jobDescriptionController,
+                                decoration: const InputDecoration(
+                                  labelText: "Job Location",
+                                ),
+                              ),
+                              TextFormField(
+                                controller: jobSalaryController,
+                                decoration: const InputDecoration(
+                                  labelText: "Job Salary",
+                                ),
+                              ),
+                              DropdownButtonFormField(
+                                hint: Text(jobTypeController.text),
+                                items: const [
+                                  DropdownMenuItem(
+                                    value: "FULL_TIME",
+                                    child: Text("Full Time"),
+                                  ),
+                                  DropdownMenuItem(
+                                    value: "PART_TIME",
+                                    child: Text("Part Time"),
+                                  ),
+                                  DropdownMenuItem(
+                                    value: "CONTRACTUAL",
+                                    child: Text("Contract"),
+                                  ),
+                                  DropdownMenuItem(
+                                    value: "INTERNSHIP",
+                                    child: Text("Internship"),
+                                  ),
+                                ], 
+                                onChanged: (value) {
+                                  jobTypeController.text = value ?? "";
+                                }
+                              )
+                            ],
+                          )
+                        ),
+                      ),
+                      actions: [
+                        ElevatedButton(
+                          onPressed: () {
+                            debugPrint("update clicked");
+                            try {
+                              final Map<String, dynamic> jobData = {
+                                "title": jobTitleController.text,
+                                "description": jobDescriptionController.text,
+                                "location": jobLocationController.text,
+                                "salary": jobSalaryController.text,
+                                "type": jobTypeController.text
+                              };
+                              debugPrint(widget.job.toString());
+                              debugPrint(jobTitleController.text);
+                            } catch (e) {
+                              debugPrint(e.toString());
+                              Constants.showSnackbar(context, "ERROR Occured During Job Posting, Have u typed all fields correctly?");
+                            }
+                            // jobProvider.updateJob(jobData: jobData, context: context);
+                          },
+                          child: const Text("Update"),
+                        ),
+                      ],
+                    );
+                  }
+                );
+              },
               style: const ButtonStyle(
                 backgroundColor: WidgetStatePropertyAll(Color.fromARGB(223, 233, 164, 60))
               ), 
