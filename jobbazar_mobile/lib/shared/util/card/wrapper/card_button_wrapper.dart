@@ -1,3 +1,4 @@
+import 'package:common_constants/common_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/application_provider.dart';
 import 'package:jobbazar_mobile/provider/cv_provider.dart';
@@ -44,17 +45,24 @@ class _CardButtonWrapperState extends State<CardButtonWrapper> {
           ),
           ElevatedButton(
             onPressed: () async {
-              await cvProvider.fetchCv(authProvider.currentUser!.id).whenComplete(() {
-                final Map<String, dynamic> appData = {
-                  "jobId": widget.job.id,
-                  "userId": authProvider.currentUser!.id,
-                  "status": "PENDING",
-                  "coverLetter": {
-                      "id": cvProvider.currentUserCv.id,
-                      "user_id": authProvider.currentUser!.id
-                  }
-                };
-                appProvider.applyForJob(appData: appData, context: context);
+              await cvProvider.fetchCv(authProvider.currentUser!.id).whenComplete(() async {
+                try {
+                  final Map<String, dynamic> appData = {
+                    "jobId": widget.job.id,
+                    "userId": authProvider.currentUser!.id,
+                    "status": "PENDING",
+                    "coverLetter": {
+                        "id": cvProvider.currentUserCv.id,
+                        "user_id": authProvider.currentUser!.id
+                    }
+                  };
+                  await appProvider.applyForJob(appData: appData, context: context);
+                } catch (e) {
+                  debugPrint(e.toString());
+                  Constants.showSnackbar(context, "ERROR Occured During Job Posting, Have u typed all fields correctly?");
+                } finally {
+                  Navigator.pushReplacementNamed(context, '/employee/appliedJobs');
+                }
               });
             },
             style: const ButtonStyle(
