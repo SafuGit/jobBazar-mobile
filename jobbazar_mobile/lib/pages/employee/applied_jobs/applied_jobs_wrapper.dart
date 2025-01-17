@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:jobbazar_mobile/pages/employer/applications/applications_table.dart';
 import 'package:jobbazar_mobile/provider/application_provider.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
 import 'package:jobbazar_mobile/provider/job_provider.dart';
@@ -10,7 +9,6 @@ import 'package:jobbazar_mobile/shared/drawer.dart';
 import 'package:jobbazar_mobile/shared/page_appbar.dart';
 import 'package:jobbazar_mobile/shared/theme/employee/employee_gradient.dart';
 import 'package:jobbazar_mobile/shared/util/heading/heading_text.dart';
-import 'package:jobbazar_mobile/shared/util/jobs_accordion.dart';
 import 'package:provider/provider.dart';
 
 class AppliedJobs extends StatefulWidget {
