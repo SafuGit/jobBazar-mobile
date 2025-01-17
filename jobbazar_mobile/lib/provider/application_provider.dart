@@ -2,7 +2,6 @@
 import 'package:common_constants/common_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/models/application.dart';
-import 'package:jobbazar_mobile/provider/models/job.dart';
 import 'package:jobbazar_mobile/provider/services/application_service.dart';
 
 class ApplicationProvider with ChangeNotifier {

@@ -1,4 +1,3 @@
-import 'package:common_constants/common_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/pages/employer/applications/applications_table.dart';
 import 'package:jobbazar_mobile/provider/application_provider.dart';
@@ -38,6 +37,7 @@ class _ApplicationsPageState extends State<ApplicationsPage> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final jobProvider = Provider.of<JobProvider>(context);
     final applicationProvider = Provider.of<ApplicationProvider>(context);
     return Theme(
@@ -75,7 +75,7 @@ class _ApplicationsPageState extends State<ApplicationsPage> {
                                 padding: const EdgeInsets.all(16.0),
                                 child: DataTable(
                                   headingRowColor:
-                                      MaterialStateProperty.all(Colors.grey[200]),
+                                      WidgetStateProperty.all(Colors.grey[200]),
                                   columns: const [
                                     DataColumn(
                                       label: Text(
