@@ -54,60 +54,127 @@ class _ApplicationsPageState extends State<ApplicationsPage> {
               height: double.infinity,
               child: Column(
                 children: [
-                  jobs.isEmpty ? const HeadingText(title: "View Applications For Jobs",) : HeadingText(title: "View Applications For Jobs", subtitle: "${jobs.length} Jobs found",),
+                  jobs.isEmpty
+                      ? const HeadingText(title: "View Applications For Jobs")
+                      : HeadingText(
+                          title: "View Applications For Jobs",
+                          subtitle: "${jobs.length} Jobs found",
+                        ),
                   Expanded(
                     child: Center(
                       child: Builder(
                         builder: (context) {
                           if (jobs.isNotEmpty) {
                             return Card(
-                              child: DataTable(
-                                columns: const [
-                                  DataColumn(label: Text("No.")),
-                                  DataColumn(label: Text("Title")),
-                                  DataColumn(label: Text("Actions"))
-                                ], 
-                                rows: jobs.map(
-                                  (job) => DataRow(
-                                    cells: [
-                                      DataCell(
-                                        Text("${jobs.indexOf(job) + 1}")
+                              elevation: 8,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: DataTable(
+                                  headingRowColor:
+                                      MaterialStateProperty.all(Colors.grey[200]),
+                                  columns: const [
+                                    DataColumn(
+                                      label: Text(
+                                        "No.",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black87,
+                                        ),
                                       ),
-                                      DataCell(
-                                        Text(job.title)
+                                    ),
+                                    DataColumn(
+                                      label: Text(
+                                        "Title",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black87,
+                                        ),
                                       ),
-                                      DataCell(
-                                        ElevatedButton(
-                                          // TODO: Implement This
-                                          onPressed: () async {
-                                            var applications = await applicationProvider.fetchApplicationByJobId(job.id);
-                                            debugPrint("Applications: $applications");
-                                            Navigator.pushReplacement(
-                                              context, 
-                                              MaterialPageRoute(builder: (context) => ApplicationsTable(applications: applications))
-                                            );
-                                          }, 
-                                          child: Text("View Application")
-                                        )
+                                    ),
+                                    DataColumn(
+                                      label: Text(
+                                        "Actions",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black87,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                  rows: jobs
+                                      .map(
+                                        (job) => DataRow(
+                                          cells: [
+                                            DataCell(
+                                              Text(
+                                                "${jobs.indexOf(job) + 1}",
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+                                            ),
+                                            DataCell(
+                                              Text(
+                                                job.title,
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+                                            ),
+                                            DataCell(
+                                              ElevatedButton.icon(
+                                                onPressed: () async {
+                                                  var applications =
+                                                      await applicationProvider
+                                                          .fetchApplicationByJobId(
+                                                              job.id);
+                                                  Navigator.pushReplacement(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ApplicationsTable(
+                                                              applications:
+                                                                  applications),
+                                                    ),
+                                                  );
+                                                },
+                                                icon: const Icon(Icons.visibility),
+                                                label: const Text("View"),
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor:
+                                                      Colors.teal,
+                                                  foregroundColor: Colors.white,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(10),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       )
-                                    ]
-                                  )
-                                ).toList()
+                                      .toList(),
+                                ),
                               ),
                             );
                           } else {
                             fetchData();
-                            return const Center(child: CircularProgressIndicator());
+                            return const CircularProgressIndicator();
                           }
-                        }
+                        },
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
-            )
+            ),
           );
-        }
+        },
       ),
     );
   }
