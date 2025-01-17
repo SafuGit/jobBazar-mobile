@@ -429,11 +429,11 @@ class _CvPageState extends State<CvPage> {
                       ElevatedButton(
                         onPressed: () async {
                           final Uri url = Uri.parse("http://10.0.2.2:8080/api/uploads/pdf/${authProvider.currentUser!.id}");
-                          if (!await launchUrl(url)) {
+                          if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
                             Constants.showSnackbar(context, "Could not launch $url");
                             throw Exception('Could not launch $url');
                           }
-                        }, 
+                        },
                         child: const Text("View Cv File")
                       )
                     ],
