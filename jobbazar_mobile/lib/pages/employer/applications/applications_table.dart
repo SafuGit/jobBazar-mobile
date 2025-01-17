@@ -1,3 +1,4 @@
+import 'package:common_constants/common_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/models/application.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
@@ -6,6 +7,7 @@ import 'package:jobbazar_mobile/shared/page_appbar.dart';
 import 'package:jobbazar_mobile/shared/theme/employer/employer_gradient.dart';
 import 'package:jobbazar_mobile/shared/theme/employer/theme.dart';
 import 'package:jobbazar_mobile/shared/util/heading/heading_text.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ApplicationsTable extends StatefulWidget {
   final List<Application> applications;
@@ -59,6 +61,19 @@ class _ApplicationsTableState extends State<ApplicationsTable> {
                                     ),
                                   ),
                                   DropdownMenuItem(
+                                    value: "viewCVFile",
+                                    child: TextButton(
+                                      onPressed: () async {
+                                        final Uri url = Uri.parse("http://10.0.2.2:8080/api/uploads/pdf/${application.applicant_id}");
+                                        if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+                                          Constants.showSnackbar(context, "Could not launch $url");
+                                          throw Exception('Could not launch $url');
+                                        }
+                                      }, 
+                                      child: const Text("View CV File", style: TextStyle(color: Colors.orangeAccent),),
+                                    )
+                                  ),
+                                  DropdownMenuItem(
                                     value: "accept",
                                     child: TextButton(
                                       onPressed: () {
@@ -83,6 +98,8 @@ class _ApplicationsTableState extends State<ApplicationsTable> {
                                   } else if (value == "accept") {
 
                                   } else if (value == "reject") {
+
+                                  } else if (value == "viewCVFile") {
 
                                   }
                                 },
