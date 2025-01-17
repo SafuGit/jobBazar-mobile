@@ -2,6 +2,7 @@
 import 'package:common_constants/common_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/models/application.dart';
+import 'package:jobbazar_mobile/provider/models/job.dart';
 import 'package:jobbazar_mobile/provider/services/application_service.dart';
 
 class ApplicationProvider with ChangeNotifier {
@@ -17,6 +18,18 @@ class ApplicationProvider with ChangeNotifier {
       throw Exception('Error: $e');
     }
     finally {
+      notifyListeners();
+    }
+  }
+
+  Future<List<Application>> fetchApplicationByJobId(int jobId) async {
+    try {
+      var apps = await _applicationService.getApplicationsByJobId(jobId: jobId);
+      return apps;
+    } catch (e) {
+      debugPrint("$e");
+      throw Exception('Error: $e');
+    } finally {
       notifyListeners();
     }
   }

@@ -24,6 +24,22 @@ class ApplicationService {
     }
   }
 
+  Future<List<Application>> getApplicationsByJobId({required int jobId}) async {
+    final String newUrl = '$apiUrl/job/$jobId';
+    try {
+      final response = await http.get(Uri.parse(newUrl));
+      if (response.statusCode == 200) {
+        List<dynamic> body = json.decode(response.body);
+        var data = body.map((dynamic item) => Application.fromJson(item)).toList();
+        return data;
+      } else {
+        throw Exception('Failed to load applications');
+      }
+    } catch (e) {
+      throw Exception('Error: $e');
+    }
+  }
+
   Future<String> applyForJob({required dynamic appData}) async {
     try {
       var jsonAppData = jsonEncode(appData);
