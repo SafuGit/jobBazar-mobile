@@ -1,4 +1,8 @@
 
+import 'dart:io';
+
+import 'package:common_constants/common_constants.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/models/cv.dart';
 import 'package:jobbazar_mobile/provider/services/cv_service.dart';
@@ -6,6 +10,7 @@ import 'package:jobbazar_mobile/provider/services/cv_service.dart';
 class CvProvider with ChangeNotifier {
   final CvService _cvService = CvService();
   Cv _currentUserCV = Cv();
+  File? _currentUserCvFile;
 
   get currentUserCv => _currentUserCV;
 
@@ -36,6 +41,21 @@ class CvProvider with ChangeNotifier {
     } catch (e) {
       debugPrint('Error: $e');
     } finally {
+      notifyListeners();
+    }
+  }
+
+  Future<void> pickFile() async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles();
+      if (result != null) {
+        _currentUserCvFile = File(result.files.single.path!);
+        debugPrint("File Picked");
+      }
+    } catch (e) {
+      debugPrint('Error: $e');
+    } finally {
+      debugPrint("${_currentUserCvFile?.path}");
       notifyListeners();
     }
   }

@@ -12,6 +12,7 @@ class CvPage extends StatefulWidget {
   const CvPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _CvPageState createState() => _CvPageState();
 }
 
