@@ -1,3 +1,4 @@
+import 'package:common_constants/common_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
 import 'package:jobbazar_mobile/provider/profile_provider.dart';
@@ -23,7 +24,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    final authProvider = Provider.of<AuthProvider>(context);
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
     nameController.text = authProvider.currentUser?.name ?? "";
     emailController.text = authProvider.currentUser?.email ?? "";
     phoneController.text = authProvider.currentUser?.phone.toString() ?? "";
@@ -172,7 +173,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         backgroundColor: WidgetStatePropertyAll<Color>(Colors.blue),
                                         foregroundColor: WidgetStatePropertyAll<Color>(Colors.white)
                                       ),
-                                      onPressed: () {}, 
+                                      onPressed: () {
+                                        if (nameController.text == "" || emailController.text == "" || passwordController.text == "" || phoneController.text == "") {
+                                          Constants.showSnackbar(context, "Please Fill up All Fields");
+                                        } else {
+                                          var userData = {
+                                            "name": nameController.text,
+                                            "username": emailController.text,
+                                            "password": passwordController.text,
+                                            "phone_number": phoneController.text,
+                                            "role": authProvider.currentUser!.role
+                                          };
+                                          debugPrint(userData.toString());
+                                          authProvider.updateUser(userData, authProvider.currentUser!.id, context);
+                                          authProvider.logout(context);
+                                        }
+                                      }, 
                                       child: const Text("Submit")
                                     )
                                   ],
