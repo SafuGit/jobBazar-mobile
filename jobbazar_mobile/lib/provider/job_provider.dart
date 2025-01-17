@@ -53,6 +53,7 @@ class JobProvider with ChangeNotifier {
     } catch (e) {
       debugPrint('Error: $e');
     } finally {
+      debugPrint('Job posted successfully');
       notifyListeners();
     }
   }

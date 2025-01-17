@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/pages/employee/applied_jobs/applied_jobs_wrapper.dart';
 import 'package:jobbazar_mobile/pages/employee/cv_page/cv_page.dart';
 import 'package:jobbazar_mobile/pages/employer/all_jobs_posted/all_jobs.dart';
+import 'package:jobbazar_mobile/pages/employer/applications/applications.dart';
 import 'package:jobbazar_mobile/pages/employer/hiring_tips/hiring_tips.dart';
 import 'package:jobbazar_mobile/shared/pages/job_info.dart';
 import 'package:jobbazar_mobile/pages/employee/learning/learning.dart';
@@ -71,6 +72,7 @@ var appRoutes = {
   '/employee/cvInfo': (context) => const CvPage(),
   '/employer/hiringTips': (context) => const HiringTipsPage(),
   '/employee/appliedJobs': (context) => const AppliedJobs(),
+  '/employer/apps': (context) => const ApplicationsPage(),
 };
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {

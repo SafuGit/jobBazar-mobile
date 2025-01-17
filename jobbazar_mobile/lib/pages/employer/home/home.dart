@@ -46,7 +46,7 @@ class _EmployerHomeScreenState extends State<EmployerHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final jobProvider = Provider.of<JobProvider>(context);
+    final jobProvider = Provider.of<JobProvider>(context, listen: true);
     return Theme(
       data: employerTheme, // Apply the custom theme here
       child: Builder(
@@ -187,9 +187,10 @@ class _EmployerHomeScreenState extends State<EmployerHomeScreen> {
                   Builder(
                     builder: (context) {
                       if (jobs.isNotEmpty) {
-                        return HotJobsAccordion(jobs: jobProvider.employerJobs.reversed.toList());
+                        return HotJobsAccordion(jobs: jobProvider.employerJobs.reversed.toList(), isAppliedJobs: false,);
                       } else {
-                        return const Text("Loading");
+                        fetchJobs();
+                        return const Center(child: Text("Loading"));
                       }
                     }
                   )

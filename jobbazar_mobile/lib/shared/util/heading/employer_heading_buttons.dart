@@ -44,7 +44,7 @@ class EmployerHeadingButtons extends StatelessWidget {
                 label: "Application",
                 iconColor: Colors.indigo,
                 onPressed: () {
-                  Navigator.pushNamed(context, '');
+                  Navigator.pushNamed(context, '/employer/apps');
                 },
               ),
               _buildButton(

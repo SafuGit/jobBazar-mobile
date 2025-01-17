@@ -8,6 +8,7 @@ import 'package:jobbazar_mobile/shared/bottom_nav.dart';
 import 'package:jobbazar_mobile/shared/drawer.dart';
 import 'package:jobbazar_mobile/shared/util/card/card_list.dart';
 import 'package:jobbazar_mobile/shared/util/heading/heading_text.dart';
+import 'package:jobbazar_mobile/shared/util/jobs_accordion.dart';
 import 'package:jobbazar_mobile/shared/util/search.dart';
 import 'package:provider/provider.dart';
 
@@ -68,7 +69,7 @@ class _AllJobsPageState extends State<AllJobsPage> {
                     ValueListenableBuilder(
                       valueListenable: jobNotifier,
                       builder: (context, filteredJobs, _) {
-                        return CardList(jobs: filteredJobs);
+                        return HotJobsAccordion(jobs: filteredJobs, isAppliedJobs: false,);
                       },
                     ),
                   ]

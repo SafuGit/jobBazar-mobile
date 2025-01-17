@@ -91,7 +91,6 @@ class _CardButtonWrapperState extends State<CardButtonWrapper> {
             onPressed: () {
               setState(() {
                 jobProvider.deleteJob(widget.job.id);
-                Navigator.pop(context);
                 Navigator.pushReplacementNamed(context, '/employerHome');
               });
             },

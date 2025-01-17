@@ -20,7 +20,7 @@ class EmployerDrawerItems extends StatelessWidget {
           context,
           icon: Icons.assignment_turned_in_outlined,
           title: 'Applications',
-          route: '/employer/applications',
+          route: '/employer/apps',
         ),
         _buildDrawerItem(
           context,

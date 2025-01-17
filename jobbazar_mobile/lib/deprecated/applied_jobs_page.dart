@@ -27,7 +27,7 @@ class AppliedJobsPage extends StatelessWidget {
             child: Column(
               children: [
                 HeadingText(title: "Applied Jobs", subtitle: "${jobs.length} Jobs Found",),
-                HotJobsAccordion(jobs: jobs)
+                HotJobsAccordion(jobs: jobs, isAppliedJobs: true,)
               ]
             ),
           )

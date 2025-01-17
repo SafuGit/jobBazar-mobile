@@ -89,7 +89,7 @@ class _AppliedJobsState extends State<AppliedJobs> {
                 Builder(
                   builder: (context) {
                     if (jobs.isNotEmpty) {
-                      return HotJobsAccordion(jobs: jobs);
+                      return HotJobsAccordion(jobs: jobs, isAppliedJobs: true,);
                     } else { 
                       debugPrint("in if");
                       return const Center(child: Text("Loading"),);
