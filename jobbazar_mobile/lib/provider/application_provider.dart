@@ -56,4 +56,17 @@ class ApplicationProvider with ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<void> makeApplicationDecision({required int appId, required String decision, required BuildContext context}) async {
+    try {
+      await _applicationService.makeApplicationDecision(appId: appId, decision: decision);
+      Constants.showSnackbar(context, "Application Decision Updated Succesfully!");
+    } catch (e) {
+      debugPrint('Error: $e');
+      Constants.showSnackbar(context, "ERROR: Cant Update Application Decision.");
+      throw Exception('Error: $e');
+    } finally {
+      notifyListeners();
+    }
+  }
 }

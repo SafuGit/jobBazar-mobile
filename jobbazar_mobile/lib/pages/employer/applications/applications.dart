@@ -70,7 +70,8 @@ class _ApplicationsPageState extends State<ApplicationsPage> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15),
                               ),
-                              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
                               child: Padding(
                                 padding: const EdgeInsets.all(16.0),
                                 child: DataTable(
@@ -142,15 +143,16 @@ class _ApplicationsPageState extends State<ApplicationsPage> {
                                                     ),
                                                   );
                                                 },
-                                                icon: const Icon(Icons.visibility),
+                                                icon: const Icon(
+                                                    Icons.visibility),
                                                 label: const Text("View"),
                                                 style: ElevatedButton.styleFrom(
-                                                  backgroundColor:
-                                                      Colors.teal,
+                                                  backgroundColor: Colors.teal,
                                                   foregroundColor: Colors.white,
                                                   shape: RoundedRectangleBorder(
                                                     borderRadius:
-                                                        BorderRadius.circular(10),
+                                                        BorderRadius.circular(
+                                                            10),
                                                   ),
                                                 ),
                                               ),

@@ -75,4 +75,24 @@ class ApplicationService {
       throw Exception('Error: $e');
     }
   }
+
+  Future<Application> makeApplicationDecision({required int appId, required String decision}) async {
+    var newApiUrl = '$apiUrl/$appId';
+    try {
+      final response = await http.put(Uri.parse(newApiUrl), 
+      body: jsonEncode({"status": decision}), 
+      headers: {
+        "Content-Type": "application/json",
+      });
+      if (response.statusCode == 200) {
+        return Application.fromJson(jsonDecode(response.body));
+      } else {
+        debugPrint('Failed to make application decision');
+        throw Exception('Failed to make application decision');
+      }
+    } catch (e) {
+      debugPrint('Error: $e');
+      throw Exception('Error: $e');
+    }
+  }
 }

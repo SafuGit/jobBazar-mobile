@@ -1,5 +1,6 @@
 import 'package:common_constants/common_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:jobbazar_mobile/provider/application_provider.dart';
 import 'package:jobbazar_mobile/provider/models/application.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
 import 'package:jobbazar_mobile/shared/drawer.dart';
@@ -7,6 +8,7 @@ import 'package:jobbazar_mobile/shared/page_appbar.dart';
 import 'package:jobbazar_mobile/shared/theme/employer/employer_gradient.dart';
 import 'package:jobbazar_mobile/shared/theme/employer/theme.dart';
 import 'package:jobbazar_mobile/shared/util/heading/heading_text.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ApplicationsTable extends StatefulWidget {
@@ -20,6 +22,7 @@ class ApplicationsTable extends StatefulWidget {
 class _ApplicationsTableState extends State<ApplicationsTable> {
   @override
   Widget build(BuildContext context) {
+    final applicationProvider = Provider.of<ApplicationProvider>(context);
     return Theme(
       data: employerTheme,
       child: Builder(
@@ -46,7 +49,44 @@ class _ApplicationsTableState extends State<ApplicationsTable> {
                         (application) => DataRow(
                           cells: [
                             DataCell(Text(application.applicant_name)),
-                            DataCell(Text(application.status)),
+                            DataCell(Builder(
+                              builder: (context) {
+                                if (application.status == "REJECTED") {
+                                  return Container(
+                                    padding: const EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      border: Border.all(
+                                        color: Colors.black
+                                      ),
+                                      borderRadius: BorderRadius.circular(10)
+                                    ),
+                                    child: Text(application.status, style: const TextStyle(color: Colors.black),));
+                                } else if (application.status == "ACCEPTED") {
+                                  return Container(
+                                    padding: const EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                      color: Colors.green,
+                                      border: Border.all(
+                                        color: Colors.black
+                                      ),
+                                      borderRadius: BorderRadius.circular(10)
+                                    ),
+                                    child: Text(application.status, style: const TextStyle(color: Colors.black),));
+                                } else {
+                                  return Container(
+                                    padding: const EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                      color: Colors.orange,
+                                      border: Border.all(
+                                        color: Colors.black
+                                      ),
+                                      borderRadius: BorderRadius.circular(10)
+                                    ),
+                                    child: Text(application.status, style: const TextStyle(color: Colors.black),));
+                                }
+                              }
+                            )),
                             DataCell(
                               DropdownButton<String>(
                                 hint: const Text("Actions"),
@@ -77,7 +117,8 @@ class _ApplicationsTableState extends State<ApplicationsTable> {
                                     value: "accept",
                                     child: TextButton(
                                       onPressed: () {
-
+                                        applicationProvider.makeApplicationDecision(appId: application.id, decision: "ACCEPTED", context: context);
+                                        Navigator.pushReplacementNamed(context, '/employer/apps');
                                       },
                                       child: const Text("ACCEPT"),
                                     ),
@@ -86,7 +127,8 @@ class _ApplicationsTableState extends State<ApplicationsTable> {
                                     value: "reject",
                                     child: TextButton(
                                       onPressed: () {
-
+                                        applicationProvider.makeApplicationDecision(appId: application.id, decision: "REJECTED", context: context);
+                                        Navigator.pushReplacementNamed(context, '/employer/apps');
                                       },
                                       child: const Text("REJECT", style: TextStyle(color: Colors.red),),
                                     ),
@@ -96,9 +138,11 @@ class _ApplicationsTableState extends State<ApplicationsTable> {
                                   if (value == "viewCV") {
 
                                   } else if (value == "accept") {
-
+                                    applicationProvider.makeApplicationDecision(appId: application.id, decision: "ACCEPTED", context: context);
+                                    Navigator.pushReplacementNamed(context, '/employer/apps');
                                   } else if (value == "reject") {
-
+                                    applicationProvider.makeApplicationDecision(appId: application.id, decision: "REJECTED", context: context);
+                                    Navigator.pushReplacementNamed(context, '/employer/apps');
                                   } else if (value == "viewCVFile") {
 
                                   }
