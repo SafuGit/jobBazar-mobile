@@ -5,6 +5,7 @@ import 'package:jobbazar_mobile/provider/job_provider.dart';
 import 'package:jobbazar_mobile/shared/pages/args/job_args.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
 import 'package:jobbazar_mobile/provider/models/job.dart';
+import 'package:jobbazar_mobile/shared/theme/employer/theme.dart';
 import 'package:provider/provider.dart';
 
 class CardButtonWrapper extends StatefulWidget {
@@ -33,7 +34,7 @@ class _CardButtonWrapperState extends State<CardButtonWrapper> {
             padding: const EdgeInsets.all(4.0),
             child: ElevatedButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(context, '/jobInfo', arguments: JobArgs(title: widget.job.title, description: widget.job.description, location: widget.job.location, salary: widget.job.salary, company: widget.job.company, jobType: widget.job.type, theme: widget.theme));
+                Navigator.pushReplacementNamed(context, '/jobInfo', arguments: JobArgs(title: widget.job.title, description: widget.job.description, location: widget.job.location, salary: widget.job.salary, company: widget.job.company, jobType: widget.job.type,));
               },
               style: const ButtonStyle(
                 backgroundColor: WidgetStatePropertyAll(Colors.blue)
@@ -70,7 +71,7 @@ class _CardButtonWrapperState extends State<CardButtonWrapper> {
         children: [
           ElevatedButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(context, '/jobInfo', arguments: JobArgs(title: widget.job.title, description: widget.job.description, location: widget.job.location, salary: widget.job.salary, company: widget.job.company, jobType: widget.job.type, theme: widget.theme));
+                Navigator.pushReplacementNamed(context, '/jobInfo', arguments: JobArgs(title: widget.job.title, description: widget.job.description, location: widget.job.location, salary: widget.job.salary, company: widget.job.company, jobType: widget.job.type, theme: employerTheme));
               },
               style: const ButtonStyle(
                 backgroundColor: WidgetStatePropertyAll(Colors.blue)
