@@ -31,19 +31,19 @@ class _AppliedJobsButtonState extends State<AppliedJobsButton> {
             ), 
             child: const Text("Get Info", style: TextStyle(color: Colors.black),)
           ),
-        ElevatedButton(
-          onPressed: () {
-            setState(() {
-              // TODO: Add Delete functionality for application
-              // applicationProvider
-              Navigator.pushReplacementNamed(context, '/employee/appliedJobs');
-            });
-          },
-          style: const ButtonStyle(
-            backgroundColor: WidgetStatePropertyAll(Color.fromARGB(220, 173, 34, 24))
-          ), 
-          child: const Text("Delete", style: TextStyle(color: Colors.black),)
-        ),
+        // ElevatedButton(
+        //   onPressed: () {
+        //     setState(() {
+        //       debugPrint(widget.appId.toString());
+        //       // applicationProvider.deleteApplication(appId: widget.appId, context: context);
+        //       Navigator.pushReplacementNamed(context, '/employee/appliedJobs');
+        //     });
+        //   },
+        //   style: const ButtonStyle(
+        //     backgroundColor: WidgetStatePropertyAll(Color.fromARGB(220, 173, 34, 24))
+        //   ), 
+        //   child: const Text("Delete", style: TextStyle(color: Colors.black),)
+        // ),
       ]
     );
   }

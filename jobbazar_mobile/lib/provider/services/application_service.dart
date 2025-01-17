@@ -59,4 +59,20 @@ class ApplicationService {
       throw Exception('Error: $e');
     }
   }
+
+  Future<String> deleteApplication({required dynamic appId}) async {
+    var newApiUrl = '$apiUrl/$appId';
+    try {
+      final response = await http.delete(Uri.parse(newApiUrl));
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        debugPrint('Failed to delete application');
+        throw Exception('Failed to delete application');
+      }
+    } catch (e) {
+      debugPrint('Error: $e');
+      throw Exception('Error: $e');
+    }
+  }
 }

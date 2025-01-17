@@ -43,4 +43,17 @@ class ApplicationProvider with ChangeNotifier {
       throw Exception('Error: $e');
     }
   }
+
+  Future<void> deleteApplication({required dynamic appId, required BuildContext context}) async {
+    try {
+      await _applicationService.deleteApplication(appId: appId);
+      Constants.showSnackbar(context, "Application Deleted Succesfully!");
+    } catch (e) {
+      debugPrint('Error: $e');
+      Constants.showSnackbar(context, "ERROR: Cant Delete Application.");
+      throw Exception('Error: $e');
+    } finally {
+      notifyListeners();
+    }
+  }
 }
