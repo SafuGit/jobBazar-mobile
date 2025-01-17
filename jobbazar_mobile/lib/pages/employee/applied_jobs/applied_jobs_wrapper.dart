@@ -41,14 +41,14 @@ class _AppliedJobsState extends State<AppliedJobs> {
           setState(() {
             if (job != null) {
               jobs.add(job);
-              // Navigator.pushReplacementNamed(context, '/employee/appliedJobs');
+              // Navigator.pushNamed(context, '/employee/appliedJobs');
             } else {
               debugPrint("Job not found");
             }
           });
         })).then((_) {
           setState(() {
-            // Navigator.pushReplacementNamed(context, '/employee/appliedJobs');
+            // Navigator.pushNamed(context, '/employee/appliedJobs');
             _isInitialized = true;
             debugPrint("$_isInitialized");
           });
@@ -148,9 +148,10 @@ class _AppliedJobsState extends State<AppliedJobs> {
                                 )),
                                 DataCell(
                                   TextButton(
-                                    onPressed: () {
-                                      applicationProvider.deleteApplication(appId: application.id, context: context);
-                                      Navigator.pushReplacementNamed(context, '/employee/appliedJobs');
+                                    onPressed: () async {
+                                      await applicationProvider.deleteApplication(appId: application.id, context: context);
+                                      Navigator.pushNamed(context, '/employee/home');
+                                      Navigator.pushNamed(context, '/employee/appliedJobs');
                                     },
                                     style: ButtonStyle(
                                       backgroundColor: WidgetStateProperty.all(Colors.red),

@@ -25,7 +25,7 @@ class _AppliedJobsButtonState extends State<AppliedJobsButton> {
         
         ElevatedButton(
             onPressed: () {
-              Navigator.pushReplacementNamed(context, '/jobInfo', arguments: JobArgs(title: widget.job.title, description: widget.job.description, location: widget.job.location, salary: widget.job.salary, company: widget.job.company, jobType: widget.job.type, theme: widget.theme));
+              Navigator.pushNamed(context, '/jobInfo', arguments: JobArgs(title: widget.job.title, description: widget.job.description, location: widget.job.location, salary: widget.job.salary, company: widget.job.company, jobType: widget.job.type, theme: widget.theme));
             },
             style: const ButtonStyle(
               backgroundColor: WidgetStatePropertyAll(Colors.blue)
@@ -37,7 +37,7 @@ class _AppliedJobsButtonState extends State<AppliedJobsButton> {
         //     setState(() {
         //       debugPrint(widget.appId.toString());
         //       // applicationProvider.deleteApplication(appId: widget.appId, context: context);
-        //       Navigator.pushReplacementNamed(context, '/employee/appliedJobs');
+        //       Navigator.pushNamed(context, '/employee/appliedJobs');
         //     });
         //   },
         //   style: const ButtonStyle(

@@ -213,7 +213,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               setState(() {});
                               imageCache.clear();
                               imageCache.clearLiveImages();
-                              Navigator.pushReplacementNamed(context, '/profile');
+                              Navigator.pushNamed(context, '/profile');
                             }
                           },
                           style: ElevatedButton.styleFrom(

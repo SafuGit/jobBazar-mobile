@@ -80,10 +80,12 @@ class EmployerHeadingButtons extends StatelessWidget {
                 },
               ),
               _buildButton(
-                icon: Icons.work,
-                label: "Company",
+                icon: Icons.question_mark,
+                label: "FAQ",
                 iconColor: Colors.purpleAccent,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/faq');
+                },
               ),
               _buildButton(
                 icon: Icons.logout,

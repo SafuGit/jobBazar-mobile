@@ -68,7 +68,7 @@ class _AllJobsPageState extends State<AllJobsPage> {
                     ValueListenableBuilder(
                       valueListenable: jobNotifier,
                       builder: (context, filteredJobs, _) {
-                        return HotJobsAccordion(jobs: filteredJobs, isAppliedJobs: false,);
+                        return HotJobsAccordion(jobs: filteredJobs, isAppliedJobs: true,);
                       },
                     ),
                   ]

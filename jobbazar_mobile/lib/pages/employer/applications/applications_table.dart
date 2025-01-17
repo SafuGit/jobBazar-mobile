@@ -123,7 +123,7 @@ class _ApplicationsTableState extends State<ApplicationsTable> {
                                     child: TextButton(
                                       onPressed: () {
                                         applicationProvider.makeApplicationDecision(appId: application.id, decision: "ACCEPTED", context: context);
-                                        Navigator.pushReplacementNamed(context, '/employer/apps');
+                                        Navigator.pushNamed(context, '/employer/apps');
                                       },
                                       child: const Text("ACCEPT"),
                                     ),
@@ -133,7 +133,7 @@ class _ApplicationsTableState extends State<ApplicationsTable> {
                                     child: TextButton(
                                       onPressed: () {
                                         applicationProvider.makeApplicationDecision(appId: application.id, decision: "REJECTED", context: context);
-                                        Navigator.pushReplacementNamed(context, '/employer/apps');
+                                        Navigator.pushNamed(context, '/employer/apps');
                                       },
                                       child: const Text("REJECT", style: TextStyle(color: Colors.red),),
                                     ),
@@ -144,10 +144,10 @@ class _ApplicationsTableState extends State<ApplicationsTable> {
 
                                   } else if (value == "accept") {
                                     applicationProvider.makeApplicationDecision(appId: application.id, decision: "ACCEPTED", context: context);
-                                    Navigator.pushReplacementNamed(context, '/employer/apps');
+                                    Navigator.pushNamed(context, '/employer/apps');
                                   } else if (value == "reject") {
                                     applicationProvider.makeApplicationDecision(appId: application.id, decision: "REJECTED", context: context);
-                                    Navigator.pushReplacementNamed(context, '/employer/apps');
+                                    Navigator.pushNamed(context, '/employer/apps');
                                   } else if (value == "viewCVFile") {
 
                                   }

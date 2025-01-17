@@ -51,7 +51,7 @@ class _CardButtonWrapperState extends State<CardButtonWrapper> {
             padding: const EdgeInsets.all(4.0),
             child: ElevatedButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(context, '/jobInfo', arguments: JobArgs(title: widget.job.title, description: widget.job.description, location: widget.job.location, salary: widget.job.salary, company: widget.job.company, jobType: widget.job.type,));
+                Navigator.pushNamed(context, '/jobInfo', arguments: JobArgs(title: widget.job.title, description: widget.job.description, location: widget.job.location, salary: widget.job.salary, company: widget.job.company, jobType: widget.job.type,));
               },
               style: const ButtonStyle(
                 backgroundColor: WidgetStatePropertyAll(Colors.blue)
@@ -63,6 +63,10 @@ class _CardButtonWrapperState extends State<CardButtonWrapper> {
             onPressed: () async {
               await cvProvider.fetchCv(authProvider.currentUser!.id).whenComplete(() async {
                 try {
+                  if (cvProvider.currentUserCv.id == null) {
+                    Constants.showSnackbar(context, "Fill up Your CV First");
+                    Navigator.pushNamed(context, "/employee/cvInfo");
+                  }
                   final Map<String, dynamic> appData = {
                     "jobId": widget.job.id,
                     "userId": authProvider.currentUser!.id,
@@ -73,11 +77,10 @@ class _CardButtonWrapperState extends State<CardButtonWrapper> {
                     }
                   };
                   await appProvider.applyForJob(appData: appData, context: context);
+                  Navigator.pushNamed(context, '/employee/appliedJobs');
                 } catch (e) {
                   debugPrint(e.toString());
-                  Constants.showSnackbar(context, "ERROR Occured During Job Posting, Have u typed all fields correctly?");
-                } finally {
-                  Navigator.pushReplacementNamed(context, '/employee/appliedJobs');
+                  // Constants.showSnackbar(context, "ERROR Occured During Job Application");
                 }
               });
             },
@@ -95,7 +98,7 @@ class _CardButtonWrapperState extends State<CardButtonWrapper> {
         children: [
           ElevatedButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(context, '/jobInfo', arguments: JobArgs(title: widget.job.title, description: widget.job.description, location: widget.job.location, salary: widget.job.salary, company: widget.job.company, jobType: widget.job.type, theme: employerTheme));
+                Navigator.pushNamed(context, '/jobInfo', arguments: JobArgs(title: widget.job.title, description: widget.job.description, location: widget.job.location, salary: widget.job.salary, company: widget.job.company, jobType: widget.job.type, theme: employerTheme));
               },
               style: const ButtonStyle(
                 backgroundColor: WidgetStatePropertyAll(Colors.blue)
@@ -184,7 +187,7 @@ class _CardButtonWrapperState extends State<CardButtonWrapper> {
                               debugPrint(widget.job.toString());
                               debugPrint(jobTitleController.text);
                               await jobProvider.updateJob(widget.job.id, jobData, context);
-                              Navigator.pushReplacementNamed(context, '/employerHome');
+                              Navigator.pushNamed(context, '/employerHome');
                             } catch (e) {
                               debugPrint(e.toString());
                               Constants.showSnackbar(context, "ERROR Occured During Job Posting, Have u typed all fields correctly?");
@@ -208,7 +211,7 @@ class _CardButtonWrapperState extends State<CardButtonWrapper> {
             onPressed: () {
               setState(() {
                 jobProvider.deleteJob(widget.job.id);
-                Navigator.pushReplacementNamed(context, '/employerHome');
+                Navigator.pushNamed(context, '/employerHome');
               });
             },
             style: const ButtonStyle(

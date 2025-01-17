@@ -63,7 +63,7 @@ class _CvPageState extends State<CvPage> {
 
         debugPrint(cvProvider.currentUserCv.toString());
 
-        if (cvProvider.currentUserCv != null) {
+        if (cvProvider.currentUserCv.location != null) {
           _hasCv = true;
         }
 

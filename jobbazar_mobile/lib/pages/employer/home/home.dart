@@ -159,7 +159,7 @@ class _EmployerHomeScreenState extends State<EmployerHomeScreen> {
                                         };
                                         debugPrint(jobData.toString());
                                         jobProvider.postJob(jobData);
-                                        Navigator.pushReplacementNamed(context, '/employerHome');
+                                        Navigator.pushNamed(context, '/employerHome');
                                         Constants.showSnackbar(context, "Job Posted Successfully");
                                       } catch (e) {
                                         debugPrint(e.toString());
