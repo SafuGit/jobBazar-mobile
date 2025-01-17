@@ -7,6 +7,7 @@ import 'package:jobbazar_mobile/shared/drawer.dart';
 import 'package:jobbazar_mobile/shared/page_appbar.dart';
 import 'package:jobbazar_mobile/shared/theme/employee/employee_gradient.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CvPage extends StatefulWidget {
   const CvPage({super.key});
@@ -413,15 +414,28 @@ class _CvPageState extends State<CvPage> {
                         ),),
                       ),
                       ElevatedButton(
-                        onPressed: () {}, 
+                        onPressed: () {
+                          try {
+                            cvProvider.pickFile();
+                            cvProvider.uploadCv(authProvider.currentUser!.id);
+                            Constants.showSnackbar(context, "CV uploaded successfully");
+                          } catch (e) {
+                            debugPrint(e.toString());
+                            Constants.showSnackbar(context, "ERROR Occured During CV Action, Have u correctly Uploaded File?");
+                          }
+                        }, 
                         child: const Text("Upload CV File")
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.red.withOpacity(0.4),
-                        ),
-                      ),
+                      ElevatedButton(
+                        onPressed: () async {
+                          final Uri url = Uri.parse("http://10.0.2.2:8080/api/uploads/pdf/${authProvider.currentUser!.id}");
+                          if (!await launchUrl(url)) {
+                            Constants.showSnackbar(context, "Could not launch $url");
+                            throw Exception('Could not launch $url');
+                          }
+                        }, 
+                        child: const Text("View Cv File")
+                      )
                     ],
                   )
                 ],
