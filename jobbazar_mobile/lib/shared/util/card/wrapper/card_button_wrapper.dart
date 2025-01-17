@@ -171,7 +171,7 @@ class _CardButtonWrapperState extends State<CardButtonWrapper> {
                       ),
                       actions: [
                         ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             debugPrint("update clicked");
                             try {
                               final Map<String, dynamic> jobData = {
@@ -183,6 +183,8 @@ class _CardButtonWrapperState extends State<CardButtonWrapper> {
                               };
                               debugPrint(widget.job.toString());
                               debugPrint(jobTitleController.text);
+                              await jobProvider.updateJob(widget.job.id, jobData, context);
+                              Navigator.pushReplacementNamed(context, '/employerHome');
                             } catch (e) {
                               debugPrint(e.toString());
                               Constants.showSnackbar(context, "ERROR Occured During Job Posting, Have u typed all fields correctly?");

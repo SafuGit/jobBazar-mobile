@@ -90,4 +90,23 @@ class JobService {
       throw Exception('Error: $e');
     }
   }
+
+  Future<void> updateJob(int jobId, Map<String, dynamic> jobData) async {
+    final String newUrl = '$apiUrl/$jobId';
+    try {
+      final response = await http.put(
+        Uri.parse(newUrl),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(jobData),
+      );
+      if (response.statusCode == 200) {
+        debugPrint('Job updated successfully');
+      } else {
+        throw Exception('Failed to update job');
+      }
+    } catch (e) {
+      debugPrint('Error: $e');
+      throw Exception('Error: $e');
+    }
+  }
 }

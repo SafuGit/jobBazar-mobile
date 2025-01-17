@@ -1,4 +1,5 @@
 
+import 'package:common_constants/common_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/models/job.dart';
 import 'package:jobbazar_mobile/provider/services/job_service.dart';
@@ -54,6 +55,18 @@ class JobProvider with ChangeNotifier {
       debugPrint('Error: $e');
     } finally {
       debugPrint('Job posted successfully');
+      notifyListeners();
+    }
+  }
+
+  Future<void> updateJob(int jobId, Map<String, dynamic> jobData, BuildContext context) async {
+    try {
+      await _jobService.updateJob(jobId, jobData);
+      Constants.showSnackbar(context, "Job Updated Succesfully");
+    } catch (e) {
+      debugPrint('Error: $e');
+      Constants.showSnackbar(context, "ERROR: Cant Update Job");
+    } finally {
       notifyListeners();
     }
   }
