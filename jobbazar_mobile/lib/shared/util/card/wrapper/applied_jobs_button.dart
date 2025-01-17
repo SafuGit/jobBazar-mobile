@@ -22,6 +22,7 @@ class _AppliedJobsButtonState extends State<AppliedJobsButton> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
+        
         ElevatedButton(
             onPressed: () {
               Navigator.pushReplacementNamed(context, '/jobInfo', arguments: JobArgs(title: widget.job.title, description: widget.job.description, location: widget.job.location, salary: widget.job.salary, company: widget.job.company, jobType: widget.job.type, theme: widget.theme));
