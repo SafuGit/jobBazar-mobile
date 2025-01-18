@@ -26,7 +26,7 @@ class _ApplicationsPageState extends State<ApplicationsPage> {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final jobProvider = Provider.of<JobProvider>(context, listen: false);
     await jobProvider.fetchJobsByEmployer(userId: authProvider.currentUser!.id);
-    jobs = jobProvider.employerJobs;
+    jobs = jobProvider.employerJobs.reversed.toList();
   }
 
   @override

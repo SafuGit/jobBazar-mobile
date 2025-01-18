@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:common_constants/common_constants.dart';
 import 'package:flutter/material.dart';
@@ -52,6 +51,7 @@ class _EmployerHomeScreenState extends State<EmployerHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final jobProvider = Provider.of<JobProvider>(context, listen: true);
     return Theme(
       data: employerTheme, // Apply the custom theme here
