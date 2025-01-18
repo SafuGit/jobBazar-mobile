@@ -67,10 +67,12 @@ class EmployeeHeadingButtons extends StatelessWidget {
                 },
               ),
               _buildButton(
-                icon: Icons.notifications,
-                label: "Notification",
+                icon: Icons.question_mark,
+                label: "FAQ",
                 iconColor: Colors.purpleAccent,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/faq');
+                },
               ),
               _buildButton(
                 icon: Icons.logout,

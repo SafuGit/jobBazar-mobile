@@ -14,32 +14,33 @@ class LearningScreen extends StatelessWidget {
         'title': 'Ace Your Resume',
         'description': 'Create a powerful resume recruiters love.',
         'duration': '2 hours',
-        'image': 'https://dummyimage.com/300x150',
+        'image': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScMW2rTK_DG2vH37ff2jSYUdjpQ_UVYQFS2w&s',
       },
       {
         'title': 'Master the Job Interview',
         'description': 'Learn techniques to confidently tackle interviews.',
         'duration': '3 hours',
-        'image': 'https://dummyimage.com/300x150',
+        'image': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj-qIwyhkiaBzo1JcsS69Vzx1AcL1wNlNL7g&s',
       },
       {
         'title': 'LinkedIn Profile Boost',
         'description': 'Optimize your LinkedIn profile to get noticed.',
         'duration': '1.5 hours',
-        'image': 'https://dummyimage.com/300x150',
+        'image': 'https://static.vecteezy.com/system/resources/previews/018/930/480/non_2x/linkedin-logo-linkedin-icon-transparent-free-png.png',
       },
       {
         'title': 'Networking Like a Pro',
         'description': 'Build connections to land your dream job.',
         'duration': '2.5 hours',
-        'image': 'https://dummyimage.com/300x150',
+        'image': 'https://wallpapercave.com/wp/wp2044697.jpg',
       },
       {
         'title': 'Effective Communication',
         'description': 'Polish your workplace communication skills.',
         'duration': '2 hours',
-        'image': 'https://dummyimage.com/300x150',
+        'image': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOsBbRmkpaoLPnz9R3ShqoNjw5laMnBdS11Q&s',
       },
+      // https://dummyimage.com/300x150
     ];
 
     return Scaffold(

@@ -32,7 +32,7 @@ class EmployeeHomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<EmployeeHomeScreen> {
   late ValueNotifier<List<Job>> jobNotifier;
-  late List<Job> jobs;
+  late List<Job> jobs = [];
 
   @override
   void initState() {
@@ -86,7 +86,7 @@ class _HomeScreenState extends State<EmployeeHomeScreen> {
               builder: (context, filteredJobs, _) {
                 // return HotJobsGrid(jobs: jobs);
                 // return HotJobsList(jobs: jobs);
-                return HotJobsAccordion(jobs: filteredJobs);
+                return HotJobsAccordion(jobs: filteredJobs, isAppliedJobs: false,);
               },
             )
           ],

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/application_provider.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
 import 'package:jobbazar_mobile/provider/job_provider.dart';
+import 'package:jobbazar_mobile/provider/models/application.dart';
 import 'package:jobbazar_mobile/provider/models/job.dart';
 import 'package:jobbazar_mobile/shared/bottom_nav.dart';
 import 'package:jobbazar_mobile/shared/drawer.dart';
 import 'package:jobbazar_mobile/shared/page_appbar.dart';
 import 'package:jobbazar_mobile/shared/theme/employee/employee_gradient.dart';
 import 'package:jobbazar_mobile/shared/util/heading/heading_text.dart';
-import 'package:jobbazar_mobile/shared/util/jobs_accordion.dart';
 import 'package:provider/provider.dart';
 
 class AppliedJobs extends StatefulWidget {
@@ -20,6 +20,7 @@ class AppliedJobs extends StatefulWidget {
 
 class _AppliedJobsState extends State<AppliedJobs> {
   List<Job> jobs = [];
+  List<Application> applications = [];
   bool _isInitialized = false;
 
   Future<void> fetchData() async {
@@ -30,7 +31,7 @@ class _AppliedJobsState extends State<AppliedJobs> {
       // debugPrint("user_id: ${authProvider.currentUser!.id}");
 
       applicationProvider.fetchApplicationByUserId(authProvider.currentUser!.id).whenComplete(() {
-        final applications = applicationProvider.applications;
+        applications = applicationProvider.applications.reversed.toList();
         // debugPrint("Applications: ${applications.length}");
 
         Future.wait(applications.map((application) async {
@@ -40,14 +41,14 @@ class _AppliedJobsState extends State<AppliedJobs> {
           setState(() {
             if (job != null) {
               jobs.add(job);
-              // Navigator.pushReplacementNamed(context, '/employee/appliedJobs');
+              // Navigator.pushNamed(context, '/employee/appliedJobs');
             } else {
               debugPrint("Job not found");
             }
           });
         })).then((_) {
           setState(() {
-            // Navigator.pushReplacementNamed(context, '/employee/appliedJobs');
+            // Navigator.pushNamed(context, '/employee/appliedJobs');
             _isInitialized = true;
             debugPrint("$_isInitialized");
           });
@@ -68,7 +69,8 @@ class _AppliedJobsState extends State<AppliedJobs> {
 
   @override
   Widget build(BuildContext context) {
-    if (jobs.isNotEmpty && _isInitialized) {
+    final applicationProvider = Provider.of<ApplicationProvider>(context);
+    if (applications.isNotEmpty && _isInitialized) {
       return Scaffold(
         appBar: const PageAppbar(title: "Applied Jobs"),
         drawer: const AppDrawer(),
@@ -88,11 +90,91 @@ class _AppliedJobsState extends State<AppliedJobs> {
                 // )
                 Builder(
                   builder: (context) {
-                    if (jobs.isNotEmpty) {
-                      return HotJobsAccordion(jobs: jobs);
+                    if (applications.isNotEmpty) {
+                      // return HotJobsAccordion(jobs: jobs, isAppliedJobs: true,);
+                      return Card(
+                        elevation: 8,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        shadowColor: Colors.black,
+                        child: DataTable(
+                          columns: const [
+                            DataColumn(label: Text("Job Title")),
+                            DataColumn(label: Text("Status")),
+                            DataColumn(label: Text("Actions"))
+                          ], 
+                          rows: applications.map(
+                            (application) => DataRow(
+                              cells: [
+                                DataCell(Text(application.job_title)),
+                                DataCell(Builder(
+                                  builder: (context) {
+                                    if (application.status == "REJECTED") {
+                                      return Container(
+                                        padding: const EdgeInsets.all(8),
+                                        decoration: BoxDecoration(
+                                          color: Colors.red,
+                                          border: Border.all(
+                                            color: Colors.black
+                                          ),
+                                          borderRadius: BorderRadius.circular(10)
+                                        ),
+                                        child: Text(application.status, style: const TextStyle(color: Colors.black),));
+                                    } else if (application.status == "ACCEPTED") {
+                                      return Container(
+                                        padding: const EdgeInsets.all(8),
+                                        decoration: BoxDecoration(
+                                          color: Colors.green,
+                                          border: Border.all(
+                                            color: Colors.black
+                                          ),
+                                          borderRadius: BorderRadius.circular(10)
+                                        ),
+                                        child: Text(application.status, style: const TextStyle(color: Colors.black),));
+                                    } else {
+                                      return Container(
+                                        padding: const EdgeInsets.all(8),
+                                        decoration: BoxDecoration(
+                                          color: Colors.orange,
+                                          border: Border.all(
+                                            color: Colors.black
+                                          ),
+                                          borderRadius: BorderRadius.circular(10)
+                                        ),
+                                        child: Text(application.status, style: const TextStyle(color: Colors.black),));
+                                    }
+                                  }
+                                )),
+                                DataCell(
+                                  TextButton(
+                                    onPressed: () async {
+                                      await applicationProvider.deleteApplication(appId: application.id, context: context);
+                                      Navigator.pushNamed(context, '/employee/appliedJobs');
+                                      // Navigator.pushNamed(context, '/employee/appliedJobs');
+                                      setState(() {});
+                                    },
+                                    style: ButtonStyle(
+                                      backgroundColor: WidgetStateProperty.all(Colors.red),
+                                      foregroundColor: WidgetStateProperty.all(Colors.white),
+                                      shape: WidgetStatePropertyAll(
+                                        RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(5),
+                                          side: const BorderSide(color: Colors.black)
+                                        )
+                                      )
+                                    ),
+                                    child: const Text("Delete"),
+                                  )
+                                )
+                              ]
+                            )
+                          ).toList()
+                        ),
+                      );
                     } else { 
                       debugPrint("in if");
-                      return const Center(child: Text("Loading"),);
+                      return const Scaffold(appBar: PageAppbar(title: "Applied Jobs"), body: Center(child: Text("Loading"),));
                     }
                   }
                 )
@@ -108,7 +190,9 @@ class _AppliedJobsState extends State<AppliedJobs> {
       if (applicationProvider.applications.isNotEmpty) {
         return const Center(child: Text("Loading"));
       } else {
-        return const Center(child: Text("No Jobs Applied"));
+        return const Scaffold(appBar: PageAppbar(title: "Applied Jobs"), body: Center(child: Text("No Jobs Applied", style: TextStyle(
+          fontSize: 50
+        ),)));
       }
     }
   }

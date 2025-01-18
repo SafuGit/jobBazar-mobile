@@ -1,3 +1,4 @@
+
 import 'package:common_constants/common_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/models/job.dart';
@@ -37,16 +38,21 @@ class _EmployerHomeScreenState extends State<EmployerHomeScreen> {
   }
 
   void fetchJobs() {
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final jobProvider = Provider.of<JobProvider>(context, listen: false);
-    jobProvider.fetchJobsByEmployer(userId: authProvider.currentUser?.id);
-    jobs = jobProvider.employerJobs.reversed.toList();
-    debugPrint(jobs.toString());
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      setState(() {
+        final authProvider = Provider.of<AuthProvider>(context, listen: false);
+        final jobProvider = Provider.of<JobProvider>(context, listen: false);
+        jobProvider.fetchJobsByEmployer(userId: authProvider.currentUser?.id);
+        jobs = jobProvider.employerJobs.reversed.toList();
+        debugPrint(jobs.toString());
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final jobProvider = Provider.of<JobProvider>(context);
+    // ignore: unused_local_variable
+    final jobProvider = Provider.of<JobProvider>(context, listen: true);
     return Theme(
       data: employerTheme, // Apply the custom theme here
       child: Builder(
@@ -140,7 +146,7 @@ class _EmployerHomeScreenState extends State<EmployerHomeScreen> {
                                       foregroundColor: WidgetStatePropertyAll<Color>(Colors.white)
                                     ),
                                     child: const Text("Submit"),
-                                    onPressed: () {
+                                    onPressed: () async {
                                       try {
                                         final authProvider = Provider.of<AuthProvider>(context, listen: false);
                                         final jobProvider = Provider.of<JobProvider>(context, listen: false);
@@ -158,8 +164,8 @@ class _EmployerHomeScreenState extends State<EmployerHomeScreen> {
                                           "company": authProvider.currentUser!.name
                                         };
                                         debugPrint(jobData.toString());
-                                        jobProvider.postJob(jobData);
-                                        Navigator.pushReplacementNamed(context, '/employerHome');
+                                        await jobProvider.postJob(jobData);
+                                        Navigator.pushNamed(context, '/employerHome');
                                         Constants.showSnackbar(context, "Job Posted Successfully");
                                       } catch (e) {
                                         debugPrint(e.toString());
@@ -187,9 +193,20 @@ class _EmployerHomeScreenState extends State<EmployerHomeScreen> {
                   Builder(
                     builder: (context) {
                       if (jobs.isNotEmpty) {
-                        return HotJobsAccordion(jobs: jobProvider.employerJobs.reversed.toList());
+                        return Consumer<JobProvider>(
+                          builder: (context, jobProvider, child) {
+                            return HotJobsAccordion(
+                              jobs: jobProvider.employerJobs.reversed.toList(),
+                              isAppliedJobs: false,
+                            );
+                          },
+                        );
+
                       } else {
-                        return const Text("Loading");
+                        fetchJobs();
+                        return const Center(child: Text("No Jobs? Post Some Above", style: TextStyle(
+                          fontSize: 30
+                        ),));
                       }
                     }
                   )

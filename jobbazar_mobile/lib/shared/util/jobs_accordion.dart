@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/models/job.dart';
+import 'package:jobbazar_mobile/shared/util/card/wrapper/applied_jobs_button.dart';
 import 'package:jobbazar_mobile/shared/util/card/wrapper/card_button_wrapper.dart';
 
 class HotJobsAccordion extends StatefulWidget {
   final List<Job> jobs;
+  final bool isAppliedJobs;
 
-  const HotJobsAccordion({super.key, required this.jobs});
+  const HotJobsAccordion({super.key, required this.jobs, required this.isAppliedJobs});
 
   @override
   State<HotJobsAccordion> createState() => _HotJobsAccordionState();
@@ -90,7 +92,7 @@ class _HotJobsAccordionState extends State<HotJobsAccordion> {
                   },
                   body: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: CardButtonWrapper(job: job),
+                    child: widget.isAppliedJobs ? AppliedJobsButton(job: job, theme: Theme.of(context)) : CardButtonWrapper(key: ValueKey(job.id), job: job),
                   ),
                 );
               }).toList(),

@@ -7,11 +7,13 @@ import 'package:jobbazar_mobile/shared/drawer.dart';
 import 'package:jobbazar_mobile/shared/page_appbar.dart';
 import 'package:jobbazar_mobile/shared/theme/employee/employee_gradient.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CvPage extends StatefulWidget {
   const CvPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _CvPageState createState() => _CvPageState();
 }
 
@@ -61,7 +63,7 @@ class _CvPageState extends State<CvPage> {
 
         debugPrint(cvProvider.currentUserCv.toString());
 
-        if (cvProvider.currentUserCv != null) {
+        if (cvProvider.currentUserCv.location != null) {
           _hasCv = true;
         }
 
@@ -105,7 +107,8 @@ class _CvPageState extends State<CvPage> {
 
                     decoration: InputDecoration(
                       labelText: 'Name (Disabled)',
-                      labelStyle: const TextStyle(color: Colors.white),
+                      labelStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25),
+                      floatingLabelAlignment: FloatingLabelAlignment.center,
                       filled: true,
                       fillColor: Colors.black.withOpacity(.3),
                       border: OutlineInputBorder(
@@ -134,7 +137,8 @@ class _CvPageState extends State<CvPage> {
 
                     decoration: InputDecoration(
                       labelText: 'Email (Disabled)',
-                      labelStyle: const TextStyle(color: Colors.white),
+                      labelStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25),
+                      floatingLabelAlignment: FloatingLabelAlignment.center,
                       filled: true,
                       fillColor: Colors.black.withOpacity(.3),
                       border: OutlineInputBorder(
@@ -163,7 +167,8 @@ class _CvPageState extends State<CvPage> {
                     controller: phoneController,
                     decoration: InputDecoration(
                       labelText: 'Phone (Disabled)',
-                      labelStyle: const TextStyle(color: Colors.white),
+                      labelStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25),
+                      floatingLabelAlignment: FloatingLabelAlignment.center,
                       filled: true,
                       fillColor: Colors.black.withOpacity(.3),
                       border: OutlineInputBorder(
@@ -189,7 +194,8 @@ class _CvPageState extends State<CvPage> {
                     controller: locationController,
                     decoration: InputDecoration(
                       labelText: 'Location',
-                      labelStyle: const TextStyle(color: Colors.white),
+                      labelStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25),
+                      floatingLabelAlignment: FloatingLabelAlignment.center,
                       filled: true,
                       fillColor: Colors.black.withOpacity(.3),
                       border: OutlineInputBorder(
@@ -214,7 +220,8 @@ class _CvPageState extends State<CvPage> {
                     controller: skillsController,
                     decoration: InputDecoration(
                       labelText: 'Skills',
-                      labelStyle: const TextStyle(color: Colors.white),
+                      labelStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25),
+                      floatingLabelAlignment: FloatingLabelAlignment.center,
                       filled: true,
                       fillColor: Colors.black.withOpacity(.3),
                       border: OutlineInputBorder(
@@ -238,7 +245,8 @@ class _CvPageState extends State<CvPage> {
                     controller: experienceController,
                     decoration: InputDecoration(
                       labelText: 'Years Of Experience',
-                      labelStyle: const TextStyle(color: Colors.white),
+                      labelStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25),
+                      floatingLabelAlignment: FloatingLabelAlignment.center,
                       filled: true,
                       fillColor: Colors.black.withOpacity(.3),
                       border: OutlineInputBorder(
@@ -262,7 +270,8 @@ class _CvPageState extends State<CvPage> {
                     controller: degreeController,
                     decoration: InputDecoration(
                       labelText: 'Degree',
-                      labelStyle: const TextStyle(color: Colors.white),
+                      labelStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25),
+                      floatingLabelAlignment: FloatingLabelAlignment.center,
                       filled: true,
                       fillColor: Colors.black.withOpacity(.3),
                       border: OutlineInputBorder(
@@ -286,7 +295,8 @@ class _CvPageState extends State<CvPage> {
                     // initialValue: institute,
                     decoration: InputDecoration(
                       labelText: 'Institute',
-                      labelStyle: const TextStyle(color: Colors.white),
+                      labelStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25),
+                      floatingLabelAlignment: FloatingLabelAlignment.center,
                       filled: true,
                       fillColor: Colors.black.withOpacity(.3),
                       border: OutlineInputBorder(
@@ -308,7 +318,8 @@ class _CvPageState extends State<CvPage> {
                     // initialValue: passingYear,
                     decoration: InputDecoration(
                       labelText: 'Passing Year',
-                      labelStyle: const TextStyle(color: Colors.white),
+                      labelStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25),
+                      floatingLabelAlignment: FloatingLabelAlignment.center,
                       filled: true,
                       fillColor: Colors.black.withOpacity(.3),
                       border: OutlineInputBorder(
@@ -332,7 +343,8 @@ class _CvPageState extends State<CvPage> {
                     // initialValue: cgpa,
                     decoration: InputDecoration(
                       labelText: 'CGPA',
-                      labelStyle: const TextStyle(color: Colors.white),
+                      labelStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25),
+                      floatingLabelAlignment: FloatingLabelAlignment.center,
                       filled: true,
                       fillColor: Colors.black.withOpacity(.3),
                       border: OutlineInputBorder(
@@ -412,15 +424,28 @@ class _CvPageState extends State<CvPage> {
                         ),),
                       ),
                       ElevatedButton(
-                        onPressed: () {}, 
+                        onPressed: () {
+                          try {
+                            cvProvider.pickFile(context);
+                            cvProvider.uploadCv(authProvider.currentUser!.id);
+                            Constants.showSnackbar(context, "CV uploaded successfully");
+                          } catch (e) {
+                            debugPrint(e.toString());
+                            Constants.showSnackbar(context, "ERROR Occured During CV Action, Have u correctly Uploaded File?");
+                          }
+                        }, 
                         child: const Text("Upload CV File")
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.red.withOpacity(0.4),
-                        ),
-                      ),
+                      ElevatedButton(
+                        onPressed: () async {
+                          final Uri url = Uri.parse("http://10.0.2.2:8080/api/uploads/pdf/${authProvider.currentUser!.id}");
+                          if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+                            Constants.showSnackbar(context, "Could not launch $url");
+                            throw Exception('Could not launch $url');
+                          }
+                        },
+                        child: const Text("View Cv File")
+                      )
                     ],
                   )
                 ],

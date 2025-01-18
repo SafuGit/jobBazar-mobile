@@ -1,3 +1,4 @@
+import 'package:common_constants/common_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:jobbazar_mobile/provider/auth_provider.dart';
 import 'package:jobbazar_mobile/provider/profile_provider.dart';
@@ -15,6 +16,20 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    nameController.text = authProvider.currentUser?.name ?? "";
+    emailController.text = authProvider.currentUser?.email ?? "";
+    phoneController.text = authProvider.currentUser?.phone.toString() ?? "";
+  }
+
   @override
   Widget build(BuildContext context) {
     final ProfileArgs args = (ModalRoute.of(context)?.settings.arguments as ProfileArgs?) ?? ProfileArgs(theme: Theme.of(context));
@@ -113,7 +128,74 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         ElevatedButton.icon(
-                          onPressed: () {},
+                          onPressed: () {
+                            showDialog(
+                              context: context, 
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  scrollable: true,
+                                  title: const Text("Edit Profile"),
+                                  content: Padding(
+                                    padding: const EdgeInsets.all(8),
+                                    child: Form(
+                                      child: Column(
+                                        children: [
+                                          TextFormField(
+                                            controller: nameController,
+                                            decoration: const InputDecoration(
+                                              labelText: "Name",
+                                            ),
+                                          ),
+                                          TextFormField(
+                                            controller: emailController,
+                                            decoration: const InputDecoration(
+                                              labelText: "Email",
+                                            ),
+                                          ),
+                                          TextFormField(
+                                            controller: passwordController,
+                                            decoration: const InputDecoration(
+                                              labelText: "Password",
+                                          )),
+                                          TextFormField(
+                                            controller: phoneController,
+                                            decoration: const InputDecoration(
+                                              labelText: "Phone",
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ),
+                                  ),
+                                  actions: [
+                                    ElevatedButton(
+                                      style: const ButtonStyle(
+                                        backgroundColor: WidgetStatePropertyAll<Color>(Colors.blue),
+                                        foregroundColor: WidgetStatePropertyAll<Color>(Colors.white)
+                                      ),
+                                      onPressed: () {
+                                        if (nameController.text == "" || emailController.text == "" || passwordController.text == "" || phoneController.text == "") {
+                                          Constants.showSnackbar(context, "Please Fill up All Fields");
+                                        } else {
+                                          var userData = {
+                                            "name": nameController.text,
+                                            "username": emailController.text,
+                                            "password": passwordController.text,
+                                            "phone_number": phoneController.text,
+                                            "role": authProvider.currentUser!.role
+                                          };
+                                          debugPrint(userData.toString());
+                                          authProvider.updateUser(userData, authProvider.currentUser!.id, context);
+                                          authProvider.logout(context);
+                                        }
+                                      }, 
+                                      child: const Text("Submit")
+                                    )
+                                  ],
+                                );
+                              }
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.cyan,
                             shape: RoundedRectangleBorder(
@@ -131,7 +213,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               setState(() {});
                               imageCache.clear();
                               imageCache.clearLiveImages();
-                              Navigator.pushReplacementNamed(context, '/profile');
+                              Navigator.pushNamed(context, '/profile');
                             }
                           },
                           style: ElevatedButton.styleFrom(
