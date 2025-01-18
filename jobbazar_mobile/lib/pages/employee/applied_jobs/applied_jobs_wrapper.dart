@@ -150,8 +150,9 @@ class _AppliedJobsState extends State<AppliedJobs> {
                                   TextButton(
                                     onPressed: () async {
                                       await applicationProvider.deleteApplication(appId: application.id, context: context);
-                                      Navigator.pushNamed(context, '/employee/home');
                                       Navigator.pushNamed(context, '/employee/appliedJobs');
+                                      // Navigator.pushNamed(context, '/employee/appliedJobs');
+                                      setState(() {});
                                     },
                                     style: ButtonStyle(
                                       backgroundColor: WidgetStateProperty.all(Colors.red),
@@ -173,7 +174,7 @@ class _AppliedJobsState extends State<AppliedJobs> {
                       );
                     } else { 
                       debugPrint("in if");
-                      return const Center(child: Text("Loading"),);
+                      return const Scaffold(appBar: PageAppbar(title: "Applied Jobs"), body: Center(child: Text("Loading"),));
                     }
                   }
                 )
@@ -189,7 +190,9 @@ class _AppliedJobsState extends State<AppliedJobs> {
       if (applicationProvider.applications.isNotEmpty) {
         return const Center(child: Text("Loading"));
       } else {
-        return const Center(child: Text("No Jobs Applied"));
+        return const Scaffold(appBar: PageAppbar(title: "Applied Jobs"), body: Center(child: Text("No Jobs Applied", style: TextStyle(
+          fontSize: 50
+        ),)));
       }
     }
   }

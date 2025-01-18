@@ -17,6 +17,7 @@ class JobProvider with ChangeNotifier {
   Future<void> fetchJobs() async {
     try {
       _jobs = await _jobService.getJobs();
+      return;
     } catch (e) {
       _jobs = [];
       debugPrint('Error: $e');

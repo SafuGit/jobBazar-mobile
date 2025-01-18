@@ -92,7 +92,7 @@ class _HotJobsAccordionState extends State<HotJobsAccordion> {
                   },
                   body: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: widget.isAppliedJobs ? AppliedJobsButton(job: job) : CardButtonWrapper(key: ValueKey(job.id), job: job),
+                    child: widget.isAppliedJobs ? AppliedJobsButton(job: job, theme: Theme.of(context)) : CardButtonWrapper(key: ValueKey(job.id), job: job),
                   ),
                 );
               }).toList(),
