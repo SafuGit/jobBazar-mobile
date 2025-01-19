@@ -1,7 +1,5 @@
 # jobBazar-mobile
  
-# jobBazar-mobile
- 
 ![Screenshot 2025-01-19 142814](https://github.com/user-attachments/assets/784bae87-6657-4ede-92f0-a2376597d4b6)
 ![Screenshot 2025-01-19 142857](https://github.com/user-attachments/assets/812bc280-d05e-467d-a1cb-c0095a050254)
 ![Screenshot 2025-01-19 143003](https://github.com/user-attachments/assets/e56371b6-9fc8-4927-8464-6b6998138fa3)
